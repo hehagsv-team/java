@@ -2,8 +2,13 @@ package assignments.varun;
 
 import java.util.Stack;
 
+// [Sunoop] Please refactor this code keeping only a maximum of 20 lines per method
+// Modularize it further.
+// The code is working which is great!!
+
 public class BODMASTest1 {
 	
+	// [Sunoop] why is static not removed yet?
 	static void evalution(StringBuffer substring)
 	{
 		int lastOpenBrace=substring.lastIndexOf("(");   
@@ -39,6 +44,7 @@ public class BODMASTest1 {
 
 	}
 
+	// [Sunoop] Remove static
 	private static char[] calculateExpression(String cal) {
 		Stack<Integer> integers=new Stack<Integer>();
 		Stack<Character> operators=new Stack<Character>();
@@ -224,7 +230,7 @@ public class BODMASTest1 {
         			}
         		}	
         	}
-        	//for substraction
+        	//for subtraction
         	for(int sub=0;sub<splitString.length;sub++)
         	{
         		if(splitString[sub]=='-')
@@ -315,7 +321,8 @@ public class BODMASTest1 {
 	}
 
 	public static void main(String[] args) {
-		StringBuffer sb=new StringBuffer("12/2*6+9/5(14+22+(22+33+(44/2*22-2+444/2)))");
+//		StringBuffer sb=new StringBuffer("12/2*6+9/5(14+22+(22+33+(44/2*22-2+444/2)))");
+		StringBuffer sb=new StringBuffer("12/(2*2/2)");
 		evalution(sb);
 		}
 	}
