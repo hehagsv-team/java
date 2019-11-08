@@ -8,8 +8,13 @@ import java.util.Stack;
 
 public class BODMASTest1 {
 	
-	// [Sunoop] why is static not removed yet?
-	static void evalution(StringBuffer substring)
+	// [Sunoop] 
+	// [1] why is static not removed yet?
+	// [2] Have this method return float/double so that you can verify 
+	// correctness using Assert from the main method
+	// [3] Take in argument as String instead of Substring
+	// Like double evalution(String substring)
+	static void evaluate(StringBuffer substring)
 	{
 		int lastOpenBrace=substring.lastIndexOf("(");   
 		int firstCloseBrace=substring.indexOf(")");
@@ -31,7 +36,7 @@ public class BODMASTest1 {
 			try
 			{
 
-				evalution(sb);
+				evaluate(sb);
        		 
 			}
 			catch(Exception e)
@@ -322,7 +327,16 @@ public class BODMASTest1 {
 
 	public static void main(String[] args) {
 //		StringBuffer sb=new StringBuffer("12/2*6+9/5(14+22+(22+33+(44/2*22-2+444/2)))");
-		StringBuffer sb=new StringBuffer("12/(2*2/2)");
-		evalution(sb);
+//		StringBuffer sb=new StringBuffer("12/(2*2/2)");
+		StringBuffer sb=new StringBuffer("-12/-2");
+		evaluate(sb);
+		
+		// [Sunoop] Use assert to test for various scenarios
+		// For eg:
+		// assert evaluate ("12/2") == 6;
+		// assert evaluate (-12/2") == -6;
+		// You can use java's built in assert (https://docs.oracle.com/javase/7/docs/technotes/guides/language/assert.html#usage) 
+		// or use org.junit.Assert (You will have to add junit.jar to the Build classpath in eclipse to compile)
+		
 		}
 	}
