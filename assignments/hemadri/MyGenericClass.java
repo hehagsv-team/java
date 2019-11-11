@@ -1,16 +1,16 @@
 package assignments.hemadri;
 
-public class GenericClass {
+public class MyGenericClass {
 
 	String variable;
 	
-	GenericClass () {
+	MyGenericClass () {
 		this.variable = "";
 	}
 	
 	
 	public static void main(String[] args) {
-		GenericClass<String> obj = new GenericClass<Integer>();
+		MyGenericClass<String> obj = new MyGenericClass<String>();
 	}
 
 }
