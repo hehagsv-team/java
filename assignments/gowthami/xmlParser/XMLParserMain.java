@@ -10,6 +10,7 @@ public class XMLParserMain {
 		try
 		{
 			XMLParser obj = new XMLParser();
+			// Should read from args[]!!
 			String File="C:\\D_drive\\Trash\\myxml.xml";
 			RandomAccessFile geek = new RandomAccessFile(File, "r");
 	        List<String> li = obj.readFileInList(File); 
@@ -22,3 +23,12 @@ public class XMLParserMain {
 		}
 	}
 }
+
+// Does not work for the xml
+//<note>
+//<to>Tove</to>
+//<from>Jani</from>
+//<heading>Reminder</heading>
+//<body>Don't forget me this weekend!</body>
+//<text>
+//</text></note> 
