@@ -1,8 +1,8 @@
 package project1;
  
- class GenericClass1<string> {
+ class GenericClass1<T> {
 
-	 String variable;
+	 T variable;
 	 public void show()
 	 {
 		 System.out.println(variable);
