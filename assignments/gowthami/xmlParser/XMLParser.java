@@ -12,13 +12,14 @@ public class XMLParser
 {
 	public List<String> readFileInList(String fileName)
 	{
-		List<String> lines = Collections.emptyList(); 
+		List<String> lines = null;/*Collections.emptyList();*/ 
 		try
 		{ 
 			lines = Files.readAllLines(Paths.get(fileName));
 		} 
 		catch (IOException e) 
 		{ 
+			
 			e.printStackTrace(); 
 		} 
 		return lines; 
@@ -32,6 +33,8 @@ public class XMLParser
 			String s;
 			while((s=br.readLine())!=null)
 			{
+				// Repeated code. reuse it 
+				// Repeated code START ------------
 				char c='<';
 				String wrd="";
 				int th=s.length();
@@ -46,6 +49,7 @@ public class XMLParser
 							c = s.charAt(i);
 						}
 						wrd+='>';
+						// Repeated code END --------- 
 						if (input.equals(wrd))
 							count++;
 					}
@@ -53,6 +57,8 @@ public class XMLParser
 			}	
 			if(count!=0)
 			{
+				// USE ENUM instead of 0, 1, 2.
+				// Code not readable
 				return 2;
 			}
 			else
@@ -79,6 +85,8 @@ public class XMLParser
 			while(itr.hasNext())
 			{
 				line = itr.next();
+				// Repeated code. Use a common code
+				// Repeated code START ------------
 				char c='<';
 				String wrd="";
 				int th=line.length();
@@ -93,6 +101,7 @@ public class XMLParser
 							c = line.charAt(i);
 						}
 						wrd+='>';
+						// Repeated code END ---------
 						String temp="";
 						for (int ha=0;ha<=wrd.length();ha++)
 						{
@@ -105,6 +114,8 @@ public class XMLParser
 						}
 						geek.seek(0);
 						int y= search(geek,temp);
+						// USE ENUM instead of 0, 1, 2.
+						// Code not readable
 						if (y==0)
 							System.out.println(" !ERROR "+temp+" Tag not closed ");
 						if(y==1)
