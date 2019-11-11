@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.nio.file.*;
 import java.io.IOException;
-public class TestXMLParser {
+public class XMLParserMain {
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		try
