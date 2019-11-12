@@ -12,7 +12,7 @@ public class XMLParser
 {
     enum Num 
     { 
-	zero,one, two; 
+	mismatch,change, match; 
     }
 	public List<String> readFileInList(String fileName)
 	{
@@ -58,18 +58,18 @@ public class XMLParser
 			{
 				// USE ENUM instead of 0, 1, 2.
 				// Code not readable	
-			 	return Num.valueOf("two");
+			 	return Num.valueOf("match");
 	        	}
 	        	else
 	        	{
-	        		return Num.valueOf("zero");
+	        		return Num.valueOf("mismatch");
 			}
 		}
 		catch(IOException e) 
 		{
 			e.printStackTrace();
 		}
-		return Num.valueOf("one");
+		return Num.valueOf("change");
 	}
 	public String word(char c,String wrd,int i,String line)
 	{
@@ -86,7 +86,7 @@ public class XMLParser
 	{
 		try
 		{
-			Num jk=Num.zero;
+			Num jk=Num.mismatch;
 			String line;
 			String l="/";
 			while(itr.hasNext())
@@ -119,15 +119,15 @@ public class XMLParser
 						int y= search(geek,temp);
 						// USE ENUM instead of 0, 1, 2.
 						// Code not readable
-						if (y==Num.zero)
+						if (y==Num.mismatch)
 						{
 							System.out.println(" !ERROR "+temp+" Tag not closed ");
-							jk=Num.one;
+							jk=Num.change;
 						}
 					}
 				}
 			}
-			if (jk==Num.zero)
+			if (jk==Num.mismatch)
 				System.out.println("the file is well-formed");
 		}
 		catch(IOException e) 
