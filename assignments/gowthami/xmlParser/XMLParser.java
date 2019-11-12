@@ -34,22 +34,22 @@ public class XMLParser
 		try
 		{
 			int count=0;
-			String s;
-			while((s=br.readLine())!=null)
+			String search_string;
+			while((search_string=br.readLine())!=null)
 			{
 				// Repeated code. reuse it 
 				// Repeated code START ------------
-				char c='<';
-				String wrd="";
-				int th=s.length();
-				for (int i=0;i<th-1;i++)
+				char search_character='<';
+				String search_wrd="";
+				int search_length=s.length();
+				for (int position=0;position<search_length-1;position++)
 				{
-					wrd="";
-					c='<';
-					if(s.charAt(i)==c&& s.charAt(i+1)=='/')
+					search_wrd="";
+					search_character='<';
+					if(search_string.charAt(position)==c && search_string.charAt(position+1)=='/')
 					{
-						wrd=word(c,wrd,i,s);
-						if (input.equals(wrd))
+						search_wrd=word(search_character,search_wrd,position,search_string);
+						if (input.equals(search_wrd))
 							count++;
 					}
 				}
@@ -71,18 +71,18 @@ public class XMLParser
 		}
 		return Num.valueOf("change");
 	}
-	public String word(char c,String wrd,int i,String line)
+	public String word(char word_character,String wrd,int position,String line)
 	{
-		while(c!='>')
+		while(word_character!='>')
 		{
-			wrd+=c;
-			i++;
-			c = line.charAt(i);
+			wrd+=word_character;
+			position++;
+			word_character = line.charAt(position);
 		}
 		wrd+='>';
 		return wrd;
 	}	
-	public void fun1(Iterator<String> itr,RandomAccessFile geek)
+	public void readline(Iterator<String> itr,RandomAccessFile geek)
 	{
 		try
 		{
@@ -94,23 +94,23 @@ public class XMLParser
 				line = itr.next();
 				// Repeated code. Use a common code
 				// Repeated code START ------------
-				char c='<';
+				char readline_char='<';
 				String wrd="";
-				int th=line.length();
-				for (int i=0;i<th-1;i++)
+				int readline_length=line.length();
+				for (int position=0;position<readline_length-1;position++)
 				{
-					c='<';
+					readline_char='<';
 					wrd="";
-					if(line.charAt(i)==c&& line.charAt(i+1)!='/')
+					if(line.charAt(position)==readline_char&& line.charAt(position+1)!='/')
 					{
-						wrd=word(c,wrd,i,line);
+						wrd=word(readline_char,wrd,position,line);
 						// Repeated code END ---------
 						String temp="";
 						for (int ha=0;ha<=wrd.length();ha++)
 						{
 							if(ha==0)
 								temp += wrd.charAt(ha);
-							if (ha == 1)
+							if(ha == 1)
 								temp += l;
 							if(ha>1)
 								temp += wrd.charAt(ha-1);
