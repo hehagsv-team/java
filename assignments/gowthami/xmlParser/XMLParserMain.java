@@ -15,7 +15,7 @@ public class XMLParserMain {
 			RandomAccessFile geek = new RandomAccessFile(args[0], "r");
 	        List<String> li = m.readFileInList(args[0]); 
 	        Iterator<String> itr = li.iterator();
-	        m.fun1(itr,geek);
+	        m.readline(itr,geek);
 		}
 		catch (IOException e)
 		{
