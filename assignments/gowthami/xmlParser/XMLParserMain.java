@@ -11,7 +11,7 @@ public class XMLParserMain {
 		{
 			
 			// Should read from args[]!!
-			Gow m=new Gow();
+			XMLParser m=new XMLParser();
 			RandomAccessFile geek = new RandomAccessFile(args[0], "r");
 	        List<String> li = m.readFileInList(args[0]); 
 	        Iterator<String> itr = li.iterator();
