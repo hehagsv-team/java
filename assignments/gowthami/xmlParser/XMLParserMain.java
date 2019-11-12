@@ -9,13 +9,13 @@ public class XMLParserMain {
 	{
 		try
 		{
-			XMLParser obj = new XMLParser();
+			
 			// Should read from args[]!!
-			String File="C:\\D_drive\\Trash\\myxml.xml";
-			RandomAccessFile geek = new RandomAccessFile(File, "r");
-	        List<String> li = obj.readFileInList(File); 
+			Gow m=new Gow();
+			RandomAccessFile geek = new RandomAccessFile(args[0], "r");
+	        List<String> li = m.readFileInList(args[0]); 
 	        Iterator<String> itr = li.iterator();
-	        obj.fun1(itr,geek);
+	        m.fun1(itr,geek);
 		}
 		catch (IOException e)
 		{
