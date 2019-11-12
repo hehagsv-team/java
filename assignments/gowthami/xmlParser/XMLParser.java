@@ -1,5 +1,6 @@
 package assignments.gowthami.xmlParser;
 
+import java.util.*;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
@@ -7,12 +8,16 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 public class XMLParser
 {
+    enum Num 
+    { 
+	zero,one, two; 
+    }
 	public List<String> readFileInList(String fileName)
 	{
-		List<String> lines = null;/*Collections.emptyList();*/ 
+		
+		List<String> lines = Collections.emptyList(); 
 		try
 		{ 
 			lines = Files.readAllLines(Paths.get(fileName));
@@ -23,8 +28,7 @@ public class XMLParser
 			e.printStackTrace(); 
 		} 
 		return lines; 
-	} 
-	
+	} 	
 	int search(RandomAccessFile br, String input)
 	{
 		try
@@ -40,16 +44,11 @@ public class XMLParser
 				int th=s.length();
 				for (int i=0;i<th-1;i++)
 				{
-					if(s.charAt(i)=='<'&& s.charAt(i+1)=='/')
+					wrd="";
+					c='<';
+					if(s.charAt(i)==c&& s.charAt(i+1)=='/')
 					{
-						while(c!='>')
-						{
-							wrd+=c;
-							i++;
-							c = s.charAt(i);
-						}
-						wrd+='>';
-						// Repeated code END --------- 
+						wrd=word(c,wrd,i,s);
 						if (input.equals(wrd))
 							count++;
 					}
@@ -58,28 +57,36 @@ public class XMLParser
 			if(count!=0)
 			{
 				// USE ENUM instead of 0, 1, 2.
-				// Code not readable
-				return 2;
+				// Code not readable	
+			 	return Num.valueOf("two");
+	        	}
+	        	else
+	        	{
+	        		return Num.valueOf("zero");
 			}
-			else
-			{
-				return 0;
-			}
-
 		}
 		catch(IOException e) 
 		{
 			e.printStackTrace();
 		}
-
-		return 1;
+		return Num.valueOf("one");
 	}
-	
-	
+	public String word(char c,String wrd,int i,String line)
+	{
+		while(c!='>')
+		{
+			wrd+=c;
+			i++;
+			c = line.charAt(i);
+		}
+		wrd+='>';
+		return wrd;
+	}	
 	public void fun1(Iterator<String> itr,RandomAccessFile geek)
 	{
 		try
 		{
+			Num jk=Num.zero;
 			String line;
 			String l="/";
 			while(itr.hasNext())
@@ -92,15 +99,11 @@ public class XMLParser
 				int th=line.length();
 				for (int i=0;i<th-1;i++)
 				{
-					if(line.charAt(i)=='<'&& line.charAt(i+1)!='/')
+					c='<';
+					wrd="";
+					if(line.charAt(i)==c&& line.charAt(i+1)!='/')
 					{
-						while(c!='>')
-						{
-							wrd+=c;
-							i++;
-							c = line.charAt(i);
-						}
-						wrd+='>';
+						wrd=word(c,wrd,i,line);
 						// Repeated code END ---------
 						String temp="";
 						for (int ha=0;ha<=wrd.length();ha++)
@@ -116,15 +119,16 @@ public class XMLParser
 						int y= search(geek,temp);
 						// USE ENUM instead of 0, 1, 2.
 						// Code not readable
-						if (y==0)
-							System.out.println(" !ERROR "+temp+" Tag not closed ");
-						if(y==1)
+						if (y==Num.zero)
 						{
-							System.out.println(" !ERROR "+temp+" Tag  ");
+							System.out.println(" !ERROR "+temp+" Tag not closed ");
+							jk=Num.one;
 						}
 					}
 				}
 			}
+			if (jk==Num.zero)
+				System.out.println("the file is well-formed");
 		}
 		catch(IOException e) 
 		{
