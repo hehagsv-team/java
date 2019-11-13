@@ -69,10 +69,7 @@ public class Bodmas {
 		Stack<Integer> integers=new Stack<Integer>();
 		Stack<Character> operators=new Stack<Character>();
 		int highForSub,lowForSub,sr,sh_s;
-//		if(splitString1[0]=='-')
-//    	{
-//    		return splitString1;
-//    	}
+
     	for(int sub=0;sub<splitString1.length;sub++)
     	{
     		if(splitString1[sub]=='-')
