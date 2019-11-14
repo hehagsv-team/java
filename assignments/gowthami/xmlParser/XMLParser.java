@@ -29,7 +29,7 @@ public class XMLParser
 		} 
 		return lines; 
 	} 	
-	int search(RandomAccessFile br, String input)
+	Num search(RandomAccessFile br, String input)
 	{
 		try
 		{
@@ -41,12 +41,12 @@ public class XMLParser
 				// Repeated code START ------------
 				char search_character='<';
 				String search_wrd="";
-				int search_length=s.length();
+				int search_length=search_string.length();
 				for (int position=0;position<search_length-1;position++)
 				{
 					search_wrd="";
 					search_character='<';
-					if(search_string.charAt(position)==c && search_string.charAt(position+1)=='/')
+					if(search_string.charAt(position)==search_character && search_string.charAt(position+1)=='/')
 					{
 						search_wrd=word(search_character,search_wrd,position,search_string);
 						if (input.equals(search_wrd))
@@ -116,7 +116,7 @@ public class XMLParser
 								temp += wrd.charAt(ha-1);
 						}
 						geek.seek(0);
-						int y= search(geek,temp);
+						Num y= search(geek,temp);
 						// USE ENUM instead of 0, 1, 2.
 						// Code not readable
 						if (y==Num.mismatch)
