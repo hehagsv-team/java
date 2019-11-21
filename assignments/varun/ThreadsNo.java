@@ -12,9 +12,7 @@ public class ThreadsNo {
 		 for (int i = 0; i < threads.length; i++,j++) {
 		     threads[i] = new Thread(new Runnable() {
 		         public void run() {
-		             // some code to run in parallel
-		             // this could also be another class that implements Runnable
-		        	
+		            
 		         }
 		     });
 		     System.out.println(j);
