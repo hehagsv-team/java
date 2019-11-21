@@ -16,6 +16,7 @@ class count
 			{
 				for(;;)
 				{
+					c.notify();
 					c.wait(5000);
 					c.display();
 				}
