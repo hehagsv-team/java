@@ -69,13 +69,9 @@ class Demo{
                { 
                    while (qu2.size() == 0) 
                        wait(); 
-
                    int val = qu2.remove(); 
- 
                    System.out.println("Consumer consumed-" + val); 
- 
                    notify(); 
- 
                    Thread.sleep(1000); 
                } 
            }
@@ -89,12 +85,8 @@ class Demo{
             { 
                 while (qu2.size() == capacity) 
                     wait(); 
-
-                System.out.println("Producer produced-"
-                                   + value); 
-
+                System.out.println("Producer produced-" + value); 
                 qu2.add(value++); 
-
                 notifyAll();
                 Thread.sleep(1000); 
             } 
