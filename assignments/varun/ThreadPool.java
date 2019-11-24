@@ -1,4 +1,4 @@
-//package com.dss.basics;
+package com.dss.basics;
 
 import java.util.Stack;
 
@@ -36,7 +36,6 @@ class ThreadPoolRunner extends Thread{
    Stack<Integer> stack=new Stack<>();
 	String threadName;
        public ThreadPoolRunner(Stack<Integer> stack,String threadName) {
-		// TODO Auto-generated constructor stub
     	   this.stack=stack;
     	   this.threadName=threadName;
 	}
@@ -50,19 +49,17 @@ class ThreadPoolRunner extends Thread{
                 		  System.out.println(stack);
                 		  int removedValue=stack.pop();
                 		  System.out.println(" item : "+removedValue+ " by " +threadName);
-                		  //this.notifyAll();
+                		  
                 		  try {
                 			  
                 			System.out.println(threadName+ " going to wait state after taking one item from stack");
 							this.wait(1000);
 						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
                 		  try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
                     	 
@@ -72,7 +69,6 @@ class ThreadPoolRunner extends Thread{
                 		  try {
 							this.wait(1000);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 							
 						}
@@ -125,7 +121,7 @@ class MainThread{
 				threadpool.notifyAll();
 				Thread.sleep(3000);
 		
+			}
+		}
 	}
-}
-}
 }
