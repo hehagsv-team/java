@@ -1,119 +1,131 @@
 //package com.dss.basics;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Stack;
 
 class ThreadPool {
-       // maintain a pool of Threads - 5
-       ThreadPool () throws InterruptedException {
-            new ThreadPoolRunner ("ThreadPool-1").start();
-            ThreadPoolRunner t2=  new ThreadPoolRunner ("ThreadPool-2");
-              t2.start();
-              t2.wait();
-              new ThreadPoolRunner ("ThreadPool-3").start();
-//              t3.start();
-//              t3.wait();
-             new ThreadPoolRunner ("ThreadPool-4").start();;
-//              t4.start();
-//              t4.wait();
-              new ThreadPoolRunner ("ThreadPool-5").start();
-//              t5.start();
-//              t5.wait();
+
+    	Stack<Integer> stack=new Stack<>();
+		String threadName;
+       ThreadPool (Stack<Integer> stack, String threadName) {
+    	   this.stack=stack;
+    	   this.threadName=threadName;
+
+              new ThreadPoolRunner (stack,"Thread-1").start();
+              new ThreadPoolRunner (stack,"Thread-2").start();
+              new ThreadPoolRunner (stack,"Thread-3").start();
+              new ThreadPoolRunner (stack,"Thread-4").start();
+              new ThreadPoolRunner (stack,"Thread-5").start();
+
        }
-       
-       void queueTask(Task aTask) throws InterruptedException {//here am adding the tasks to the queue
-     
-    	   aTask.execute();}
-   		public static void main(String[] args) throws InterruptedException {
-   			ThreadPool tt=new ThreadPool();
-   			Task aT=new Task();
-   			tt.queueTask(aT);
-		
-		
-   	}
-   		
+
+      
+
+       void queueTask(Task aTask) {
+              // TODO: complete
+              // add task
+       }
 }
+
+ 
 
 class ThreadPoolRunner extends Thread{
        public ThreadPoolRunner(String string) {
               super (string);
        }
-       Queue<Integer> qu=new LinkedList<Integer>();
-  	  int capacity=3;
-  	  int value=0;
-       public void run () {   
-    	   Demo d =new Demo();
-            	  if(getName().equals("ThreadPool-1")) {
-            		  try {
-						d.produce(qu,5);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-            	  }
-            	  else {
-            		  try {
-						d.consume(qu);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-            	  }
-   }
        
-class Demo{
-       public void consume(Queue<Integer> qu2) throws InterruptedException {
-		// TODO Auto-generated method stub
-    	   while (true) { 
-               synchronized (this) 
-               { 
-                   while (qu2.size() == 0) 
-                       wait(); 
-                   int val = qu2.remove(); 
-                   System.out.println("Consumer consumed-" + val); 
-                   notify(); 
-                   Thread.sleep(1000); 
-               } 
+   Stack<Integer> stack=new Stack<>();
+	String threadName;
+       public ThreadPoolRunner(Stack<Integer> stack,String threadName) {
+		// TODO Auto-generated constructor stub
+    	   this.stack=stack;
+    	   this.threadName=threadName;
+	}
+       public void run () {
+           synchronized(this) {   
+           while (true) {
+                         // any task to execute?
+                         // take a task if there is any and execute
+                         // TODO: complete
+                	  if(!stack.isEmpty()) {
+                		  System.out.println(stack);
+                		  int removedValue=stack.pop();
+                		  System.out.println(" item : "+removedValue+ " by " +threadName);
+                		  //this.notifyAll();
+                		  try {
+                			  
+                			System.out.println(threadName+ " going to wait state after taking one item from stack");
+							this.wait(1000);
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                		  try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+                    	 
+                	  }
+                	  else {
+                		  System.out.println(threadName+ " going to wait state as stack is empty");
+                		  try {
+							this.wait(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							
+						}
+                	  }
+                	  
+                  }
+        	   
            }
-    	   
-		
-	}
-	public void produce(Queue<Integer> qu2,int capacity) throws InterruptedException {
-		// TODO Auto-generated method stub
-		while (true) { 
-            synchronized (this) 
-            { 
-                while (qu2.size() == capacity) 
-                    wait(); 
-                System.out.println("Producer produced-" + value); 
-                qu2.add(value++); 
-                notifyAll();
-                Thread.sleep(1000); 
-            } 
-        } 
-		
-	}
+       }
 }
 
-}
 
 class Task {
-       
+
        private static int counter = 0;
        private int id;
-       
+
        public Task () {
               id = counter++;
        }
-       
+
        public void execute () {
               System.out.println(Thread.currentThread().getName());
+
               try {
                      System.out.println("Executing Task #"+id);
                      Thread.sleep(5000);
               } catch (InterruptedException e) {
+
                      e.printStackTrace();
+
               }
        }
 }
 
+class MainThread{
+	public static void main(String[] args) throws InterruptedException {
+		Stack<Integer> stack=new Stack<>();
+		String threadName = null;
+		ThreadPool threadpool=new ThreadPool(stack,threadName);
+		int stackCapacity=5;
+		int stackValue=0;
+		synchronized(threadpool) {
+			while(true)
+			{
+				while(stack.size()==stackCapacity)
+					threadpool.wait();
+				for(int i=0;i<5;i++) {
+				stack.add(stackValue++);}
+				threadpool.notifyAll();
+				Thread.sleep(3000);
+		
+	}
+}
+}
+}
