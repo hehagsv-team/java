@@ -29,15 +29,16 @@ class ThreadPoolRunner extends Thread{
             	    System.out.println("Elements in queue is: "+ThreadUsage.taskList);
             	    System.out.println("Elements will be removed out from queue");
             	    System.out.println("Current thread(remove): "+Thread.currentThread().getName()+"; Current Thread ID:: "+Thread.currentThread().getId());
-            		Task removeEle=ThreadUsage.taskList.remove();
-            		System.out.println("Removed element will be: "+removeEle);
+            	    Task removeEle=ThreadUsage.taskList.remove();
+            	    System.out.println("Removed element will be: "+removeEle);
                     ThreadPool.queueTask(removeEle);
+		    ThreadUsage.monitor.notifyAll();
                     
             	}   
                 else if(ThreadUsage.taskList.isEmpty()) {                 
                 	try {
                 	    System.out.println("Queue is empty...so thread is in wait condition "+Thread.currentThread().getName()+" "+Thread.currentThread().getId());
-                  	    ThreadUsage.monitor.notifyAll();
+                  	    
                 	    ThreadUsage.monitor.wait();
 						System.out.println("Queue after wait condition "+Thread.currentThread().getName()+" "+Thread.currentThread().getId());
 					} catch (InterruptedException e) {
@@ -89,18 +90,19 @@ public class ThreadUsage {
               	}
                   else if(taskList.size()==capacity) {
                       System.out.println("Queue is full");
-                      System.out.println("notify");
-                      monitor.notifyAll();
-                      System.out.println("after notify");
+                      
                       try {
-						monitor.wait();
-					} catch (InterruptedException e1) {
+				monitor.wait();
+		      } catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}               	 
+				e1.printStackTrace();
+			}               	 
                       System.out.println("After wait in main thread "+Thread.currentThread().getName()+" Main Thread ID:: "+Thread.currentThread().getId());
 					  
                   }
+		     
+                  monitor.notifyAll();
+                    
               }
     }
  }
