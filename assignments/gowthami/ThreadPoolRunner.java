@@ -32,21 +32,18 @@ class ThreadPoolRun extends Thread
 	}   
 	public void run () 
 	{  
-
+		ThreadPoolRunner.log("ThreadPoolRun::start()");
 		while (true) 
 		{
-			System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
-			System.out.println("ThreadPoolRun::Adding new Task");
-
 			synchronized(q)
 			{
+				ThreadPoolRunner.log("ThreadPoolRun::LOCKED");
 				if(q.isEmpty())
 				{      		   
 					try {
-						System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
-						System.out.println("ThreadPoolRun::Q is empty. Going to wait");
-
+						ThreadPoolRunner.log("ThreadPoolRun::Q is empty. Going to WAIT");
 						q.wait();
+						ThreadPoolRunner.log("ThreadPoolRun::Out of WAIT");
 					} 
 					catch (InterruptedException e)
 					{					
@@ -55,15 +52,16 @@ class ThreadPoolRun extends Thread
 				}
 				else
 				{    
-					System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
-					System.out.println("ThreadPoolRun::Executing Task");
+					ThreadPoolRunner.log("ThreadPoolRun::Executing Task");
 					Task.execute();        		  
 					q.notify();
+					ThreadPoolRunner.log ("ThreadPoolRun::NOTIFY");
 				}
 			}
 		}
 	}
 }
+
 class Task
 {   
 	private static int counter = 0;
@@ -75,13 +73,11 @@ class Task
 
 	public static  void execute ()
 	{
-		System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
 		try 
 		{
-			System.out.println("Task::Executing Task #" +id);
+			ThreadPoolRunner.log("Task::Executing START Task #" +id);
 			Thread.sleep(5000);
-			System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
-			System.out.println("Task::awoke");
+			ThreadPoolRunner.log("Task::Executing DONE Task #" +id);
 		} 
 		catch (InterruptedException e) 
 		{
@@ -105,36 +101,38 @@ public class ThreadPoolRunner
 		{
 			synchronized(q) 
 			{			
-				System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
-				System.out.println("Main::queue size="+q.size());
+				log("Main::LOCKED");
+				log ("Main::queue size="+q.size());
 				if(q.size()>=5) {
-					System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
-					System.out.println("Main::going to wait");
+					log ("Main::going to WAIT");
 					try {
 						q.wait();
+						log ("Main::got out of WAIT");
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
-					System.out.println("Main::got out of wait");
 				}
 				//				for(int i=0;i<=5;i++)
 				//				{
 				try {
 					q.add(new Task());
-					System.out.print("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] ");
-					System.out.println("Main::Added new Task");
+					log ("Main::Added new Task");
 				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
+					log ("Ignoring Exception"+e);
 					e.printStackTrace();
 					// ignore
 				}
-				q.notifyAll();		
+				q.notifyAll();	
+				log ("Main::NOTIFY");
 				//				}
 
 			}
 		}
+	}
+	
+	static void log (String msg) {
+		System.out.println("["+Thread.currentThread().getName()+" Thread-ID="+Thread.currentThread().getId()+"] "+msg);
 	}
 }
 
