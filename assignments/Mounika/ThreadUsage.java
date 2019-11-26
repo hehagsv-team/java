@@ -52,10 +52,10 @@ class ThreadPoolRunner extends Thread{
 class Task { 
        public static int counter = 0; 
        public int id; 
-       Task (int id) { 
-           this.id=id;
+       Task () { 
+           
             id = counter++;
-            return;
+           
        } 
        public void execute () { 
             System.out.println(Thread.currentThread().getName()+"; Thread ID:  "+Thread.currentThread().getId()); 
@@ -74,7 +74,7 @@ public class ThreadUsage {
     static Queue<Task> taskList = new LinkedList<>(); 
     public static Object monitor = new Object();
     static int capacity=3;
-    static Task task=new Task(0);
+    static Task task=new Task();
     
 	public static void main(String args[]) { 	   	
 		new ThreadPool();
