@@ -16,7 +16,7 @@ public class ManufactureFilter
 	}
    void manufacturer() throws SQLException
 	{
-		String q1= "SELECT item.NAME FROM HCL_SK_ITEM item JOIN HCL_SK_MANUFACTURER manufacture ON (item.MANUFACTURER_ID = manufacture.ID)";
+		String q1= "select i.name,i.manufacturer_id,m.id from Hcl_Sk_Item i join Hcl_Sk_Manufacturer m on i.manufacturer_id=m.id where manufacturer_id=4";
 		ResultSet resultSet=statement.executeQuery(q1);
 		while(resultSet.next())
 		{
