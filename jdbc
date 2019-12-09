@@ -99,6 +99,5 @@ class ManufacturerFeedback
 		String q1="UPDATE HCL_SK_MANUFACTURER SET RATING=0 WHERE NAME='Huawei'";
 	    statement.executeUpdate(q1);
 		System.out.println("RATING IS DONE");
-		statement.close();
 	}
 }
