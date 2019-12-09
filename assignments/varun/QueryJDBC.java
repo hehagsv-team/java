@@ -58,7 +58,6 @@ class UpdateShippingStatus
 		statement.executeUpdate(q1);
 		statement.executeUpdate(q2);
 		System.out.println("Update Shipping Status Completed Successfully");
-		statement.close();
 	}
 }
 
