@@ -103,7 +103,7 @@ class ManufacturerFeedback
 	}
 	public void feedback() throws SQLException {
 		String q1="UPDATE HCL_SK_MANUFACTURER SET RATING=0 WHERE NAME='Huawei'";
-	    statement.executeUpdate(q1);
+	    statement.executeUpdate(q1);//DONE
 		System.out.println("RATING IS DONE");
 	}
 }
