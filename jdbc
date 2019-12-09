@@ -21,6 +21,13 @@ public class QueryJDBC {
 		ManufacturerFeedback manufacturer=new ManufacturerFeedback(connection, statement);
 		manufacturer.feedback();
 		
+		//manufacture filtering
+		manufacture_filter filter=new manufacture_filter(connection, statement);
+		filter.manufacturer();	
+		//shipping status
+		getshippingstatus shipping=new getshippingstatus(connection, statement);    
+		shipping.shippingstatus();			
+		
 		System.out.println("closing connection");
 		statement.close();
 		connection.close();
@@ -98,5 +105,41 @@ class ManufacturerFeedback
 		String q1="UPDATE HCL_SK_MANUFACTURER SET RATING=0 WHERE NAME='Huawei'";
 	    statement.executeUpdate(q1);
 		System.out.println("RATING IS DONE");
+	}
+}
+class manufacture_filter
+{
+	Connection connection;
+	Statement statement;
+	public manufacture_filter(Connection connections, Statement statement) 
+	{
+		this.connection=connections;
+		this.statement=statement;
+	}
+   void manufacturer() throws SQLException
+	{
+		String q1= "SELECT item.NAME FROM HCL_SK_ITEM item JOIN HCL_SK_MANUFACTURER manufacture ON (item.MANUFACTURER_ID = manufacture.ID)";
+		ResultSet resultSet=statement.executeQuery(q1);
+		while(resultSet.next())
+		{
+			System.out.println(resultSet.getString("name"));
+		}
+		System.out.println("Filtering successful");		
+	}
+}
+class getshippingstatus
+{
+	Connection connection;
+	Statement statement;
+	getshippingstatus(Connection connection, Statement statement) 
+	{
+		this.connection=connection;
+		this.statement=statement;
+	}
+	public void shippingstatus() throws SQLException 
+	{
+		String q1="SELECT  SHIPPING_STATUS FROM HCL_SK_SHIPPING_ORDER WHERE order_id=10";
+	    statement.executeUpdate(q1);
+		System.out.println("shipping status is displayed");
 	}
 }
