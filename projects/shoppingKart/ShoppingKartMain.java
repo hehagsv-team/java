@@ -55,13 +55,13 @@ public class ShoppingKartMain {
 	
 	private void console () {
 		   
-		System.out.println("\n*******************");
-		System.out.println("** Shopping Kart **");
-		System.out.println("*******************");
         
         char ch;
         do{
-            System.out.println("Kart Options");
+    		System.out.println("\n*******************");
+    		System.out.println("** Shopping Kart **");
+    		System.out.println("*******************");
+            System.out.println("Options:");
             System.out.println("1. login");
             System.out.println("2. logout");
             System.out.println("3. list products");
@@ -121,7 +121,10 @@ public class ShoppingKartMain {
 
 		if (!isLoggedIn) {
 			System.out.println("You have not logged in");
-			login();
+			if (!login()) {
+				System.out.println("Login not successful");
+				return;
+			}
 		}
 			
 		System.out.println("Enter manufacturer you would like to comment on");
@@ -148,13 +151,15 @@ public class ShoppingKartMain {
 		
 	}
 
-	private void login() {
+	private boolean login() {
 		System.out.println("Enter name to login");
 		String name = scan.next();
 		loggedInUser = new Login(connection).validateUser(name);
 		if (loggedInUser != null) {
 			isLoggedIn = true;
+			return true;
 		}
+		return false;
 	}
 
 	private void listProductsByManufacturer () {

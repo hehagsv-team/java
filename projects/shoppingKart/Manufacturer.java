@@ -30,8 +30,6 @@ public class Manufacturer
 		ResultSet rs;
 		try {
 			rs = statement.executeQuery(sql);
-//			if (rs.getRow()==0)
-//			return null; // fetch returned empty
 			ArrayList<String> list = new ArrayList<String>();
 			while (rs.next()) {
 				list.add(rs.getString("NAME"));
