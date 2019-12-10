@@ -1,10 +1,12 @@
 package projects.shoppingKart;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Manufacturer
 {
@@ -28,17 +30,61 @@ public class Manufacturer
 		ResultSet rs;
 		try {
 			rs = statement.executeQuery(sql);
+//			if (rs.getRow()==0)
+//			return null; // fetch returned empty
 			ArrayList<String> list = new ArrayList<String>();
 			while (rs.next()) {
 				list.add(rs.getString("NAME"));
 			}
-			return (String[])list.toArray();
+			int size = list.size();
+			if (size==0)
+				return null; // fetch returned empty
+			String [] listNames = new String[size];
+			Iterator<String> iter = list.iterator();
+			for (int i = 0; iter.hasNext(); i++) {
+				listNames [i] = iter.next();
+			}
+			return listNames;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-		
+	}
+	
+	public static void main (String args[]) throws ClassNotFoundException, SQLException {
+		Connection connection=null;
+		Statement statement = null;
+		try {
+			String driverClass = "oracle.jdbc.driver.OracleDriver";
+			String connectionURL = "jdbc:oracle:thin:@135.250.220.98:1521:HCLDSDB";
+			String dbUser = "HCL_DBUSER";
+			String dbPwd = "test_user";
+			Class.forName(driverClass);
+			connection=DriverManager.getConnection(connectionURL,dbUser,dbPwd);
+			System.out.println("connection established");
+			statement = connection.createStatement();
 
+			String[] arr = new Manufacturer(connection, statement).getManufacturerList();
+			for (int i = 0; i < arr.length; i++) {
+				System.out.println("Manu "+(i+1)+": "+arr[i]);
+			}
+		} finally {
+			System.out.println("closing connection");
+			try {
+				if (statement !=null) 
+					statement.close();
+			} catch (SQLException e) {
+				System.err.println("Unnable to close JDBC Statement");
+				e.printStackTrace();
+			}
+			try {
+				if (connection !=null) 
+					connection.close();
+			} catch (SQLException e) {
+				System.err.println("Unnable to close Oracle Connection");
+				e.printStackTrace();
+			}
+		}
 	}
 }

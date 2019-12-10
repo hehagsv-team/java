@@ -15,23 +15,12 @@ public class ShoppingKartMain {
 	private boolean isLoggedIn = false;
 	private Login.UserDetails loggedInUser = null;
 	
-	private enum CONSOLE_OPTION {
-		LOGIN,
-		LOGOUT,
-		LIST_BY_MANU,
-		LIST_BY_PRICE,
-		ADD_TO_CART,
-		PURCHASE,
-		UPDATE_SHIPPING_STATUS,
-		GET_SHIPPING_STATUS,
-		REVIEW_MANU;
-	}
 	
 	private void init () throws SQLException, ClassNotFoundException {
 		Class.forName(driverClass);
-		Connection connection=DriverManager.getConnection(connectionURL,dbUser,dbPwd);
+		connection=DriverManager.getConnection(connectionURL,dbUser,dbPwd);
 		System.out.println("connection established");
-		Statement statement=connection.createStatement();
+		statement=connection.createStatement();
 		System.out.println("Statement created");
 	}
 	
@@ -39,6 +28,7 @@ public class ShoppingKartMain {
 		try {
 			try {
 				init();
+				console();
 			} catch (ClassNotFoundException | SQLException e1) {
 				System.err.println("Unable to establish connection with Database");
 				e1.printStackTrace();
@@ -63,21 +53,21 @@ public class ShoppingKartMain {
 		}
 	}
 	
-	private CONSOLE_OPTION console () {
+	private void console () {
 		   
-		System.out.println("Shopping Kart\n");
-//        System.out.println("Enter Size of Integer Stack ");
-//        int n = scan.nextInt();
+		System.out.println("\n*******************");
+		System.out.println("** Shopping Kart **");
+		System.out.println("*******************");
         
         char ch;
         do{
-            System.out.println("\nKart Options");
+            System.out.println("Kart Options");
             System.out.println("1. login");
             System.out.println("2. logout");
             System.out.println("3. list products");
             System.out.println("4. update shipping status");
             System.out.println("5. fetch shipping status");
-            System.out.println("6. provide manufacturer comments");
+            System.out.println("6. provide rating for manufacturer");
             int choice = scan.nextInt();
             switch (choice)
             {
@@ -103,7 +93,6 @@ public class ShoppingKartMain {
         ch = scan.next().charAt(0);
         } while (ch == 'Y'|| ch == 'y');                 
 		
-        return null;
 	}
 	
 	private void updateShippingStatus() {
