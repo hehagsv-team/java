@@ -3,6 +3,9 @@ package projects.shoppingKart;
 import java.sql.*;
 import java.util.Scanner;
 
+import projects.shoppingKart.Product.ProductDetails;
+
+
 public class ShoppingKartMain {
 	
 	private final String driverClass = "oracle.jdbc.driver.OracleDriver";
@@ -10,9 +13,13 @@ public class ShoppingKartMain {
 	private final String dbUser = "HCL_DBUSER";
 	private final String dbPwd = "test_user";
 	private Statement statement = null;
+	int customerId=0;
+	int itemId=0;
+	Scanner scanner=new Scanner(System.in); //TODO why another scanner?
 	private Connection connection = null;
 	private Scanner scan = new Scanner(System.in);
 	private boolean isLoggedIn = false;
+	String Username=null;
 	private Login.UserDetails loggedInUser = null;
 	
 	
@@ -72,17 +79,39 @@ public class ShoppingKartMain {
             switch (choice)
             {
             case 1 : 
-                break;               
+            	if (!login()) {
+    				System.out.println("Login not successful");
+    				return; //TODO why return?
+    			}
+            	else
+            	{
+            		System.out.println("Login Successfull");
+            	}
+//                break;               
             case 2 : 
                 break;                         
-            case 3 :         
+            case 3 :     
+            	if (!login()) {
+    				System.out.println("Login not successful");
+    				return;
+    			}
+            	else
+            	{
+            		System.out.println("Login Successfull");
+            	}
+            	itemId=listProductsByManufacturer();
+            	customerId=selectCustomerId();
+            	System.out.println("cusotmerid is:"+customerId);
+            	addToCart(itemId,customerId);
+            	
+            	
                 break;               
             case 4 : 
-            	break;                
+            	updateShippingStatus(itemId,customerId);
+            	break;
             case 5 :
             	break;                 
             case 6 :
-            	
             	provideManufacturerFeedback();
             	break;                         
             default : 
@@ -95,20 +124,42 @@ public class ShoppingKartMain {
 		
 	}
 	
-	private void updateShippingStatus() {
+
+	private int selectCustomerId() {
+		
+		try {
+			String sql="select id from Hcl_Sk_User_Account where name='"+Username+"'";
+			System.out.println(sql);
+			ResultSet resultSet=statement.executeQuery(sql);
+			if(resultSet.next())
+			{	System.out.println(resultSet.getInt("id"));
+				return resultSet.getInt("id");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 1;
+		
+		
+	}
+
+	private void updateShippingStatus(int itemid,int customerId) {
 		//update shippng status
 		ShippingStatus shippingStatus=new ShippingStatus(connection,statement);
 		try {
-			shippingStatus.updateShippingStatus();
+			shippingStatus.updateShippingStatus(itemid,customerId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	private void addToCart () {
+	private void addToCart (int itemId,int customerId) {
 		//		add to cart
-		AddCart addCart=new AddCart(connection, statement);
+		System.out.println("enter the quantity : ");
+		int quantity=scanner.nextInt();
+		AddCart addCart=new AddCart(itemId,customerId,quantity,statement);
 		try {
 			addCart.cart();
 		} catch (SQLException e) {
@@ -153,8 +204,8 @@ public class ShoppingKartMain {
 
 	private boolean login() {
 		System.out.println("Enter name to login");
-		String name = scan.next();
-		loggedInUser = new Login(connection).validateUser(name);
+		Username = scan.next();
+		loggedInUser = new Login(connection).validateUser(Username);
 		if (loggedInUser != null) {
 			isLoggedIn = true;
 			return true;
@@ -162,15 +213,55 @@ public class ShoppingKartMain {
 		return false;
 	}
 
-	private void listProductsByManufacturer () {
+	private int listProductsByManufacturer () {
 		//manufacture filtering
 		Product filter=new Product(connection, statement);
 		try {
-			filter.itemsByManufacturer();
+			String[] itemList=filter.listAllItemsByManufacturer();
+			for (int i = 0; i < itemList.length; i++) {
+				System.out.println((i+1) + " "+itemList[i]);
+			}
+			
+			
+			
+			
+			System.out.println("SELECT TYPE OF FILER:\n1. filter by manufacturer\n2. filter by price");
+        	int option1=scanner.nextInt();
+        	
+        	switch(option1)
+        	{
+        	case 1:
+        		Scanner scanner=new Scanner(System.in);
+    		   	System.out.println("enter the product : ");
+    		   	String productNeed=scanner.nextLine();
+    		   	String[] itemList2=filter.listAllItemsByItems(productNeed);
+    			for (int i = 0; i < itemList.length; i++) {
+    				System.out.println((i+1) + " "+itemList2[i]);
+    			}
+    			break;
+			case 2:
+				Scanner scanner1=new Scanner(System.in);
+				System.out.println("enter range 1 :");
+				int range1=scanner1.nextInt();
+				System.out.println("enter range 2:");
+				int range2=scanner1.nextInt();
+        		String[] itemList3=filter.itemsByPrice(range1,range2);
+        		for (int i = 0; i < itemList.length; i++) {
+    				System.out.println((i+1) + " "+itemList3[i]);
+    			}
+        		break;
+        	}
+        	Scanner scanner=new Scanner(System.in);
+			System.out.println("enter particular item : ");
+			String particularItem=scanner.nextLine();
+			ProductDetails prc=filter.itemsByManufacturer(particularItem);
+			System.out.println(prc.ID+" "+prc.name+" "+prc.price);
+			return prc.ID;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
+		return 0;	
+		
 	}
 	
 	private void listProductsByPrice () {

@@ -62,7 +62,7 @@ public class Login {
 			String dbPwd = "test_user";
 			Class.forName(driverClass);
 			connection=DriverManager.getConnection(connectionURL,dbUser,dbPwd);
-			System.out.println("connection established");
+			System.out.println("In login classconnection established");
 
 			System.out.println("USER ID= "+new Login(connection).validateUser("Ashok").ID);
 		} finally {

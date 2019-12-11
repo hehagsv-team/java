@@ -15,13 +15,18 @@ public class ShippingStatus
 	}
 	public void getShippingStatus() throws SQLException 
 	{
+		
 		String q1="SELECT  SHIPPING_STATUS FROM HCL_SK_SHIPPING_ORDER WHERE order_id=10";
 	    statement.executeUpdate(q1);
 		System.out.println("shipping status is displayed");
 	}
-	public void updateShippingStatus() throws SQLException {
-		String q1="update Hcl_Sk_Shipping_Order set Shipping_Status='d' where id in(select id from Hcl_Sk_Shipping_Order where mod(id,2)=0)";
-		String q2="update Hcl_Sk_Shipping_Order set delivered_date=sysdate where shipping_status='d'";
+	public void updateShippingStatus(int itemid,int customerId) throws SQLException {
+		
+		String sql1 ="UPDATE hcl_sk_order SET payment=1 WHERE id="+customerId;
+		System.out.println(sql1);
+		String q1="update Hcl_Sk_Shipping_Order set Shipping_Status='d' where user_account_id="+customerId+" and item_id="+itemid;
+		String q2="update Hcl_Sk_Shipping_Order set delivered_date=sysdate where shipping_status='d' and item_id="+itemid;
+		statement.executeUpdate(sql1);
 		statement.executeUpdate(q1);
 		statement.executeUpdate(q2);
 		System.out.println("Update Shipping Status Completed Successfully");
