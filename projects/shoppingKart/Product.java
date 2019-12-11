@@ -16,12 +16,12 @@ import java.util.Scanner;
 
 public class Product
 {
-	static class ProductDetails {
+	static class ProductDetail {
 		int ID;
 		String name;
 		int price;
 	}
-	ProductDetails prd;
+	ProductDetail prd;
 	
 
 	Connection connection;
@@ -33,7 +33,8 @@ public class Product
 	}
 	
 	
-	public String[] listAllItemsByManufacturer () {
+	//TODO This is a duplicate method already defined in Manufacturer class
+	public String[] listAllItemsByManufacturer () { 
 		String sql = "select name from hcl_sk_manufacturer";
 		ResultSet rs;
 		try {
@@ -57,6 +58,8 @@ public class Product
 			return null;
 		}
 	}
+	
+	//TODO change the method to return items by manufacturer
 	public String[] listAllItemsByItems (String productNeed) {
 		String sql = "select name from hcl_sk_item where name like '"+productNeed+"%'";
 		ResultSet rs;
@@ -81,7 +84,7 @@ public class Product
 			return null;
 		}
 	}
-   ProductDetails itemsByManufacturer(String ProductNeed) throws SQLException
+   ProductDetail itemsByManufacturer(String ProductNeed) throws SQLException
 	{
 //	   	Scanner scanner=new Scanner(System.in);
 //	   	System.out.println("enter the manufacturer");
@@ -91,7 +94,7 @@ public class Product
 		ResultSet resultSet=statement.executeQuery(q1);
 		while(resultSet.next())
 		{
-			prd=new ProductDetails();
+			prd=new ProductDetail();
 			prd.name=resultSet.getString("name");
 			prd.ID=resultSet.getInt("manufacturer_id");
 			prd.price=resultSet.getInt("price");
@@ -116,36 +119,35 @@ public class Product
    }
 
 
-public String[] itemsByPrice(int range1, int range2) {
-	// TODO Auto-generated method stub
-	  
-		  
-		try {
-			String q1="select name from Hcl_Sk_Item where price between "+range1+" and "+range2;
-//			System.out.println(q1);
-			ResultSet rs=statement.executeQuery(q1);
-			rs = statement.executeQuery(q1);
-			ArrayList<String> list = new ArrayList<String>();
-			while (rs.next()) {
-				list.add(rs.getString("NAME"));
-			}
-			int size = list.size();
-			if (size==0)
-				return null; // fetch returned empty
-			String [] listNames = new String[size];
-			Iterator<String> iter = list.iterator();
-			for (int i = 0; iter.hasNext(); i++) {
-				listNames [i] = iter.next();
-			}
-			return listNames;
-		
-	  }
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-}
+   //TODO Get the price also along with the name
+   public String[] itemsByPrice(int range1, int range2) {
+
+	   try {
+		   String q1="select name from Hcl_Sk_Item where price between "+range1+" and "+range2;
+		   //			System.out.println(q1);
+		   ResultSet rs=statement.executeQuery(q1);
+		   rs = statement.executeQuery(q1);
+		   ArrayList<String> list = new ArrayList<String>();
+		   while (rs.next()) {
+			   list.add(rs.getString("NAME"));
+		   }
+		   int size = list.size();
+		   if (size==0)
+			   return null; // fetch returned empty
+		   String [] listNames = new String[size];
+		   Iterator<String> iter = list.iterator();
+		   for (int i = 0; iter.hasNext(); i++) {
+			   listNames [i] = iter.next();
+		   }
+		   return listNames;
+
+	   }
+	   catch (SQLException e) {
+		   // TODO Auto-generated catch block
+		   e.printStackTrace();
+		   return null;
+	   }
+   }
 		
 }	
 		

@@ -3,7 +3,7 @@ package projects.shoppingKart;
 import java.sql.*;
 import java.util.Scanner;
 
-import projects.shoppingKart.Product.ProductDetails;
+import projects.shoppingKart.Product.ProductDetail;
 
 
 public class ShoppingKartMain {
@@ -79,7 +79,7 @@ public class ShoppingKartMain {
             switch (choice)
             {
             case 1 : 
-            	if (!login()) {
+            	if (!login()) { //TODO why do you login if already logged in?
     				System.out.println("Login not successful");
     				return; //TODO why return?
     			}
@@ -87,21 +87,22 @@ public class ShoppingKartMain {
             	{
             		System.out.println("Login Successfull");
             	}
-//                break;               
+//                break;  //TODO why remove the break?             
             case 2 : 
                 break;                         
             case 3 :     
-            	if (!login()) {
+            	if (!login()) { //TODO why do you login if already logged in?
     				System.out.println("Login not successful");
-    				return;
+    				return; //TODO why return?
     			}
             	else
             	{
             		System.out.println("Login Successfull");
             	}
-            	itemId=listProductsByManufacturer();
+            	itemId=listProductsByManufacturer(); //TODO not handling error case
             	customerId=selectCustomerId();
             	System.out.println("cusotmerid is:"+customerId);
+            	//TODO ask option if the user wants to add to cart
             	addToCart(itemId,customerId);
             	
             	
@@ -125,6 +126,7 @@ public class ShoppingKartMain {
 	}
 	
 
+	//TODO Redundant method. Information already available
 	private int selectCustomerId() {
 		
 		try {
@@ -139,7 +141,7 @@ public class ShoppingKartMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 1;
+		return 1; //TODO why 1?
 		
 		
 	}
@@ -163,7 +165,7 @@ public class ShoppingKartMain {
 		try {
 			addCart.cart();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO What error message would like to give to the user?
 			e.printStackTrace();
 		}
 	}
@@ -213,17 +215,15 @@ public class ShoppingKartMain {
 		return false;
 	}
 
+	//TODO The name of the method and its function does not go together
 	private int listProductsByManufacturer () {
 		//manufacture filtering
 		Product filter=new Product(connection, statement);
 		try {
-			String[] itemList=filter.listAllItemsByManufacturer();
+			String[] itemList=filter.listAllItemsByManufacturer(); //TODO why are you listing all manufacturer before the showing the option? 
 			for (int i = 0; i < itemList.length; i++) {
 				System.out.println((i+1) + " "+itemList[i]);
 			}
-			
-			
-			
 			
 			System.out.println("SELECT TYPE OF FILER:\n1. filter by manufacturer\n2. filter by price");
         	int option1=scanner.nextInt();
@@ -231,30 +231,31 @@ public class ShoppingKartMain {
         	switch(option1)
         	{
         	case 1:
-        		Scanner scanner=new Scanner(System.in);
-    		   	System.out.println("enter the product : ");
+        		Scanner scanner=new Scanner(System.in); //TODO why a local scanner?
+    		   	System.out.println("enter the product : "); //TODO where is the list of products? How will the user know the product without getting listed?
     		   	String productNeed=scanner.nextLine();
-    		   	String[] itemList2=filter.listAllItemsByItems(productNeed);
+    		   	String[] itemList2=filter.listAllItemsByItems(productNeed); 
     			for (int i = 0; i < itemList.length; i++) {
     				System.out.println((i+1) + " "+itemList2[i]);
     			}
     			break;
 			case 2:
-				Scanner scanner1=new Scanner(System.in);
+				Scanner scanner1=new Scanner(System.in); //TODO why a local scanner?
 				System.out.println("enter range 1 :");
 				int range1=scanner1.nextInt();
-				System.out.println("enter range 2:");
+				System.out.println("enter range 2:"); 
 				int range2=scanner1.nextInt();
         		String[] itemList3=filter.itemsByPrice(range1,range2);
         		for (int i = 0; i < itemList.length; i++) {
     				System.out.println((i+1) + " "+itemList3[i]);
     			}
         		break;
+        		//TODO where is the default option?
         	}
-        	Scanner scanner=new Scanner(System.in);
+        	Scanner scanner=new Scanner(System.in); //TODO why a local scanner and not used
 			System.out.println("enter particular item : ");
 			String particularItem=scanner.nextLine();
-			ProductDetails prc=filter.itemsByManufacturer(particularItem);
+			ProductDetail prc=filter.itemsByManufacturer(particularItem);
 			System.out.println(prc.ID+" "+prc.name+" "+prc.price);
 			return prc.ID;
 		} catch (SQLException e) {

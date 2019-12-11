@@ -19,9 +19,9 @@ public class AddCart
 		this.customer_id = customer_id;
 	}
 
-	void cart() throws SQLException
+	void cart() throws SQLException //TODO why are you throwing exception?
 	{
-		String sql="select max(id) from Hcl_Sk_ORDER";
+		String sql="select max(id) from Hcl_Sk_ORDER"; //TODO to be replaced by Sequence
 		ResultSet resultSet1=statement.executeQuery(sql);
 		int addCartId = 0;
 		while(resultSet1.next())
@@ -35,7 +35,9 @@ public class AddCart
 		String q1="INSERT  INTO HCL_SK_ORDER(ITEM_ID,ID,ORDER_DATE,QUANTITY,USER_ACCOUNT_ID,PAYMENT) VALUES("+item_id+","+"hcl_sk_order_id_seq.nextval"+",sysdate," +quantity+","+customer_id+","+payment+")";
 		System.out.println(q1);
 		int i=statement.executeUpdate(q1);
-		System.out.println("INSERTION IS DONE"+i);	
+		//TODO No Console printing only in Main class!!
+		System.out.println("INSERTION IS DONE"+i);	//TODO how do you know insertion was successful?
+
 	}
 	
 	boolean checkItemInCart(int itemId)
