@@ -1,10 +1,13 @@
-package projects.shoppingKart;
+package projects.shoppingkart;
 
+import java.awt.ItemSelectable;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import projects.shoppingKart.Product.ProductDetail;
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
+import com.dss.basic.Product.ProductDetails;
 
 public class ShoppingKartMain {
 	
@@ -13,10 +16,9 @@ public class ShoppingKartMain {
 	private final String dbUser = "HCL_DBUSER";
 	private final String dbPwd = "test_user";
 	private Statement statement = null;
-	int customerId=0;
-	int itemId=0;
-	Scanner scanner=new Scanner(System.in); //TODO why another scanner?
+	int customerId=0,itemId=0,orderid=0;
 	private Connection connection = null;
+	boolean checkItemInCart=false;
 	private Scanner scan = new Scanner(System.in);
 	private boolean isLoggedIn = false;
 	String Username=null;
@@ -79,38 +81,203 @@ public class ShoppingKartMain {
             switch (choice)
             {
             case 1 : 
-            	if (!login()) { //TODO why do you login if already logged in?
-    				System.out.println("Login not successful");
-    				return; //TODO why return?
-    			}
+            	if (!isLoggedIn) {
+        			System.out.println("You have not logged in");
+        			if (!login()) {
+        				System.out.println("Login not successful");
+        				return;
+        			}
+        		}
             	else
             	{
             		System.out.println("Login Successfull");
             	}
-//                break;  //TODO why remove the break?             
+                break;               
             case 2 : 
-                break;                         
-            case 3 :     
-            	if (!login()) { //TODO why do you login if already logged in?
-    				System.out.println("Login not successful");
-    				return; //TODO why return?
-    			}
-            	else
+            	System.out.println(Username);
+            	Username=null;
+            	System.out.println(Username);
+            	if(Username==null)
             	{
-            		System.out.println("Login Successfull");
+            		System.out.println("Logout successfull\nDo u want to login yes/no");
+            		String options=scan.next();
+            		if(options.equalsIgnoreCase("yes"))
+            		{
+            			if (!login()) {
+            				System.out.println("Login not successful");
+            			}
+            			else
+                    	{
+                    		System.out.println("Login Successfull");
+                    	}
+            				
+            		}
+            		else
+            		{
+            			System.out.println("Thank YOu....Visit Again");
+            		}
+            		
+            		
+//            		switch(options)
+//            		{
+//            		case yes:
+//            			
+//            			break;
+//            		case 2:
+//            			break;
+//            		}
+            		
             	}
-            	itemId=listProductsByManufacturer(); //TODO not handling error case
-            	customerId=selectCustomerId();
-            	System.out.println("cusotmerid is:"+customerId);
-            	//TODO ask option if the user wants to add to cart
-            	addToCart(itemId,customerId);
+                break;                         
+            case 3 :  
+            	
+            	if (!isLoggedIn) {
+        			System.out.println("You have not logged in");
+        			if (!login()) {
+        				System.out.println("Login not successful");
+        				return;
+        			}
+        		}
+            	try {
+					itemId=listProductsByManufacturer();
+				} catch (NullPointerException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Selected ParticularItem is not here");
+//					e.printStackTrace();
+				}
+//            	customerId=selectCustomerId();
+//            	System.out.println("cusotmerid is:"+customerId);
+            	orderid=addToCart(itemId);
             	
             	
                 break;               
             case 4 : 
-            	updateShippingStatus(itemId,customerId);
+            	if (!isLoggedIn) {
+        			System.out.println("You have not logged in");
+        			if (!login()) {
+        				System.out.println("Login not successful");
+        				return;
+        			}
+        		}
+            	else
+            	{
+            		System.out.println("Login Successfull");
+            	}
+            	try {
+					itemId=listProductsByManufacturer();
+					if(itemId==0)
+					{
+						System.out.println("select the name listed above");
+					}
+					else
+					{
+						orderid=addToCart(itemId);
+						if(checkItemInCart)
+						{
+//							System.out.println("GO");
+		            		Purchase purchase=new Purchase();
+							purchase.purchaseOrder(orderid,statement);
+//							System.out.println("orderid added jj");
+							ArrayList ar=purchase.getOrderDetails(orderid,statement);
+//							System.out.println(ar);
+							
+							for(Object object:ar)
+							{
+								if(object instanceof Integer)
+								{
+									
+									System.out.println(object);
+								}
+								if(object instanceof Date)
+								{
+									System.out.println("Ordered Dare: "+object);
+								}
+							}
+				        	updateShippingStatus(orderid);
+				        	System.out.println("final updation done:::");
+						}
+						else
+						{	System.out.println("Do you want to make payment of your selected item: y/n");
+							String option=scan.next();
+			            	if(option.equalsIgnoreCase("y"))
+			            	{
+			            		Purchase purchase=new Purchase();
+								purchase.purchaseOrder(orderid,statement);
+								ArrayList ar=purchase.getOrderDetails(orderid,statement);
+//								System.out.println(ar);
+								
+								for(Object object:ar)
+								{
+									if(object instanceof Integer)
+									{
+										
+										System.out.println(object);
+									}
+									if(object instanceof Date)
+									{
+										System.out.println("Ordered Dare: "+object);
+									}
+								}
+					        	updateShippingStatus(orderid);
+					        	System.out.println("final updation done");
+			            		
+			            	}
+			            	else
+			            	{
+			            		break;
+			            	}
+							
+						}
+						
+					     
+//	            		System.out.println("GO");
+//	            		Purchase purchase=new Purchase();
+//						purchase.purchaseOrder(orderid,statement);
+//						System.out.println("orderid added jj");
+//						ArrayList ar=purchase.getOrderDetails(orderid,statement);
+////						System.out.println(ar);
+//						
+//						for(Object object:ar)
+//						{
+//							if(object instanceof Integer)
+//							{
+//								
+//								System.out.println(object);
+//							}
+//							if(object instanceof Date)
+//							{
+//								System.out.println("Ordered Dare: "+object);
+//							}
+//						}
+//			        	updateShippingStatus(orderid);
+//			        	System.out.println("final updation done:::");
+						
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println("Selected ParticularItem is not here");
+//					e.printStackTrace();
+				}
+//            	customerId=selectCustomerId();
+//            	System.out.println("cusotmerid is:"+customerId);
+            	
+					
+//            	updateShippingStatus(itemId,customerId,orderid);
             	break;
             case 5 :
+            	if (!isLoggedIn) {
+        			System.out.println("You have not logged in");
+        			if (!login()) {
+        				System.out.println("Login not successful");
+        				return;
+        			}
+        		}
+            	else
+            	{
+            		System.out.println("Login Successfull");
+            	}
+            	getShippingStatus(orderid);
+            	
             	break;                 
             case 6 :
             	provideManufacturerFeedback();
@@ -126,7 +293,6 @@ public class ShoppingKartMain {
 	}
 	
 
-	//TODO Redundant method. Information already available
 	private int selectCustomerId() {
 		
 		try {
@@ -139,35 +305,45 @@ public class ShoppingKartMain {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("error in selecting username from userAccountTable");
+//			e.printStackTrace();
 		}
-		return 1; //TODO why 1?
+		return 1;
 		
 		
 	}
 
-	private void updateShippingStatus(int itemid,int customerId) {
+	private void updateShippingStatus(int orderid) {
 		//update shippng status
 		ShippingStatus shippingStatus=new ShippingStatus(connection,statement);
 		try {
-			shippingStatus.updateShippingStatus(itemid,customerId);
+			shippingStatus.updateShipping(orderid);
 		} catch (SQLException e) {
+			System.out.println("error in updating shippng status");
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 
-	private void addToCart (int itemId,int customerId) {
+	private int addToCart (int itemId) {
 		//		add to cart
-		System.out.println("enter the quantity : ");
-		int quantity=scanner.nextInt();
-		AddCart addCart=new AddCart(itemId,customerId,quantity,statement);
-		try {
-			addCart.cart();
-		} catch (SQLException e) {
-			// TODO What error message would like to give to the user?
-			e.printStackTrace();
+		
+		AddCart addCart=new AddCart(itemId,statement);
+		checkItemInCart=addCart.checkItemInCart(itemId);
+		if(checkItemInCart)
+		{
+			orderid=addCart.cart(Username,itemId,checkItemInCart);
+//			orderid=addCart.cart(Username);   
 		}
+		else
+		{
+			orderid=addCart.cart(Username,itemId,checkItemInCart);
+			System.out.println("Item already in cart.....You can do payment");
+		}
+//		addCart.updateOrderId(Username, orderid,connection);
+//		System.out.println("orderId"+orderid);
+		return orderid;
+		
 	}
 	
 	private void provideManufacturerFeedback () {
@@ -205,61 +381,178 @@ public class ShoppingKartMain {
 	}
 
 	private boolean login() {
-		System.out.println("Enter name to login");
-		Username = scan.next();
-		loggedInUser = new Login(connection).validateUser(Username);
-		if (loggedInUser != null) {
-			isLoggedIn = true;
-			return true;
+		while(true)
+		{
+			System.out.println("Enter name to login");
+			Username = scan.next();
+			loggedInUser = new Login(connection).validateUser(Username);
+			if (loggedInUser != null) {
+				isLoggedIn = true;
+				return true;
+			}
+			else
+			{
+				continue;
+			}
 		}
-		return false;
 	}
 
-	//TODO The name of the method and its function does not go together
 	private int listProductsByManufacturer () {
+		int option1=0;
 		//manufacture filtering
 		Product filter=new Product(connection, statement);
 		try {
-			String[] itemList=filter.listAllItemsByManufacturer(); //TODO why are you listing all manufacturer before the showing the option? 
-			for (int i = 0; i < itemList.length; i++) {
-				System.out.println((i+1) + " "+itemList[i]);
+			while(true)
+			{
+				int dup=0;
+				
+				
+				System.out.println("SELECT TYPE OF FILER:\n1. filter by manufacturer\n2. filter by price");
+	        	option1=scan.nextInt();
+	        	
+	        	switch(option1)
+	        	{
+	        	case 1:
+	        		dup++;
+	        		Manufacturer manufacturer=new Manufacturer(connection, statement);
+	 
+	        		String[] itemList=manufacturer.getManufacturerList();
+	    			for (int i = 0; i < itemList.length; i++) {
+	    				System.out.println((i+1) + " "+itemList[i]);
+	    			}
+//	        		Scanner scanner=new Scanner(System.in);
+	    			
+	    			while(true)
+	    			{
+	    				System.out.println("enter the manufacturer : ");
+//		    		   	Scanner scann=new Scanner(System.in);
+		    		   	String manufacturerNeed=scan.next();
+		    		   	System.out.println(manufacturerNeed);
+		    		   	ArrayList itemList2=filter.listAllItemsByItems(manufacturerNeed);
+		    		   	if(itemList2==null)
+		    		   	{
+		    		   		System.out.println("Selected item is not listed above");
+		    		   		continue;
+		    		   	}
+		    		   	else
+		    		   	{
+		    		   		for(Object object:itemList2)
+			        		{
+			        			if(object instanceof String)
+			        			{
+			        				System.out.print(object+"\t");
+			        			}
+			        			if(object instanceof Integer)
+			        			{
+			        				System.out.println(object);
+			        			}
+			        		}
+		    		   		break;
+		    		   	}
+		    			
+	    				
+	    			}
+	    		   	
+	    			break;
+				case 2:
+					dup++;
+					int x = 0;
+					int y=0;
+//					Scanner scanner1=new Scanner(System.in);
+					while(true)
+					{
+						System.out.println("enter range 1 :");
+						String range1=scan.next();
+						
+						try
+						{
+							x=Integer.parseInt(range1);
+							break;
+							
+						}
+						catch(NumberFormatException e)
+						{
+							System.out.println("Given input is not a number....Please enter the number");
+							continue;
+						}
+						
+					}
+					System.out.println("range 1:"+x);
+					
+					
+					while(true)
+					{
+						System.out.println("enter range 2 :");
+						String range2=scan.next();
+						
+						try
+						{
+							y=Integer.parseInt(range2);
+							break;
+							
+						}
+						catch(NumberFormatException e)
+						{
+							System.out.println("Given input is not a number....Please enter the number");
+							continue;
+						}
+						
+					}
+					System.out.println("range 2:"+y);
+					
+	        		ArrayList itemList3=filter.itemsByPrice(x,y);
+	        		
+	        		for(Object object:itemList3)
+	        		{
+	        			if(object instanceof String)
+	        			{
+	        				System.out.print(object+"\t");
+	        			}
+	        			if(object instanceof Integer)
+	        			{
+	        				System.out.println(object);
+	        			}
+	        		}
+	        		
+	        		
+//	        		for (int i = 0; i < itemList3.length; i++) {
+//	    				System.out.println((i+1) + " "+itemList3[i]);
+//	    			}
+	        		break;
+	        	default:
+	        		System.out.println("please select the correct option for filtering");
+	        		break;
+	        	}
+				if(dup==0)
+					continue;
+				else
+					break;
 			}
 			
-			System.out.println("SELECT TYPE OF FILER:\n1. filter by manufacturer\n2. filter by price");
-        	int option1=scanner.nextInt();
-        	
-        	switch(option1)
+        	Scanner scann=new Scanner(System.in);
+        	while(true)
         	{
-        	case 1:
-        		Scanner scanner=new Scanner(System.in); //TODO why a local scanner?
-    		   	System.out.println("enter the product : "); //TODO where is the list of products? How will the user know the product without getting listed?
-    		   	String productNeed=scanner.nextLine();
-    		   	String[] itemList2=filter.listAllItemsByItems(productNeed); 
-    			for (int i = 0; i < itemList.length; i++) {
-    				System.out.println((i+1) + " "+itemList2[i]);
+        		System.out.println("enter particular item : ");
+    			String particularItem=scann.nextLine();
+    			ProductDetails prc=filter.itemsByManufacturer(particularItem);
+    			String prcCheck="check"+prc;
+//    			System.out.println(prcCheck);
+    			if(prcCheck.equals("checknull"))
+    			{
+    				System.out.println("Selected ParticularItem is not belongs to the manufacturer");
+    				continue;
     			}
-    			break;
-			case 2:
-				Scanner scanner1=new Scanner(System.in); //TODO why a local scanner?
-				System.out.println("enter range 1 :");
-				int range1=scanner1.nextInt();
-				System.out.println("enter range 2:"); 
-				int range2=scanner1.nextInt();
-        		String[] itemList3=filter.itemsByPrice(range1,range2);
-        		for (int i = 0; i < itemList.length; i++) {
-    				System.out.println((i+1) + " "+itemList3[i]);
+    			else
+    			{
+    				System.out.println(prc.ID+" "+prc.name+" "+prc.price);
+    				return prc.ID;
     			}
-        		break;
-        		//TODO where is the default option?
         	}
-        	Scanner scanner=new Scanner(System.in); //TODO why a local scanner and not used
-			System.out.println("enter particular item : ");
-			String particularItem=scanner.nextLine();
-			ProductDetail prc=filter.itemsByManufacturer(particularItem);
-			System.out.println(prc.ID+" "+prc.name+" "+prc.price);
-			return prc.ID;
+			
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("error listing in products by manufacturer");
+//			e.printStackTrace();
 		}
 		return 0;	
 		
@@ -276,14 +569,24 @@ public class ShoppingKartMain {
 		}
 	}
 	
-	private void getShippingStatus () {
+	private void getShippingStatus (int orderid) {
 		//shipping status
 		ShippingStatus shipping=new ShippingStatus(connection, statement);    
 		try {
-			shipping.getShippingStatus();
+			String status=shipping.getShippingStatus(orderid);
+//			if(isNull)
+//			{
+//				System.out.println("");
+//			}
+//			else
+//			{
+//				System.out.println("shipping status of"+orderid+" is "+status);
+//			}
+		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("error in getting shipping status");
+//			e.printStackTrace();
 		}
 	}
 
