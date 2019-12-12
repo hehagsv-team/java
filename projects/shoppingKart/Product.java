@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
-//class ProductDetails {
-//	int ID;
-//	String name;
-//	int price;
-//}
+class ProductDetails {
+	int ID;
+	String name;
+	int price;
+}
 
 public class Product
 {
-	static class ProductDetail {
+	static class ProductDetails {
 		int ID;
 		String name;
 		int price;
 	}
-	ProductDetail prd;
+	ProductDetails prd;
 	
 
 	Connection connection;
@@ -33,74 +33,62 @@ public class Product
 	}
 	
 	
-	//TODO This is a duplicate method already defined in Manufacturer class
-	public String[] listAllItemsByManufacturer () { 
-		String sql = "select name from hcl_sk_manufacturer";
-		ResultSet rs;
-		try {
-			rs = statement.executeQuery(sql);
-			ArrayList<String> list = new ArrayList<String>();
-			while (rs.next()) {
-				list.add(rs.getString("NAME"));
-			}
-			int size = list.size();
-			if (size==0)
-				return null; // fetch returned empty
-			String [] listNames = new String[size];
-			Iterator<String> iter = list.iterator();
-			for (int i = 0; iter.hasNext(); i++) {
-				listNames [i] = iter.next();
-			}
-			return listNames;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
 	
-	//TODO change the method to return items by manufacturer
-	public String[] listAllItemsByItems (String productNeed) {
-		String sql = "select name from hcl_sk_item where name like '"+productNeed+"%'";
+	public ArrayList listAllItemsByItems (String manufactureNeed) {
+		
 		ResultSet rs;
 		try {
+			String sql = "SELECT NAME,PRICE FROM HCL_SK_ITEM WHERE MANUFACTURER_ID=(SELECT ID FROM HCL_SK_MANUFACTURER WHERE NAME='"+manufactureNeed+"')"; 
+//			System.out.println(sql);
 			rs = statement.executeQuery(sql);
-			ArrayList<String> list = new ArrayList<String>();
+//			System.out.println("executed");
+			ArrayList list = new ArrayList();
 			while (rs.next()) {
-				list.add(rs.getString("NAME"));
+				list.add(rs.getString("name"));
+				list.add(rs.getInt("price"));
 			}
 			int size = list.size();
+//			System.out.println(list.size());
 			if (size==0)
-				return null; // fetch returned empty
-			String [] listNames = new String[size];
-			Iterator<String> iter = list.iterator();
-			for (int i = 0; iter.hasNext(); i++) {
-				listNames [i] = iter.next();
-			}
-			return listNames;
+				return null; 
+			else
+				return list;
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("error in returning list of items of a particular manufacturer");
+//			e.printStackTrace();
 			return null;
 		}
+		catch(NullPointerException e1)
+		{
+			System.out.println("error in adding items to list as selection not done properly");
+		}
+		return null;
+
+	
 	}
-   ProductDetail itemsByManufacturer(String ProductNeed) throws SQLException
+   ProductDetails itemsByManufacturer(String ParticularItem) throws SQLException
 	{
 //	   	Scanner scanner=new Scanner(System.in);
 //	   	System.out.println("enter the manufacturer");
 //	   	String productNeed=scanner.nextLine();
 //	   	String q="select name from hcl_sk_item";
-		String q1= "select i.name,i.manufacturer_id,i.price from Hcl_Sk_Item i join Hcl_Sk_Manufacturer m on i.manufacturer_id=m.id where i.name='"+ProductNeed+"'";
+//	   System.out.println(ParticularItem);
+	   String q1="select i.name,i.manufacturer_id,i.price from Hcl_Sk_Item i where name="+"'"+ParticularItem+"'";
+	   
+
+//		String q1= "select i.name,i.manufacturer_id,i.price from Hcl_Sk_Item i join Hcl_Sk_Manufacturer m on i.manufacturer_id=m.id where i.name='"+ParticularItem+"'";
+//		System.out.println(q1);
 		ResultSet resultSet=statement.executeQuery(q1);
-		while(resultSet.next())
+		if(resultSet.next())
 		{
-			prd=new ProductDetail();
+			prd=new ProductDetails();
 			prd.name=resultSet.getString("name");
 			prd.ID=resultSet.getInt("manufacturer_id");
 			prd.price=resultSet.getInt("price");
 			return prd;
 		}
-		System.out.println("Filtering successful");	
+//		System.out.println("Filtering successful");	
 		return null;
 	}
    
@@ -119,44 +107,42 @@ public class Product
    }
 
 
-   //TODO Get the price also along with the name
-   public String[] itemsByPrice(int range1, int range2) {
-
-	   try {
-		   String q1="select name from Hcl_Sk_Item where price between "+range1+" and "+range2;
-		   //			System.out.println(q1);
-		   ResultSet rs=statement.executeQuery(q1);
-		   rs = statement.executeQuery(q1);
-		   ArrayList<String> list = new ArrayList<String>();
-		   while (rs.next()) {
-			   list.add(rs.getString("NAME"));
-		   }
-		   int size = list.size();
-		   if (size==0)
-			   return null; // fetch returned empty
-		   String [] listNames = new String[size];
-		   Iterator<String> iter = list.iterator();
-		   for (int i = 0; iter.hasNext(); i++) {
-			   listNames [i] = iter.next();
-		   }
-		   return listNames;
-
-	   }
-	   catch (SQLException e) {
-		   // TODO Auto-generated catch block
-		   e.printStackTrace();
-		   return null;
-	   }
-   }
+public ArrayList itemsByPrice(int range1, int range2) {
+	// TODO Auto-generated method stub
+	  
+		  
+		try {
+			String q1="select name,price from Hcl_Sk_Item where price between "+range1+" and "+range2;
+//			System.out.println(q1);
+			ResultSet rs=statement.executeQuery(q1);
+			rs = statement.executeQuery(q1);
+			ArrayList list = new ArrayList();
+			while (rs.next()) {
+				String name=rs.getString("name");
+				int price=rs.getInt("price");
+				list.add(name);
+				list.add(price);
+			}
+			int size = list.size();
+			if (size==0)
+				return null; // fetch returned empty
+			return list;
+//			String [] listNames = new String[size];
+//			Iterator<String> iter = list.iterator();
+//			for (int i = 0; iter.hasNext(); i++) {
+//				listNames [i] = iter.next();
+//			}
+//			return listNames;
+		
+	  }
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+}
 		
 }	
 		
 		
-//		 while(resultset.next())
-//		 {
-//			   System.out.println(resultset.getInt("price"));
-//		 }
-//		 System.out.println("select price done");
-//		   resultset.close();
-	
 
