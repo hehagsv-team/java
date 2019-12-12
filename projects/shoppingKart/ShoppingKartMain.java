@@ -318,6 +318,7 @@ public class ShoppingKartMain {
 			orderid=addCart.cart(Username,itemId,checkItemInCart);
 			System.out.println("Item already in cart.....You can do payment");
 		}
+//		addCart.updateOrderId(Username, orderid,connection);
 //		System.out.println("orderId"+orderid);
 		return orderid;
 		
