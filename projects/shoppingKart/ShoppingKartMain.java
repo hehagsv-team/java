@@ -230,27 +230,6 @@ public class ShoppingKartMain {
 						}
 						
 					     
-//	            		System.out.println("GO");
-//	            		Purchase purchase=new Purchase();
-//						purchase.purchaseOrder(orderid,statement);
-//						System.out.println("orderid added jj");
-//						ArrayList ar=purchase.getOrderDetails(orderid,statement);
-////						System.out.println(ar);
-//						
-//						for(Object object:ar)
-//						{
-//							if(object instanceof Integer)
-//							{
-//								
-//								System.out.println(object);
-//							}
-//							if(object instanceof Date)
-//							{
-//								System.out.println("Ordered Dare: "+object);
-//							}
-//						}
-//			        	updateShippingStatus(orderid);
-//			        	System.out.println("final updation done:::");
 						
 					}
 				} catch (Exception e) {
@@ -258,8 +237,7 @@ public class ShoppingKartMain {
 					System.out.println("Selected ParticularItem is not here");
 //					e.printStackTrace();
 				}
-//            	customerId=selectCustomerId();
-//            	System.out.println("cusotmerid is:"+customerId);
+
             	
 					
 //            	updateShippingStatus(itemId,customerId,orderid);
@@ -340,7 +318,6 @@ public class ShoppingKartMain {
 			orderid=addCart.cart(Username,itemId,checkItemInCart);
 			System.out.println("Item already in cart.....You can do payment");
 		}
-//		addCart.updateOrderId(Username, orderid,connection);
 //		System.out.println("orderId"+orderid);
 		return orderid;
 		
