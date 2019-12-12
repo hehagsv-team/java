@@ -1,8 +1,12 @@
 package projects.shoppingKart;
 
+
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.naming.spi.DirStateFactory.Result;
 
 public class ShippingStatus
 {
@@ -13,23 +17,26 @@ public class ShippingStatus
 		this.connection=connection;
 		this.statement=statement;
 	}
-	public void getShippingStatus() throws SQLException 
+	public String getShippingStatus(int orderid) throws SQLException 
 	{
 		
-		String q1="SELECT  SHIPPING_STATUS FROM HCL_SK_SHIPPING_ORDER WHERE order_id=10";
-	    statement.executeUpdate(q1);
+		String q1="SELECT  SHIPPING_STATUS FROM HCL_SK_SHIPPING_ORDER WHERE order_id"+orderid;
+	    ResultSet resultSet=statement.executeQuery(q1);
+	    if(resultSet.next())
+	    {
+	    	return resultSet.getString("SHIPPING_STATUS");
+	    }
 		System.out.println("shipping status is displayed");
+		return null;
 	}
-	public void updateShippingStatus(int itemid,int customerId) throws SQLException {
+	public void updateShipping(int orderid) throws SQLException {
 		
-		String sql1 ="UPDATE hcl_sk_order SET payment=1 WHERE id="+customerId;
-		System.out.println(sql1);
-		String q1="update Hcl_Sk_Shipping_Order set Shipping_Status='d' where user_account_id="+customerId+" and item_id="+itemid;
-		String q2="update Hcl_Sk_Shipping_Order set delivered_date=sysdate where shipping_status='d' and item_id="+itemid;
-		statement.executeUpdate(sql1);
+		String q1="update Hcl_Sk_Shipping_Order set Shipping_Status='d' where order_id="+orderid;
 		statement.executeUpdate(q1);
+		String q2="update Hcl_Sk_Shipping_Order set delivered_date=sysdate where shipping_status='d'and order_id="+orderid;
 		statement.executeUpdate(q2);
 		System.out.println("Update Shipping Status Completed Successfully");
 	}
+
 
 }
