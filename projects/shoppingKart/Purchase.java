@@ -1,5 +1,7 @@
 package projects.shoppingKart;
 
+
+package com.dss.basic;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,37 +13,49 @@ class Purchase {
 	public boolean purchaseOrder(int order_id, Statement statement) {	
 		
 		try {
-			String sql1 = "UPDATE hcl_sk_order SET payment=1 WHERE id=" + order_id;
-			System.out.println(sql1);
-			int result;
-			result = statement.executeUpdate(sql1);
-			if (result > 0) {
-				System.out.println("Update of payment is done successfully");
-				return true;
-			} 
-		} catch (SQLException e) {
-			System.out.println("error in updating payment");
-//			e.printStackTrace();
-		}
+//			System.out.println(order_id);
 
-		
-		int result1;
-		try {
-			String sql2 = "INSERT into HCL_SK_SHIPPING_ORDER(id,order_id) values(HCL_SK_SHIPPING_ORDER_ID_SEQ.nextval,"+ order_id + ")";
-			System.out.println(sql2);
-			result1 = statement.executeUpdate(sql2);
-			if (result1 > 0) {
-				System.out.println("Insert of Shipping details is done successfully");
-				return true;
-			}
-		} catch (SQLException e) {
-			System.out.println("error in inserting shipping details");
-//			e.printStackTrace();
-		}
+            String sql1 = "UPDATE hcl_sk_order SET payment=1 WHERE id=" + order_id;
 
-		
-		return false;
-	}
+//            System.out.println(sql1);
+
+
+            int result = statement.executeUpdate(sql1);
+            
+            String sql2 = "INSERT into HCL_SK_SHIPPING_ORDER(id,order_id) values(HCL_SK_SHIPPING_ORDER_ID_SEQ.nextval,"+ order_id + ")";
+
+//            System.out.println(sql2);
+
+            int result1 = statement.executeUpdate(sql2);
+
+
+            if ((result > 0) && (result1 > 0)) {
+                  if(result >0) {
+                         
+                         System.out.println("Update of payment is done successfully");
+
+                  }
+                  if (result1 > 0) {
+
+                         System.out.println("Insert of Shipping details is done successfully");                                
+
+                  }                          
+                  return true;
+
+            } 
+
+     } catch (SQLException e) {
+
+            System.out.println("error in updating payment");
+
+//         e.printStackTrace();
+
+     }      
+
+     return false;
+
+}
+
 
 	public ArrayList getOrderDetails(int order_id, Statement statement) {
 		try {
@@ -62,6 +76,7 @@ class Purchase {
 
 		} catch (SQLException e) {
 
+			// TODO Auto-generated catch block
 			System.out.println("Error in selecting the Order Details");
 			e.printStackTrace();
 
@@ -70,5 +85,4 @@ class Purchase {
 	}
 
 }
-
 
