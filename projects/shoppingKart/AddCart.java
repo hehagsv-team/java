@@ -1,4 +1,6 @@
 package projects.shoppingKart;
+package com.dss.basic;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,25 +18,26 @@ public class AddCart
 		this.item_id = item_id;
 	}
 
-	int cart(String username,int itemid,boolean checkItemInCart)
+	int cart(String username,int itemid,int checkItemInCart)
 	{
+		
 		int orderId=0;
-		String sql="select max(id) from Hcl_Sk_ORDER";
-		ResultSet resultSet1;
-		try {
-			resultSet1 = statement.executeQuery(sql);
-			while(resultSet1.next())
-			{
-				orderId=resultSet1.getInt("max(id)");
-			}
-		} catch (SQLException e1) {
-			System.out.println("error in selectng orderid from Hcl_Sk_Order table");
-//			e1.printStackTrace();
-		}
-		
-		
-		if(checkItemInCart)
+		if(checkItemInCart==0)
 		{
+			
+			String sql="select max(id) from Hcl_Sk_ORDER";
+			ResultSet resultSet1;
+			try {
+				resultSet1 = statement.executeQuery(sql);
+				while(resultSet1.next())
+				{
+					orderId=resultSet1.getInt("max(id)");
+				}
+			} catch (SQLException e1) {
+				System.out.println("error in selectng orderid from Hcl_Sk_Order table");
+//				e1.printStackTrace();
+			}
+			
 			try {
 				Scanner scanner=new Scanner(System.in);
 				int quantity=scanner.nextInt();
@@ -68,19 +71,22 @@ public class AddCart
 		return orderId;
 	}
 	
-	boolean checkItemInCart(int itemId)
+	int checkItemInCart(int itemId)
 	{
-		String sql="select Item_id from Hcl_Sk_Order";
+		String sql="select Item_id,id from Hcl_Sk_Order";
 		try {
 			ResultSet resultSet=statement.executeQuery(sql);
 			int resultSetItemId;
+			int resultSetOrderId;
 //			System.out.println("result set contains"+resultSet.next());
 			while(resultSet.next())
 			{
+				resultSetOrderId=resultSet.getInt("id");
 				resultSetItemId=resultSet.getInt("item_id");
 //				System.out.println("result item id"+resultSetItemId);
 				if(resultSetItemId==itemId)
-					return false;  // false means item already in the cart
+					return resultSetOrderId;
+//					return false;  // false means item already in the cart
 			}
 			
 		} catch (SQLException e) {
@@ -88,11 +94,11 @@ public class AddCart
 			e.printStackTrace();
 //			System.out.println("item already in the cart");
 		} 
-		return true;   // check dome...item is not in the cart....you can insert the item
+		return 0;   // check dome...item is not in the cart....you can insert the item
 	}
 
 	public void updateOrderId(String username, int orderid,Connection connection) {
-		System.out.println("updation before"+username+orderid);
+//		System.out.println("updation before"+username+orderid);
 		try {
 //			Statement statement=connection.createStatement();
 //			String sql2="update Hcl_Sk_User_Account set Order_Id="+ orderid+" where name='"+username+"'";
@@ -100,13 +106,13 @@ public class AddCart
 			PreparedStatement statement=connection.prepareStatement(sql2);
 			statement.setInt(1, orderid);
 			statement.setString(2, username);
-			System.out.println("HI:" +sql2);
+//			System.out.println("HI:" +sql2);
 			int i=statement.executeUpdate();
 			if(i>0) {
-				System.out.println("updation done in useraccount table");
+				System.out.println("Updation of OrderId in UserAccount table completed");
 			}
 			else {
-				System.out.println("error in update..");
+				System.out.println("error in updating OrderId in UserAccountTable");
 			}
 //			System.out.println("updation done in useraccount table");
 		} catch (SQLException e) {
@@ -117,4 +123,3 @@ public class AddCart
 		
 	}
 }
-
