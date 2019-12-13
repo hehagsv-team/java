@@ -64,10 +64,10 @@ class Task {
            
        } 
        public void execute () { 
-            System.out.println(Thread.currentThread().getName()+"; Thread ID:  "+Thread.currentThread().getId()); 
+            System.out.printf(Thread.currentThread().getName()+"; Thread ID:  "+Thread.currentThread().getId()); 
             try { 
-                System.out.println("Executing Task #"+id); 
-                Thread.sleep(5000); 
+                System.out.println("\tExecuting Task #"+id); 
+                Thread.sleep(2000); 
             } 
             catch (InterruptedException e) { 
                 e.printStackTrace(); 
@@ -93,9 +93,12 @@ public class ThreadPoolMain {
               		  System.out.println(Thread.currentThread().getName()+" Thread is Adding Task");
 
                       for(int i=0;i<queueCapacity;i++) {
-                    	  queueTask=new Task().id;
+                    	  Task task=new Task();
+                    	  queueTask=task.id;
+                    	  task.execute();
+//                    	  queueTask=new Task().id;
                     	  Queue.add(queueTask);
-                    	  System.out.println(queueTask);
+//                    	  System.out.println(queueTask);
                     	  try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
@@ -107,7 +110,7 @@ public class ThreadPoolMain {
               	}
                   else if(Queue.size()==queueCapacity) {
                       try {
-                    	  System.out.println("Queue is full So "+Thread.currentThread().getName()+" Thread going to WAIT STATE");
+                    	  System.out.println("Queue is full So "+Thread.currentThread().getName()+" Thread (ID:"+Thread.currentThread().getId()+")going to WAIT STATE");
                     	  Thread.sleep(2000);
                     	  Lock.wait();
                       } catch (InterruptedException e1) {
