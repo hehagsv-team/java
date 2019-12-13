@@ -1,4 +1,4 @@
-package projects.shoppingkart;
+package com.dss.basic;
 
 import java.awt.ItemSelectable;
 import java.sql.*;
@@ -18,7 +18,7 @@ public class ShoppingKartMain {
 	private Statement statement = null;
 	int customerId=0,itemId=0,orderid=0;
 	private Connection connection = null;
-	boolean checkItemInCart=false;
+	int checkItemInCart=0;
 	private Scanner scan = new Scanner(System.in);
 	private boolean isLoggedIn = false;
 	String Username=null;
@@ -94,12 +94,35 @@ public class ShoppingKartMain {
             	}
                 break;               
             case 2 : 
-            	System.out.println(Username);
-            	Username=null;
-            	System.out.println(Username);
-            	if(Username==null)
+            	int check=0;
+            	
+            	if(Username!=null)
             	{
-            		System.out.println("Logout successfull\nDo u want to login yes/no");
+            		check=1;
+            	}
+            	else
+            	{
+            		System.out.println("you are not logged in");
+            		System.out.println("Do u want to login yes/no");
+            		String options=scan.next();
+            		if(options.equalsIgnoreCase("yes"))
+            		{
+            			if (!login()) {
+            				System.out.println("Login not successful");
+            			}
+            			else
+                    	{
+                    		System.out.println("Login Successfull");
+                    	}
+            				
+            		}
+            	}
+            	System.out.print(Username);
+            	Username=null;
+//            	System.out.println(Username);
+            	if(Username==null && check==1)
+            	{
+            		System.out.println(" Logout successfull\nDo u want to login yes/no");
             		String options=scan.next();
             		if(options.equalsIgnoreCase("yes"))
             		{
@@ -172,7 +195,8 @@ public class ShoppingKartMain {
 					else
 					{
 						orderid=addToCart(itemId);
-						if(checkItemInCart)
+//						System.out.println(checkItemInCart);
+						if(checkItemInCart==0)
 						{
 //							System.out.println("GO");
 		            		Purchase purchase=new Purchase();
@@ -190,7 +214,7 @@ public class ShoppingKartMain {
 								}
 								if(object instanceof Date)
 								{
-									System.out.println("Ordered Dare: "+object);
+									System.out.println("Ordered Date: "+object);
 								}
 							}
 				        	updateShippingStatus(orderid);
@@ -202,20 +226,30 @@ public class ShoppingKartMain {
 			            	if(option.equalsIgnoreCase("y"))
 			            	{
 			            		Purchase purchase=new Purchase();
-								purchase.purchaseOrder(orderid,statement);
-								ArrayList ar=purchase.getOrderDetails(orderid,statement);
-//								System.out.println(ar);
-								
+								purchase.purchaseOrder(checkItemInCart,statement);
+								ArrayList ar=purchase.getOrderDetails(checkItemInCart,statement);
+								System.out.println("YOUR ORDER DETAILS");
+								int re=0;
 								for(Object object:ar)
-								{
-									if(object instanceof Integer)
+								{	re++;
+									if(object instanceof Integer && re==1)
 									{
 										
-										System.out.println(object);
+										System.out.println("Item Id:"+object);
 									}
-									if(object instanceof Date)
+									else if(object instanceof Integer && re==2)
 									{
-										System.out.println("Ordered Dare: "+object);
+										
+										System.out.println("Order Id:"+object);
+									}
+									else if(object instanceof Date)
+									{
+										System.out.println("Ordered Date: "+object);
+									}
+									else
+									{
+										
+										System.out.println("Quantity:"+object);
 									}
 								}
 					        	updateShippingStatus(orderid);
@@ -229,7 +263,7 @@ public class ShoppingKartMain {
 							
 						}
 						
-					     
+
 						
 					}
 				} catch (Exception e) {
@@ -237,7 +271,8 @@ public class ShoppingKartMain {
 					System.out.println("Selected ParticularItem is not here");
 //					e.printStackTrace();
 				}
-
+//            	customerId=selectCustomerId();
+//            	System.out.println("cusotmerid is:"+customerId);
             	
 					
 //            	updateShippingStatus(itemId,customerId,orderid);
@@ -308,17 +343,21 @@ public class ShoppingKartMain {
 		
 		AddCart addCart=new AddCart(itemId,statement);
 		checkItemInCart=addCart.checkItemInCart(itemId);
-		if(checkItemInCart)
+		
+		if(checkItemInCart==0)
 		{
+//			System.out.println(checkItemInCart+" in addtocart()");
 			orderid=addCart.cart(Username,itemId,checkItemInCart);
 //			orderid=addCart.cart(Username);   
 		}
 		else
 		{
+//			System.out.println(checkItemInCart+" in addtocart()");
 			orderid=addCart.cart(Username,itemId,checkItemInCart);
+//			System.out.println(orderid+" in else of add tocart");
 			System.out.println("Item already in cart.....You can do payment");
 		}
-//		addCart.updateOrderId(Username, orderid,connection);
+		addCart.updateOrderId(Username, orderid,connection);
 //		System.out.println("orderId"+orderid);
 		return orderid;
 		
