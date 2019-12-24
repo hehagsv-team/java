@@ -159,10 +159,8 @@ public class ShoppingKartMain {
             	try {
 					itemId=listProductsByManufacturer();
 					ArrayList ar=null;
-					if(itemId==0)
-					{
-						System.out.println("select the name listed above");
-					}
+					if(itemId==0)					
+						break;					
 					else
 					{
 						orderid=addToCart(itemId);
@@ -223,8 +221,8 @@ public class ShoppingKartMain {
 								System.out.println("Quantity:"+object);
 							}
 						}
-						updateShippingStatus(orderid);
-			        	System.out.println("-----Your Order is Placed-----");										
+						System.out.println("-----Your Order is Placed-----");			
+						updateShippingStatus(orderid);			        							
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -420,7 +418,7 @@ public class ShoppingKartMain {
 			{
 				int dup=0;			
 				
-				System.out.println("\nSELECT TYPE OF FILER:\n1. Filter by manufacturer\n2. Filter by price\n3. To go back\n4. Show items in My Cart");
+				System.out.println("\nSELECT TYPE OF FILER:\n1. Filter by manufacturer\n2. Filter by price\n3. Go to Menu\n4. Show items in My Cart");
 	        	option1=scan.nextInt();	        	
 	        	switch(option1)
 	        	{
@@ -430,13 +428,13 @@ public class ShoppingKartMain {
 	 
 	        		String[] itemList=manufacturer.getManufacturerList();
 	    			for (int i = 0; i < itemList.length; i++) {
-	    				System.out.println(itemList[i]);
+	    				System.out.println((i+1) + " "+itemList[i]);
 	    			}	    			
 	    			while(true)
 	    			{
 	    				System.out.println("Please Enter the manufacturer name : ");
 		    		   	String manufacturerNeed=scan.next();
-// 		    		   	System.out.println(manufacturerNeed);
+		    		   	System.out.println(manufacturerNeed);
 		    		   	ArrayList itemList2=filter.listAllItemsByItems(manufacturerNeed);
 		    		   	if(itemList2==null)
 		    		   	{
@@ -486,9 +484,7 @@ public class ShoppingKartMain {
 						}
 						
 					}
-					System.out.println("Range 1:"+x);
-					
-					
+				
 					while(true)
 					{
 						System.out.println("Please Enter range 2 :");
@@ -507,8 +503,9 @@ public class ShoppingKartMain {
 						}
 						
 					}
-					System.out.println("Range 2:"+y);
-					
+					if(x < 5400 && y > 17900) {
+						System.out.println("No items is Available for the  given price range"+x+"to"+y);
+					}
 	        		ArrayList itemList3=filter.itemsByPrice(x,y);
 	        		
 	        		for(Object object:itemList3)
@@ -530,11 +527,11 @@ public class ShoppingKartMain {
 				case 4:
                     Product product=new Product(connection, statement);
                     ArrayList arrList=product.userItemsInCart(Username);
-
-//                     System.out.println("after userItemsInCart function call");
-                    if(arrList.isEmpty())
+                    if(arrList==null)
                     {
                     	System.out.println("No items in your Cart..");
+                    	return 0;
+                    	
                     }
                     else {
                     	 System.out.println("ItemId \tPrice \tQuantity \tItem Name");
@@ -551,6 +548,7 @@ public class ShoppingKartMain {
                                        System.out.print(object+"\t");
                                 }
                          }
+                         
                     }                                       
                     
                 break;
@@ -559,32 +557,83 @@ public class ShoppingKartMain {
 	        		System.out.println("please select the correct option for filtering");
 	        		break;
 	        	}
-				if(dup==0)
-					continue;
-				else
-					break;
+	        	
+				if(dup==0) 
+				{
+					ArrayList ar=null;
+					Scanner scann=new Scanner(System.in);
+					System.out.println("Enter the item you want to order: ");
+	    			String particularItem=scann.nextLine();
+	    			
+	    			int orderId=Purchase.orderIdOfCartItem(Username,particularItem, statement);
+	    			System.out.println("Do you want to make payment of your selected item: y/n");
+					char option=scan.next().charAt(0);
+		        	if(option=='y' || option=='Y')
+		            {								
+		            	Purchase purchase=new Purchase();
+						purchase.purchaseOrder(orderId,statement);	
+						ar=purchase.getOrderDetails(orderId,statement);
+					}
+		            else
+		            {
+		            	break;
+		            }
+					
+					System.out.println("YOUR ORDER DETAILS");
+					int re=0;
+					for(Object object:ar)
+					{	re++;
+						if(object instanceof Integer && re==1)
+						{
+							
+							System.out.println("Item Id:"+object);
+						}
+						else if(object instanceof Integer && re==2)
+						{
+							
+							System.out.println("Order Id:"+object);
+						}
+						else if(object instanceof Date)
+						{
+							System.out.println("Ordered Date: "+object);
+						}
+						else
+						{
+							
+							System.out.println("Quantity:"+object);
+						}
+					}
+					
+					System.out.println("-----Your Order is Placed-----");	
+					updateShippingStatus(orderid);	
+					return 0;
+	    			//goto console();
+				}
+					
+				else {
+					Scanner scann=new Scanner(System.in);
+	        	while(true)
+	        	{
+	        		System.out.println("Enter the item you want to order: ");
+	    			String particularItem=scann.nextLine();
+	    			ProductDetails prc=filter.itemsByManufacturer(particularItem);
+	    			String prcCheck="check"+prc;
+//	    			System.out.println(prcCheck);
+	    			if(prcCheck.equals("checknull"))
+	    			{
+	    				System.out.println("Selected Particular Item is not belongs to the manufacturer");
+	    				continue;
+	    			}
+	    			else
+	    			{
+	    				System.out.println(prc.ID+" "+prc.name+" "+prc.price);
+	    				return prc.ID;
+	    			}
+	        	}
+				
 			}
 			
-        	Scanner scann=new Scanner(System.in);
-        	while(true)
-        	{
-        		System.out.println("Select the item you want to order: ");
-    			String particularItem=scann.nextLine();
-    			ProductDetails prc=filter.itemsByManufacturer(particularItem);
-    			String prcCheck="check"+prc;
-//    			System.out.println(prcCheck);
-    			if(prcCheck.equals("checknull"))
-    			{
-    				System.out.println("Selected Particular Item is not belongs to the manufacturer");
-    				continue;
-    			}
-    			else
-    			{
-    				System.out.println(prc.ID+" "+prc.name+" "+prc.price);
-    				return prc.ID;
-    			}
-        	}
-			
+		}
 			
 		} catch (SQLException e) {
 			System.out.println("error listing in products by manufacturer");
