@@ -1,13 +1,10 @@
-package com.dss.basic;
+package com.shop;
 
-import java.awt.ItemSelectable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
-import com.dss.basic.Product.ProductDetails;
+import com.shop.Product.ProductDetails;
 
 public class ShoppingKartMain {
 	
@@ -39,12 +36,11 @@ public class ShoppingKartMain {
 				init();
 				console();
 			} catch (ClassNotFoundException | SQLException e1) {
-				System.err.println("Unable to establish connection with Database");
+				System.err.println("Unable to establish connection... Please Try Again Later");
 				e1.printStackTrace();
 			}
 			
-		} finally {
-			System.out.println("closing connection");
+		} finally {			
 			try {
 				if (statement !=null) 
 					statement.close();
@@ -59,6 +55,7 @@ public class ShoppingKartMain {
 				System.err.println("Unnable to close Oracle Connection");
 				e.printStackTrace();
 			}
+			System.out.println("Thank You..Have a Nice Day");
 		}
 	}
 	
@@ -82,7 +79,7 @@ public class ShoppingKartMain {
             {
             case 1 : 
             	if (!isLoggedIn) {
-        			System.out.println("You have not logged in");
+//        			System.out.println("You have not logged in");
         			if (!login()) {
         				System.out.println("Login not successful");
         				return;
@@ -90,7 +87,7 @@ public class ShoppingKartMain {
         		}
             	else
             	{
-            		System.out.println("Login Successfull");
+            		System.out.println("Welcome to HCL Shopping Cart, Login Successfull");
             	}
                 break;               
             case 2 : 
@@ -102,55 +99,26 @@ public class ShoppingKartMain {
             	}
             	else
             	{
-            		System.out.println("you are not logged in");
-            		System.out.println("Do u want to login yes/no");
-            		String options=scan.next();
-            		if(options.equalsIgnoreCase("yes"))
-            		{
-            			if (!login()) {
-            				System.out.println("Login not successful");
-            			}
-            			else
-                    	{
-                    		System.out.println("Login Successfull");
-                    	}
-            				
-            		}
+            		System.out.println("you are not logged in");   
+            		System.out.println("Do you want to login --> yes/no");
             	}
-            	System.out.print(Username);
             	Username=null;
-//            	System.out.println(Username);
             	if(Username==null && check==1)
             	{
-            		System.out.println(" Logout successfull\nDo u want to login yes/no");
-            		String options=scan.next();
-            		if(options.equalsIgnoreCase("yes"))
-            		{
-            			if (!login()) {
-            				System.out.println("Login not successful");
-            			}
-            			else
-                    	{
-                    		System.out.println("Login Successfull");
-                    	}
-            				
-            		}
-            		else
-            		{
-            			System.out.println("Thank YOu....Visit Again");
-            		}
-            		
-            		
-//            		switch(options)
-//            		{
-//            		case yes:
-//            			
-//            			break;
-//            		case 2:
-//            			break;
-//            		}
-            		
+            		System.out.println(" Logout successfull\nDo you want to login again --> press yes/no");            		
             	}
+            	
+        		char options=scan.next().charAt(0);
+        		if(options=='y' || options=='Y')
+        		{
+        			if (!login()) {
+        				System.out.println("Login not successful");
+        			}        			
+        		}
+        		else
+        		{
+        			System.out.println("Thank You....Visit Again");
+        		}
                 break;                         
             case 3 :  
             	
@@ -163,15 +131,17 @@ public class ShoppingKartMain {
         		}
             	try {
 					itemId=listProductsByManufacturer();
+//					System.out.println(itemId);
+					if(itemId==0)
+						break;
 				} catch (NullPointerException e) {
 					// TODO Auto-generated catch block
-					System.out.println("Selected ParticularItem is not here");
+					System.out.println("Selected ParticularItem is not here in case 3");
 //					e.printStackTrace();
 				}
 //            	customerId=selectCustomerId();
 //            	System.out.println("cusotmerid is:"+customerId);
-            	orderid=addToCart(itemId);
-            	
+            	orderid=addToCart(itemId);            	
             	
                 break;               
             case 4 : 
@@ -188,6 +158,7 @@ public class ShoppingKartMain {
             	}
             	try {
 					itemId=listProductsByManufacturer();
+					ArrayList ar=null;
 					if(itemId==0)
 					{
 						System.out.println("select the name listed above");
@@ -198,63 +169,29 @@ public class ShoppingKartMain {
 //						System.out.println(checkItemInCart);
 						if(checkItemInCart==0)
 						{
-//							System.out.println("GO");
-		            		Purchase purchase=new Purchase();
-							purchase.purchaseOrder(orderid,statement);
-//							System.out.println("orderid added jj");
-							ArrayList ar=purchase.getOrderDetails(orderid,statement);
-//							System.out.println(ar);
-							
-							for(Object object:ar)
-							{
-								if(object instanceof Integer)
-								{
-									
-									System.out.println(object);
-								}
-								if(object instanceof Date)
-								{
-									System.out.println("Ordered Date: "+object);
-								}
-							}
-				        	updateShippingStatus(orderid);
-				        	System.out.println("final updation done:::");
+							System.out.println("Do you want to make payment of your selected item: y/n");
+							char option=scan.next().charAt(0);
+			        		if(option=='y' || option=='Y')
+			            	{								
+			            		Purchase purchase=new Purchase();
+								purchase.purchaseOrder(orderid,statement);
+								ar=purchase.getOrderDetails(orderid,statement);
+			            	}
+			            	else
+			            	{
+			            		break;
+			            	}
+				        	
 						}
 						else
-						{	System.out.println("Do you want to make payment of your selected item: y/n");
-							String option=scan.next();
-			            	if(option.equalsIgnoreCase("y"))
+						{	
+							System.out.println("Do you want to make payment of your selected item: y/n");
+							char option=scan.next().charAt(0);
+			        		if(option=='y' || option=='Y')
 			            	{
 			            		Purchase purchase=new Purchase();
 								purchase.purchaseOrder(checkItemInCart,statement);
-								ArrayList ar=purchase.getOrderDetails(checkItemInCart,statement);
-								System.out.println("YOUR ORDER DETAILS");
-								int re=0;
-								for(Object object:ar)
-								{	re++;
-									if(object instanceof Integer && re==1)
-									{
-										
-										System.out.println("Item Id:"+object);
-									}
-									else if(object instanceof Integer && re==2)
-									{
-										
-										System.out.println("Order Id:"+object);
-									}
-									else if(object instanceof Date)
-									{
-										System.out.println("Ordered Date: "+object);
-									}
-									else
-									{
-										
-										System.out.println("Quantity:"+object);
-									}
-								}
-					        	updateShippingStatus(orderid);
-					        	System.out.println("final updation done");
-			            		
+								ar=purchase.getOrderDetails(checkItemInCart,statement);									            		
 			            	}
 			            	else
 			            	{
@@ -262,20 +199,38 @@ public class ShoppingKartMain {
 			            	}
 							
 						}
-						
-
-						
+						System.out.println("YOUR ORDER DETAILS");
+						int re=0;
+						for(Object object:ar)
+						{	re++;
+							if(object instanceof Integer && re==1)
+							{
+								
+								System.out.println("Item Id:"+object);
+							}
+							else if(object instanceof Integer && re==2)
+							{
+								
+								System.out.println("Order Id:"+object);
+							}
+							else if(object instanceof Date)
+							{
+								System.out.println("Ordered Date: "+object);
+							}
+							else
+							{
+								
+								System.out.println("Quantity:"+object);
+							}
+						}
+						updateShippingStatus(orderid);
+			        	System.out.println("-----Your Order is Placed-----");										
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.out.println("Selected ParticularItem is not here");
+					System.out.println("Selected ParticularItem is not here in case 4");
 //					e.printStackTrace();
-				}
-//            	customerId=selectCustomerId();
-//            	System.out.println("cusotmerid is:"+customerId);
-            	
-					
-//            	updateShippingStatus(itemId,customerId,orderid);
+				}            	
             	break;
             case 5 :
             	if (!isLoggedIn) {
@@ -299,7 +254,7 @@ public class ShoppingKartMain {
             	System.out.println("Wrong Entry \n ");
             	break;
             }          
-            System.out.println("\nDo you want to continue (Type y or n) \n");
+            System.out.println("\nDo you want to continue your shopping (press yes/no)?? \n");
         ch = scan.next().charAt(0);
         } while (ch == 'Y'|| ch == 'y');                 
 		
@@ -332,33 +287,26 @@ public class ShoppingKartMain {
 		try {
 			shippingStatus.updateShipping(orderid);
 		} catch (SQLException e) {
-			System.out.println("error in updating shippng status");
+			System.out.println("Error in updating shippng status, Please Try Again Later.");
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
 		}
 	}
 
-	private int addToCart (int itemId) {
-		//		add to cart
-		
+	private int addToCart (int itemId) {		
 		AddCart addCart=new AddCart(itemId,statement);
-		checkItemInCart=addCart.checkItemInCart(itemId);
+		checkItemInCart=addCart.checkItemInCart(Username,itemId);
 		
 		if(checkItemInCart==0)
 		{
-//			System.out.println(checkItemInCart+" in addtocart()");
 			orderid=addCart.cart(Username,itemId,checkItemInCart);
-//			orderid=addCart.cart(Username);   
 		}
 		else
 		{
-//			System.out.println(checkItemInCart+" in addtocart()");
 			orderid=addCart.cart(Username,itemId,checkItemInCart);
-//			System.out.println(orderid+" in else of add tocart");
 			System.out.println("Item already in cart.....You can do payment");
 		}
 		addCart.updateOrderId(Username, orderid,connection);
-//		System.out.println("orderId"+orderid);
 		return orderid;
 		
 	}
@@ -388,30 +336,79 @@ public class ShoppingKartMain {
 				manufacturer.rateManufacturer(rating, name);
 				System.out.println("Thank you for rating");
 			} catch (SQLException e) {
-				System.out.println("Unable to update your rating due to database error");
+				System.out.println("Unable to update your rating due to database error, Please Try Again Later.");
 				e.printStackTrace();
 			}	
 		} else {
-			System.out.println("Unable to retrieve the list of Manufactureres");
+			System.out.println("Unable to retrieve the list of Manufacturers");
 		}
 		
 	}
 
 	private boolean login() {
+		int i=0;
+		int breakPoint=1;
 		while(true)
 		{
-			System.out.println("Enter name to login");
-			Username = scan.next();
-			loggedInUser = new Login(connection).validateUser(Username);
-			if (loggedInUser != null) {
-				isLoggedIn = true;
-				return true;
+			
+			if(breakPoint==0)
+			{
+				System.out.println(" Press 1 to LOGIN\n Press 2 to exit");
+				i=scan.nextInt();
+				if(i!=1)
+				{
+					return true;
+				}					
 			}
 			else
 			{
-				continue;
+				System.out.println("If you are Existing user press 1\nNew User Press 2");
+				i=scan.nextInt();	
 			}
+			
+			switch(i)
+			{
+			case 1:
+				while(true)
+				{
+					System.out.println("Enter name to login");
+					Username = scan.next();
+					loggedInUser = new Login(connection).validateUser(Username);
+					if (loggedInUser != null) {
+						System.out.println("Welcome to HCL Shopping Cart, Login Successful");
+						isLoggedIn = true;
+						return true;
+					}
+					else
+					{	
+						System.out.println();
+						continue;
+					}
+				}
+			case 2:
+				Scanner scanner = new Scanner(System.in);
+				System.out.println("please enter your name");
+				String name=scanner.nextLine();
+				System.out.println("please enter your address");
+				String address=scanner.nextLine();
+				AddNewUser(name,address);
+				breakPoint=0;
+				break;
+			}
+			
 		}
+	}
+
+	private void AddNewUser(String name, String address) {
+		String sql="insert into Hcl_Sk_User_Account(id,name,address) values(Hcl_Sk_User_Account_id_seq.nextval,'"+name+"','"+address+"')";
+		try {
+			statement.executeUpdate(sql);
+			System.out.println("Welcome to HCL Shopping Cart "+name+", Your Account is Created Successfully..! ");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private int listProductsByManufacturer () {
@@ -421,12 +418,10 @@ public class ShoppingKartMain {
 		try {
 			while(true)
 			{
-				int dup=0;
+				int dup=0;			
 				
-				
-				System.out.println("SELECT TYPE OF FILER:\n1. filter by manufacturer\n2. filter by price");
-	        	option1=scan.nextInt();
-	        	
+				System.out.println("\nSELECT TYPE OF FILER:\n1. Filter by manufacturer\n2. Filter by price\n3. To go back\n4. Show items in My Cart");
+	        	option1=scan.nextInt();	        	
 	        	switch(option1)
 	        	{
 	        	case 1:
@@ -436,13 +431,10 @@ public class ShoppingKartMain {
 	        		String[] itemList=manufacturer.getManufacturerList();
 	    			for (int i = 0; i < itemList.length; i++) {
 	    				System.out.println((i+1) + " "+itemList[i]);
-	    			}
-//	        		Scanner scanner=new Scanner(System.in);
-	    			
+	    			}	    			
 	    			while(true)
 	    			{
-	    				System.out.println("enter the manufacturer : ");
-//		    		   	Scanner scann=new Scanner(System.in);
+	    				System.out.println("Please Enter the manufacturer name : ");
 		    		   	String manufacturerNeed=scan.next();
 		    		   	System.out.println(manufacturerNeed);
 		    		   	ArrayList itemList2=filter.listAllItemsByItems(manufacturerNeed);
@@ -478,7 +470,7 @@ public class ShoppingKartMain {
 //					Scanner scanner1=new Scanner(System.in);
 					while(true)
 					{
-						System.out.println("enter range 1 :");
+						System.out.println("Please Enter range 1 :");
 						String range1=scan.next();
 						
 						try
@@ -494,12 +486,12 @@ public class ShoppingKartMain {
 						}
 						
 					}
-					System.out.println("range 1:"+x);
+					System.out.println("Range 1:"+x);
 					
 					
 					while(true)
 					{
-						System.out.println("enter range 2 :");
+						System.out.println("Please Enter range 2 :");
 						String range2=scan.next();
 						
 						try
@@ -515,7 +507,7 @@ public class ShoppingKartMain {
 						}
 						
 					}
-					System.out.println("range 2:"+y);
+					System.out.println("Range 2:"+y);
 					
 	        		ArrayList itemList3=filter.itemsByPrice(x,y);
 	        		
@@ -532,10 +524,37 @@ public class ShoppingKartMain {
 	        		}
 	        		
 	        		
-//	        		for (int i = 0; i < itemList3.length; i++) {
-//	    				System.out.println((i+1) + " "+itemList3[i]);
-//	    			}
-	        		break;
+	        	break;
+				case 3:
+					return 0;
+				case 4:
+                    Product product=new Product(connection, statement);
+                    ArrayList arrList=product.userItemsInCart(Username);
+
+                    System.out.println("after userItemsInCart function call");
+                    if(arrList.isEmpty())
+                    {
+                    	System.out.println("No items in your Cart..");
+                    }
+                    else {
+                    	 System.out.println("ItemId \tPrice \tQuantity \tItem Name");
+                         for(Object object:arrList)
+                         {      
+                                if(object instanceof String)
+                                {
+                                       
+                                       System.out.println("\t"+object);
+                                }
+                                else
+                                {
+                                       
+                                       System.out.print(object+"\t");
+                                }
+                         }
+                    }                                       
+                    
+                break;
+
 	        	default:
 	        		System.out.println("please select the correct option for filtering");
 	        		break;
@@ -549,14 +568,14 @@ public class ShoppingKartMain {
         	Scanner scann=new Scanner(System.in);
         	while(true)
         	{
-        		System.out.println("enter particular item : ");
+        		System.out.println("Enter the item you want to order: ");
     			String particularItem=scann.nextLine();
     			ProductDetails prc=filter.itemsByManufacturer(particularItem);
     			String prcCheck="check"+prc;
 //    			System.out.println(prcCheck);
     			if(prcCheck.equals("checknull"))
     			{
-    				System.out.println("Selected ParticularItem is not belongs to the manufacturer");
+    				System.out.println("Selected Particular Item is not belongs to the manufacturer");
     				continue;
     			}
     			else
