@@ -1,14 +1,11 @@
 package projects.shoppingKart;
 
-
 package com.shop;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 class Purchase {
-
-	ResultSet resultSet;
 
 	public boolean purchaseOrder(int order_id, Statement statement) {	
 		
@@ -69,6 +66,7 @@ class Purchase {
 					list.add(resultSet.getDate("order_date"));
 					list.add(resultSet.getInt("quantity"));
 				}
+				
 				int size = list.size();
 				if (size == 0)
 					return null;
@@ -84,5 +82,24 @@ class Purchase {
 		}
 	}
 
-}
 
+	public static int orderIdOfCartItem(String username, String particularItem,Statement statement) 
+	{
+		String sql="select o.id from HCL_SK_ORDER o JOIN HCL_SK_ITEM i on(o.username='"+username+"') where i.name='"+particularItem+"'";
+		int orderId=0;
+		try 
+		{
+			ResultSet rs = statement.executeQuery(sql);
+			if(rs.next()) 
+				 orderId=rs.getInt("id");				    			
+			return orderId;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error in Selecting orderId of Cart item");
+			e.printStackTrace();
+			return 0;
+		}			
+		
+	}
+
+}
