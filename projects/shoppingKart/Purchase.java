@@ -1,7 +1,7 @@
 package projects.shoppingKart;
 
 
-package com.dss.basic;
+package com.shop;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,12 +32,12 @@ class Purchase {
             if ((result > 0) && (result1 > 0)) {
                   if(result >0) {
                          
-                         System.out.println("Update of payment is done successfully");
+                         System.out.println("Payment is done successfully");
 
                   }
                   if (result1 > 0) {
 
-                         System.out.println("Insert of Shipping details is done successfully");                                
+                         System.out.println();                                
 
                   }                          
                   return true;
@@ -46,7 +46,7 @@ class Purchase {
 
      } catch (SQLException e) {
 
-            System.out.println("error in updating payment");
+            System.out.println("Error in updating payment..Please try again later.");
 
 //         e.printStackTrace();
 
