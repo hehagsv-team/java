@@ -430,13 +430,13 @@ public class ShoppingKartMain {
 	 
 	        		String[] itemList=manufacturer.getManufacturerList();
 	    			for (int i = 0; i < itemList.length; i++) {
-	    				System.out.println((i+1) + " "+itemList[i]);
+	    				System.out.println(itemList[i]);
 	    			}	    			
 	    			while(true)
 	    			{
 	    				System.out.println("Please Enter the manufacturer name : ");
 		    		   	String manufacturerNeed=scan.next();
-		    		   	System.out.println(manufacturerNeed);
+// 		    		   	System.out.println(manufacturerNeed);
 		    		   	ArrayList itemList2=filter.listAllItemsByItems(manufacturerNeed);
 		    		   	if(itemList2==null)
 		    		   	{
@@ -531,7 +531,7 @@ public class ShoppingKartMain {
                     Product product=new Product(connection, statement);
                     ArrayList arrList=product.userItemsInCart(Username);
 
-                    System.out.println("after userItemsInCart function call");
+//                     System.out.println("after userItemsInCart function call");
                     if(arrList.isEmpty())
                     {
                     	System.out.println("No items in your Cart..");
@@ -568,7 +568,7 @@ public class ShoppingKartMain {
         	Scanner scann=new Scanner(System.in);
         	while(true)
         	{
-        		System.out.println("Enter the item you want to order: ");
+        		System.out.println("Select the item you want to order: ");
     			String particularItem=scann.nextLine();
     			ProductDetails prc=filter.itemsByManufacturer(particularItem);
     			String prcCheck="check"+prc;
