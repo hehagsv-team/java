@@ -41,9 +41,9 @@ public class Product
 		System.out.println(manufactureNeed);
 		try {
 			String sql = "SELECT NAME,PRICE FROM HCL_SK_ITEM WHERE MANUFACTURER_ID=(SELECT ID FROM HCL_SK_MANUFACTURER WHERE NAME='"+manufactureNeed+"')"; 
-// 			System.out.println(sql);
+			System.out.println(sql);
 			rs = statement.executeQuery(sql);
-// 			System.out.println("executed"+rs);
+			System.out.println("executed"+rs);
 			ArrayList list = new ArrayList();
 			while (rs.next()) {
 				System.out.println(rs.getString("name"));
@@ -52,9 +52,9 @@ public class Product
 				list.add(rs.getInt("price"));
 			}
 			int size = list.size();
-// 			System.out.println("SIZE IS"+list.size());
+			System.out.println("SIZE IS"+list.size());
 			if (size==0) {
-// 				System.out.println("null executeinuj");
+				System.out.println("null executeinuj");
 				return null; }
 			else
 				return list;
@@ -83,7 +83,7 @@ public class Product
 	   
 
 //		String q1= "select i.name,i.manufacturer_id,i.price from Hcl_Sk_Item i join Hcl_Sk_Manufacturer m on i.manufacturer_id=m.id where i.name='"+ParticularItem+"'";
-// 		System.out.println(q1);
+		System.out.println(q1);
 		ResultSet resultSet=statement.executeQuery(q1);
 		if(resultSet.next())
 		{
@@ -118,7 +118,6 @@ public ArrayList itemsByPrice(int range1, int range2) {
 		  
 		try {
 			String q1="select name,price from Hcl_Sk_Item where price between "+range1+" and "+range2;
-//			System.out.println(q1);
 			ResultSet rs=statement.executeQuery(q1);
 			rs = statement.executeQuery(q1);
 			ArrayList list = new ArrayList();
@@ -131,14 +130,7 @@ public ArrayList itemsByPrice(int range1, int range2) {
 			int size = list.size();
 			if (size==0)
 				return null; // fetch returned empty
-			return list;
-//			String [] listNames = new String[size];
-//			Iterator<String> iter = list.iterator();
-//			for (int i = 0; iter.hasNext(); i++) {
-//				listNames [i] = iter.next();
-//			}
-//			return listNames;
-		
+			return list;		
 	  }
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -154,37 +146,39 @@ public ArrayList userItemsInCart(String username) {
 	try
     {
 //           String q1=" select item_id,username from HCL_SK_ORDER where username='"+username+"'";
-		   String q1= "select o.item_id,i.price,o.quantity,i.name from HCL_SK_ORDER o JOIN HCL_SK_ITEM i on(o.item_id=i.id) where o.username='"+username+"'";
-//            System.out.println(q1);
+		   String q1= "select o.item_id,i.price,o.quantity,i.name from HCL_SK_ORDER o JOIN HCL_SK_ITEM i on(o.item_id=i.id) where o.username='"+username+"' and o.payment=0";
            ResultSet rs=statement.executeQuery(q1);
-//            System.out.println("after stmt "+q1);
            ArrayList list1 = new ArrayList();
            while(rs.next())
            {
-//                 int id=rs.getInt("item_id");
-//                 String name=rs.getString("username");
                  list1.add(rs.getInt("item_id"));                 
                  list1.add(rs.getInt("price"));
                  list1.add(rs.getInt("quantity"));
-                 list1.add(rs.getString("name"));
-                 //System.out.println(ITEM_ID+ " " +name);                          
+                 list1.add(rs.getString("name"));                        
            }
            int arrSize = list1.size();
-           if (arrSize==0)
-                 return null; // fetch returned empty
+           if (arrSize==0) {
+        	   return null;
+           }// fetch returned empty
            return list1;
            //System.out.println("Select the item which you want to order");
            
     }
     catch (SQLException e)
     {
-           e.printStackTrace();             
+          System.out.println("Error in retrieving data from cart");
+          e.printStackTrace();             
     }
     return null;
     
 }
 		
 }	
+		
+		
+
+
+	
 		
 		
 
