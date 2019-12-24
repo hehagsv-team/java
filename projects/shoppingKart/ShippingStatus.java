@@ -1,6 +1,8 @@
 package projects.shoppingKart;
 
 
+package com.shop;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,11 +33,12 @@ public class ShippingStatus
 	}
 	public void updateShipping(int orderid) throws SQLException {
 		
+//		String sql1 ="UPDATE hcl_sk_order SET payment=1 WHERE id="+customerId+" and id="+orderid;
+//		statement.executeUpdate(sql1);
+//		System.out.println(sql1);
 		String q1="update Hcl_Sk_Shipping_Order set Shipping_Status='d' where order_id="+orderid;
-		statement.executeUpdate(q1);
 		String q2="update Hcl_Sk_Shipping_Order set delivered_date=sysdate where shipping_status='d'and order_id="+orderid;
-		statement.executeUpdate(q2);
-		System.out.println("Update Shipping Status Completed Successfully");
+		System.out.println("Shipping Status Updated Successfully");
 	}
 
 
