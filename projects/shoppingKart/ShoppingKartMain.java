@@ -109,7 +109,7 @@ public class ShoppingKartMain {
             	}
             	
         		char options=scan.next().charAt(0);
-        		if(options=='y' || options=='Y')
+        		if(options=='y' || options=='Y' || options=='s' || options=='S')
         		{
         			if (!login()) {
         				System.out.println("Login not successful");
@@ -117,8 +117,17 @@ public class ShoppingKartMain {
         		}
         		else
         		{
-        			System.out.println("Thank You....Visit Again");
+        			while(!(options == 'Y'|| options == 'y' || options == 'S' || options == 's') ) {
+                    	if(options=='n'|| options == 'N') {
+                    		break;
+                    	}
+                    	else {
+                    		System.out.println("Please enter choice to login again --> yes/no : ");
+                        	options = scan.next().charAt(0);
+                    	}
+                    }        		
         		}
+        		isLoggedIn=false;
                 break;                         
             case 3 :  
             	
@@ -169,15 +178,49 @@ public class ShoppingKartMain {
 						{
 							System.out.println("Do you want to make payment of your selected item: y/n");
 							char option=scan.next().charAt(0);
-			        		if(option=='y' || option=='Y')
+			        		if(option=='y' || option=='Y' || option=='s' || option=='S')
 			            	{								
 			            		Purchase purchase=new Purchase();
 								purchase.purchaseOrder(orderid,statement);
 								ar=purchase.getOrderDetails(orderid,statement);
+								System.out.println("YOUR ORDER DETAILS");
+								int re=0;
+								for(Object object:ar)
+								{	re++;
+									if(object instanceof Integer && re==1)
+									{
+										
+										System.out.println("Item Id:"+object);
+									}
+									else if(object instanceof Integer && re==2)
+									{
+										
+										System.out.println("Order Id:"+object);
+									}
+									else if(object instanceof Date)
+									{
+										System.out.println("Ordered Date: "+object);
+									}
+									else
+									{
+										
+										System.out.println("Quantity:"+object);
+									}
+								}
+								System.out.println("-----Your Order is Placed-----");			
+								updateShippingStatus(orderid);	
 			            	}
 			            	else
 			            	{
-			            		break;
+			            		while(!(option == 'Y'|| option == 'y' || option == 'S' || option == 's') ) {
+			                    	if(option=='n'|| option == 'N') {
+			                    		break;
+			                    	}
+			                    	else {
+			                    		System.out.println("Please enter choice to make payment --> yes/no : ");
+			                        	option = scan.next().charAt(0);
+			                    	}
+			                    }        
 			            	}
 				        	
 						}
@@ -185,44 +228,53 @@ public class ShoppingKartMain {
 						{	
 							System.out.println("Do you want to make payment of your selected item: y/n");
 							char option=scan.next().charAt(0);
-			        		if(option=='y' || option=='Y')
+			        		if(option=='y' || option=='Y' || option=='s' || option=='S')
 			            	{
 			            		Purchase purchase=new Purchase();
 								purchase.purchaseOrder(checkItemInCart,statement);
-								ar=purchase.getOrderDetails(checkItemInCart,statement);									            		
+								ar=purchase.getOrderDetails(checkItemInCart,statement);		
+								System.out.println("YOUR ORDER DETAILS");
+								int re=0;
+								for(Object object:ar)
+								{	re++;
+									if(object instanceof Integer && re==1)
+									{
+										
+										System.out.println("Item Id:"+object);
+									}
+									else if(object instanceof Integer && re==2)
+									{
+										
+										System.out.println("Order Id:"+object);
+									}
+									else if(object instanceof Date)
+									{
+										System.out.println("Ordered Date: "+object);
+									}
+									else
+									{
+										
+										System.out.println("Quantity:"+object);
+									}
+								}
+								System.out.println("-----Your Order is Placed-----");			
+								updateShippingStatus(orderid);	
 			            	}
 			            	else
 			            	{
-			            		break;
+			            		while(!(option == 'Y'|| option == 'y' || option == 'S' || option == 's') ) {
+			                    	if(option=='n'|| option == 'N') {
+			                    		break;
+			                    	}
+			                    	else {
+			                    		System.out.println("Please enter choice to make payment --> yes/no : ");
+			                        	option = scan.next().charAt(0);
+			                    	}
+			                    }   
 			            	}
 							
 						}
-						System.out.println("YOUR ORDER DETAILS");
-						int re=0;
-						for(Object object:ar)
-						{	re++;
-							if(object instanceof Integer && re==1)
-							{
-								
-								System.out.println("Item Id:"+object);
-							}
-							else if(object instanceof Integer && re==2)
-							{
-								
-								System.out.println("Order Id:"+object);
-							}
-							else if(object instanceof Date)
-							{
-								System.out.println("Ordered Date: "+object);
-							}
-							else
-							{
-								
-								System.out.println("Quantity:"+object);
-							}
-						}
-						System.out.println("-----Your Order is Placed-----");			
-						updateShippingStatus(orderid);			        							
+								        							
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -253,8 +305,17 @@ public class ShoppingKartMain {
             	break;
             }          
             System.out.println("\nDo you want to continue your shopping (press yes/no)?? \n");
-        ch = scan.next().charAt(0);
-        } while (ch == 'Y'|| ch == 'y');                 
+            ch = scan.next().charAt(0);
+            while(!(ch == 'Y'|| ch == 'y' || ch == 'S' || ch == 's') ) {
+            	if(ch=='n'|| ch == 'N') {
+            		break;
+            	}
+            	else {
+            		System.out.println("Please enter choice to continue shopping --> yes/no : ");
+                	ch = scan.next().charAt(0);
+            	}
+            }
+        } while (ch == 'Y'|| ch == 'y' || ch == 'S' || ch == 's');                 
 		
 	}
 	
@@ -328,6 +389,7 @@ public class ShoppingKartMain {
 				System.out.println((i+1) + " "+manuNames[i]);
 			}
 			String name = scan.next();
+//			name=name.toUpperCase();
 			System.out.println("what is the rating you would like to provide (0 to 5)?");
 			int rating = scan.nextInt();
 			try {
@@ -371,6 +433,7 @@ public class ShoppingKartMain {
 				{
 					System.out.println("Enter name to login");
 					Username = scan.next();
+//					Username = Username.toUpperCase();
 					loggedInUser = new Login(connection).validateUser(Username);
 					if (loggedInUser != null) {
 						System.out.println("Welcome to HCL Shopping Cart, Login Successful");
@@ -387,12 +450,20 @@ public class ShoppingKartMain {
 				Scanner scanner = new Scanner(System.in);
 				System.out.println("please enter your name");
 				String name=scanner.nextLine();
+//				name = name.toUpperCase();
 				System.out.println("please enter your address");
 				String address=scanner.nextLine();
 				AddNewUser(name,address);
 				breakPoint=0;
 				break;
-			}
+			
+			default:
+				while(!(i==1 || i ==2)) {
+					System.out.println("Please select the your choice for login");				
+					break;
+				}
+				
+			}	
 			
 		}
 	}
@@ -418,7 +489,7 @@ public class ShoppingKartMain {
 			{
 				int dup=0;			
 				
-				System.out.println("\nSELECT TYPE OF FILER:\n1. Filter by manufacturer\n2. Filter by price\n3. Go to Menu\n4. Show items in My Cart");
+				System.out.println("\nSELECT TYPE OF FILER:\n1. Filter by manufacturer\n2. Filter by price\n3. Go to Exit/Menu\n4. Show items in My Cart");
 	        	option1=scan.nextInt();	        	
 	        	switch(option1)
 	        	{
@@ -428,13 +499,15 @@ public class ShoppingKartMain {
 	 
 	        		String[] itemList=manufacturer.getManufacturerList();
 	    			for (int i = 0; i < itemList.length; i++) {
-	    				System.out.println((i+1) + " "+itemList[i]);
+	    				System.out.println(itemList[i]);
 	    			}	    			
 	    			while(true)
 	    			{
 	    				System.out.println("Please Enter the manufacturer name : ");
 		    		   	String manufacturerNeed=scan.next();
-		    		   	System.out.println(manufacturerNeed);
+//		    		 	System.out.println(manufacturerNeed);
+//		    		   	manufacturerNeed=manufacturerNeed.toUpperCase();
+//		    		   	System.out.println(manufacturerNeed);
 		    		   	ArrayList itemList2=filter.listAllItemsByItems(manufacturerNeed);
 		    		   	if(itemList2==null)
 		    		   	{
@@ -447,7 +520,7 @@ public class ShoppingKartMain {
 			        		{
 			        			if(object instanceof String)
 			        			{
-			        				System.out.print(object+"\t");
+			        				System.out.print("\n"+object+"\t");
 			        			}
 			        			if(object instanceof Integer)
 			        			{
@@ -555,7 +628,7 @@ public class ShoppingKartMain {
 
 	        	default:
 	        		System.out.println("please select the correct option for filtering");
-	        		break;
+	        		continue;
 	        	}
 	        	
 				if(dup==0) 
@@ -564,49 +637,63 @@ public class ShoppingKartMain {
 					Scanner scann=new Scanner(System.in);
 					System.out.println("Enter the item you want to order: ");
 	    			String particularItem=scann.nextLine();
-	    			
+//	    			particularItem=particularItem.toUpperCase();
 	    			int orderId=Purchase.orderIdOfCartItem(Username,particularItem, statement);
 	    			System.out.println("Do you want to make payment of your selected item: y/n");
 					char option=scan.next().charAt(0);
-		        	if(option=='y' || option=='Y')
+		        	if(option=='y' || option=='Y' || option=='s' || option=='S')
 		            {								
-		            	Purchase purchase=new Purchase();
-						purchase.purchaseOrder(orderId,statement);	
-						ar=purchase.getOrderDetails(orderId,statement);
+		            	try{
+		            		Purchase purchase=new Purchase();
+		            		purchase.purchaseOrder(orderId,statement);	
+							ar=purchase.getOrderDetails(orderId,statement);
+							
+							int re=0;
+							for(Object object:ar)
+							{	re++;
+								if(object instanceof Integer && re==1)
+								{
+									System.out.println("YOUR ORDER DETAILS :");
+									System.out.println("Item Id:"+object);
+								}
+								else if(object instanceof Integer && re==2)
+								{
+									
+									System.out.println("Order Id:"+object);
+								}
+								else if(object instanceof Date)
+								{
+									System.out.println("Ordered Date: "+object);
+								}
+								else
+								{
+									
+									System.out.println("Quantity:"+object);
+								}
+							}
+							System.out.println("-----Your Order is Placed-----");	
+							updateShippingStatus(orderid);	
+							return 0;
+							
+		            	}catch(Exception e) {
+		            		System.out.println("Please select correct item..");
+		            	}											
+						
 					}
 		            else
 		            {
-		            	break;
+		            	while(!(option == 'Y'|| option == 'y' || option == 'S' || option == 's') ) {
+	                    	if(option=='n'|| option == 'N') {
+	                    		break;
+	                    	}
+	                    	else {
+	                    		System.out.println("Please enter choice to make payment --> yes/no : ");
+	                        	option = scan.next().charAt(0);
+	                    	}
+	                    }   
 		            }
 					
-					System.out.println("YOUR ORDER DETAILS");
-					int re=0;
-					for(Object object:ar)
-					{	re++;
-						if(object instanceof Integer && re==1)
-						{
-							
-							System.out.println("Item Id:"+object);
-						}
-						else if(object instanceof Integer && re==2)
-						{
-							
-							System.out.println("Order Id:"+object);
-						}
-						else if(object instanceof Date)
-						{
-							System.out.println("Ordered Date: "+object);
-						}
-						else
-						{
-							
-							System.out.println("Quantity:"+object);
-						}
-					}
 					
-					System.out.println("-----Your Order is Placed-----");	
-					updateShippingStatus(orderid);	
-					return 0;
 	    			//goto console();
 				}
 					
@@ -616,6 +703,7 @@ public class ShoppingKartMain {
 	        	{
 	        		System.out.println("Enter the item you want to order: ");
 	    			String particularItem=scann.nextLine();
+//	    			particularItem=particularItem.toUpperCase();
 	    			ProductDetails prc=filter.itemsByManufacturer(particularItem);
 	    			String prcCheck="check"+prc;
 //	    			System.out.println(prcCheck);
@@ -626,7 +714,9 @@ public class ShoppingKartMain {
 	    			}
 	    			else
 	    			{
-	    				System.out.println(prc.ID+" "+prc.name+" "+prc.price);
+	    				System.out.println(prc.name+" "+prc.price);
+//	    				System.out.println(prc.ID+" "+prc.name+" "+prc.price);
+
 	    				return prc.ID;
 	    			}
 	        	}
@@ -681,6 +771,10 @@ public class ShoppingKartMain {
 	}
 
 }
+
+
+
+
 
 
 
