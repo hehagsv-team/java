@@ -28,7 +28,7 @@ public class AddCart
 				resultSet1 = statement.executeQuery(sql);
 				while(resultSet1.next())
 				{
-					orderId=resultSet1.getInt("max(id)");
+					orderId=resultSet1.getInt("max(id)")+1;
 				}
 			} catch (SQLException e1) {
 				System.out.println("error in selecting orderid from Hcl_Sk_Order table");
@@ -43,13 +43,13 @@ public class AddCart
 					Scanner scanner=new Scanner(System.in);
 					int quantity=scanner.nextInt();
 					
-					String q1="INSERT  INTO HCL_SK_ORDER(ITEM_ID,ID,ORDER_DATE,QUANTITY,PAYMENT,USERNAME) VALUES("+item_id+   ",hcl_sk_order_id_seq.nextval,sysdate," +quantity+","+payment+",'"+username+"')";
-					System.out.println(q1);
+					String q1="INSERT  INTO HCL_SK_ORDER(ITEM_ID,ID,QUANTITY,PAYMENT,USERNAME) VALUES("+itemid+",hcl_sk_order_id_seq.nextval," +quantity+","+payment+",'"+username+"')";
+//					System.out.println(q1);
 					int i=statement.executeUpdate(q1);
 	
 					if(i>0)
 					{
-						System.out.println("DETAILS OF ITEM ADDED IN CART\nItemId :"+item_id+"\norderId : "+orderId+"\nquantity :"+quantity+" \nYou can do payment");
+						System.out.println("\nDETAILS OF ITEM ADDED IN CART\nItemId :"+item_id+"\norderId : "+orderId+"\nquantity :"+quantity+" \nYou can do payment");
 					}
 					else
 					{
@@ -129,6 +129,10 @@ public class AddCart
 		
 	}
 }
+
+
+
+
 
 
 
