@@ -38,23 +38,22 @@ public class Product
 	public ArrayList listAllItemsByItems (String manufactureNeed) {
 		
 		ResultSet rs;
-		System.out.println(manufactureNeed);
 		try {
 			String sql = "SELECT NAME,PRICE FROM HCL_SK_ITEM WHERE MANUFACTURER_ID=(SELECT ID FROM HCL_SK_MANUFACTURER WHERE NAME='"+manufactureNeed+"')"; 
-			System.out.println(sql);
+//			System.out.println(sql);
 			rs = statement.executeQuery(sql);
-			System.out.println("executed"+rs);
+//			System.out.println("executed"+rs);
 			ArrayList list = new ArrayList();
 			while (rs.next()) {
-				System.out.println(rs.getString("name"));
-				System.out.println(rs.getInt("price"));
+//				System.out.println(rs.getString("name"));
+//				System.out.println(rs.getInt("price"));
 				list.add(rs.getString("name"));
 				list.add(rs.getInt("price"));
 			}
 			int size = list.size();
-			System.out.println("SIZE IS"+list.size());
+//			System.out.println("SIZE IS"+list.size());
 			if (size==0) {
-				System.out.println("null executeinuj");
+//				System.out.println("null executeinuj");
 				return null; }
 			else
 				return list;
@@ -79,17 +78,17 @@ public class Product
 //	   	String productNeed=scanner.nextLine();
 //	   	String q="select name from hcl_sk_item";
 //	   System.out.println(ParticularItem);
-	   String q1="select i.name,i.manufacturer_id,i.price from Hcl_Sk_Item i where name="+"'"+ParticularItem+"'";
+	   String q1="select i.name,i.id,i.price from Hcl_Sk_Item i where name="+"'"+ParticularItem+"'";
 	   
 
 //		String q1= "select i.name,i.manufacturer_id,i.price from Hcl_Sk_Item i join Hcl_Sk_Manufacturer m on i.manufacturer_id=m.id where i.name='"+ParticularItem+"'";
-		System.out.println(q1);
+//		System.out.println(q1);
 		ResultSet resultSet=statement.executeQuery(q1);
 		if(resultSet.next())
 		{
 			prd=new ProductDetails();
 			prd.name=resultSet.getString("name");
-			prd.ID=resultSet.getInt("manufacturer_id");
+			prd.ID=resultSet.getInt("id");
 			prd.price=resultSet.getInt("price");
 			return prd;
 		}
@@ -107,7 +106,7 @@ public class Product
 	   {
 		   System.out.println(resultset.getInt("price"));
 	   }
-	   System.out.println("select price done");
+	   System.out.println("Price selection is done");
 	   resultset.close();
    }
 
@@ -177,13 +176,4 @@ public ArrayList userItemsInCart(String username) {
 		
 		
 
-
-	
-		
-		
-
-
-	
-		
-		
 
