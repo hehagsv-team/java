@@ -1,5 +1,6 @@
 package projects.shoppingKart;
 
+
 package com.shop;
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,11 +14,12 @@ class Purchase {
 //			System.out.println(order_id);
 
             String sql1 = "UPDATE hcl_sk_order SET payment=1 WHERE id=" + order_id;
-
+            String sql= "UPDATE hcl_sk_order SET order_date=sysdate WHERE id="+order_id;
 //            System.out.println(sql1);
 
 
             int result = statement.executeUpdate(sql1);
+            statement.executeUpdate(sql);
             
             String sql2 = "INSERT into HCL_SK_SHIPPING_ORDER(id,order_id) values(HCL_SK_SHIPPING_ORDER_ID_SEQ.nextval,"+ order_id + ")";
 
@@ -103,3 +105,6 @@ class Purchase {
 	}
 
 }
+
+
+
