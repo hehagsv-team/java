@@ -1,5 +1,8 @@
 package com.in28minutes.learning.jpa.jpain10steps;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,6 +40,14 @@ public class JpaIn10StepsApplication {
 		
 		Employee emp2 = service.findByID(new Integer (22));
 		System.out.println(emp2.toString());
+		
+		List<Employee> empList = service.findByEmpName("Simba");
+		for (Iterator iterator = empList.iterator(); iterator.hasNext();) {
+			Employee employee = (Employee) iterator.next();
+			System.out.println("Employee == "+employee);	
+		}
+		
+		
 		
 	}
 
