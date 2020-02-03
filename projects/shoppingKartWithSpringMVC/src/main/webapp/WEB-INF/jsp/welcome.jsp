@@ -1,74 +1,81 @@
 <html>
 <head>
-<title>First Web Application</title>
+	<title>Browser Items</title>
+    <link rel="stylesheet" type="text/css" href="/resource/css/style3.css">
 </head>
 <body>
-<center>
-<h1 ><font color="blue">Shopping Cart</font></h1>
-<h1 > user</h1>
-<h1><font color="black">Tom</font></h1>
-<h1></h1><form> <input name ="LOGOUT"  value ="LOGOUT" type="submit"/></form>
+	<header>
+	
+		<div class="left-align">
+			<p>Shopping Cart</p>
+		</div>
+		
+		
+		<div class="right-align">
+			<li><a href=""><p>User<p></a></li>
+			<li><a href=""><h3>${name}<h3></a></li>
+			<li><a href=""><input type="submit" name="" value="Logout"></a></li>
+		</div>
+	</header>
+		
+		<div class="selector">
+			<li><input type="radio" name="selection" value="">View by Manufacturer</li>
+			<li><input type="radio" name="selection" value="">View by Price Range</li>
+			<li><input type="radio" name="selection" value="" checked>All</li>
+			<br><p>Filter:<p>
+			<div class="box">
+				<select>
+				<option>Manufacturer/price</option> 
+                <option value="1">Option 1</option> 
+                <option value="2">Option 2</option> 
+                <option value="3">Option 3</option> 
+                <option value="4">Option 4</option> 
+                <option value="5">Option 5</option> 
+                <option value="6">Option 6</option> 
+				</select>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				<input type="submit" name="" value="Apply">
+			</div>	
+		</div>
+		
+		<div class="ItemsDisplay">
+			<div class="left-side">
+				<p>select items</p>
+			</div>
+			<div class="right-side">
+					<input type="submit" name="" value="Add To Cart">
+			</div>
+			<div class="table">
+				<table>
+					<tr>
+						<th>Select</th>
+						<th>Header</th>
+						<th>Header1</th>
+						<th>Header2</th>
+					</tr>
+					<tr>
+						<td><input type="radio" name="" value=""></td>
+						<td>data</td>
+						<td>data</td>
+						<td>data</td>
+					</tr>
+					
+					<tr>
+						<td><input type="radio" name="" value=""></td>
+						<td>data</td>
+						<td>data</td>
+						<td>data</td>				
+					</tr>
+				</table>
+			</div>
+			<div class="image1">
+				<img src="/images/png/lefta.png">
+				<img src="/images/png/righta.png">
+			</div>
+			
+		</div>
+		
+	
 
-<br>
-  <form><input type="radio" name="option" value="view by manufacturer">View BY Manufacturer
-          <input type="radio" name="option" value="view by price" >View By Price
-          <br>
-          <br>
-          Filter:<select name="Manufacturer/Price">
-          <option value="Manufacturer" >Manufacturer</option>
-          <option value="Price">Price</option>
-          </select>
-          <font colour="blue"></font><input name="APPLY" value="APPLY" type="submit">
-      </form>
-      <ch>
-      <h1>Selected Item:</h1>  <form><input name="ADD TO CART" value="ADD TO CART" type="submit"></form>
-      <br>
-       <style>
-       table{
-             border-collapse: collapse;
-       }
-       table,th, td{
-             border: 1px solid black;
-       }
-       th , td{
-             padding: 10px;
-       }
-       th {
-             text-align: left
-             }
-       </style>
-<body>
+</body>
 
-<table>
-       
-       <tr>
-              <th>ItemId</th>
-              <th>Name</th>
-              <th>Price</th>
-       </tr>
-       <tr>
-              <td>1</td>
-              <td>Samsung galaxy</td>
-              <td>10000</td>
-       </tr>
-       <tr>
-              <td>2</td>
-              <td>HTC</td>
-              <td>15000</td>
-       </tr>
-       <tr>
-              <td>3</td>
-              <td>Nikkon</td>
-              <td>18000</td>
-       </tr>  
-</table>
-       <a href="" class="Previous &nbsp;">Previous</a></li>
-    <a href="" class="Next">Next</a></li>
-</ul>
-</body>
-</html>
-      
-  </center>
-      
-</body>
 </html>

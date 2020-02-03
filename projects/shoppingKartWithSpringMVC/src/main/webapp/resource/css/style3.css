@@ -1,0 +1,191 @@
+body{
+	/* background:#c28f8f; */
+	margin:0px;
+	padding:0px;
+	
+}
+
+
+.left-align{
+	
+	float:left;
+	padding:10px 10px 10px 60px;
+	
+	
+}
+
+.left-align p{
+	
+	font-size:35px;
+	font-family:cursive;
+	color:#0786f5;
+	font-weight:bold;
+}
+.right-align p{
+	font-family:fangsong;
+}
+
+
+.right-align{
+	
+	float:right;
+	padding:10px 10px 10px 10px;
+	
+}
+.right-align li{
+	display:inline-block;
+	font-size:20px;
+	padding:0px 10px 10px 10px;
+	
+}
+li{
+	list-style-type:none;
+}
+
+.right-align input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 30px;
+    background: #0786f5;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.selector{
+	position:absolute;
+	padding:10px;
+	top: 20%;
+	left:28%;
+	border-style:groove;
+	height:125px;
+	width:42%;
+	border-radius:10px;
+	
+}
+
+.selector p{
+	padding:0px 10px 10px 45px;
+	font-size:20px;
+	font-weight: ;
+	font-family: serif;
+}
+
+
+.selector li{
+	list-style-type:none;
+	padding:10px 10px 10px 10px; 
+	display:inline-block;
+	font-size:20px;
+	color:#8D919B;
+	font-weight:;
+}
+
+
+
+
+.box {
+  position: absolute;
+  top: 56%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+}
+
+.box select {
+  background-color: white;
+  color: #8D919B;
+  padding: 3px;
+  width: 200px;
+  border-radius:10px;
+  font-size: 18px;
+
+}
+.selector p{
+	color:#8D919B;
+	font-size:20px;
+	font-weight:;
+}
+
+.selector input[type="submit"]
+{
+    border: none;
+	padding:10px 25px 10px 25px;
+    outline: none;
+    height: 30px;
+    background: #0786f5;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.ItemsDisplay{
+	position:absolute;
+	padding:0px;
+	top: 46%;
+	left:28%;
+	border-style:groove;
+	height:300px;
+	width:42%;
+	border-radius:10px;
+}
+
+.left-side{
+	float:left;
+	padding:0px;
+}
+
+.left-side p{
+	padding:0px 0px 0px 10px;
+	font-size:18px;
+	font-weight:bold;
+}
+.right-side{
+	float:right;
+	padding:15px;
+}
+.ItemsDisplay input[type="submit"]
+{
+	float:right;
+    height: 30px;
+    background: #0786f5;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 50px;
+}
+
+table,th,td{
+	clear:both;
+	border:1px solid black;
+}
+table{
+	border-collapse:collapse;
+}
+th{
+	width:80px;
+	height:50px;
+}
+td{
+	width:80px;
+	height:50px;
+	padding:20px;
+}
+ 
+ .table{
+	 padding:0px 90px 90px 100px;
+ }
+ 
+a{
+	color:black;
+	text-decoration:none;
+}
+.image1{
+	position:absolute;
+	top:78%;
+	left:42%;
+}
+.image1 img{
+	width:30px;
+	height:30px;
+	padding:10px;
+}

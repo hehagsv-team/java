@@ -1,30 +1,24 @@
 <html>
 <head>
-<title>First Web Application</title>
-</head>
+<title>Login Form Design</title>
+    <link rel="stylesheet" type="text/css" href="/resource/css/style.css">
 <body>
-  <center>
-  <h1><font color="blue">SIGN IN</font></h1><hr /><br>
-  <form method="post">
-   Name:<br><input type="text" name="name"/>
-   <br>
-   <br>
-   Address:<br> <input type="text" name="address"/>
-   <br>
-   <br>
-   <input name ="SIGN IN"  value ="SIGN IN" type="submit"/>
-   <br>
-   <u><h3><font color="blue">Forgot Password?</font></h3></u>
- 
-    <font color="red">${ errorMessage}</font>
-   </form>
-   <br>
-   
-   <form action="/NewUser">
-     <hr>
-   <h3>New User</h3>
-   <input name="SIGN UP" value="SIGN UP" type="submit"/>
-   </form>
-   </center>
+    <div class="loginbox">
+    <img src="/images/png/avatar.png" class="avatar">
+        <h1>Login Here</h1>
+        <form method="POST">
+            <p>Username</p>
+            <input type="text" name="name" placeholder="Enter Username">
+            <p>Address</p>
+            <input type="text" name="address" placeholder="Enter Address">
+            <input type="submit" name="" value="Login">
+            <a href="#">Lost your password</a><br>
+   			<a href="/NewUser">New User</a>
+   			<p id="error">${errorMessage}<p>
+        </form>
+        
+    </div>
+
 </body>
+</head>
 </html>
