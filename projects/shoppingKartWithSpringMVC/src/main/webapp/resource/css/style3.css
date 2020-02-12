@@ -52,19 +52,29 @@ li{
     font-size: 20px;
     border-radius: 20px;
 }
-
+.text small{
+	font-size:10;
+	color:grey;
+	
+}
 .selector{
 	position:absolute;
 	padding:10px;
 	top: 20%;
 	left:28%;
 	border-style:groove;
-	height:125px;
+	height:175px;
 	width:42%;
 	border-radius:10px;
 	
 }
 
+#color1{
+	background:#07dbc4;
+}
+#color2{
+	background:#d2f7f3;
+}
 .selector p{
 	padding:0px 10px 10px 45px;
 	font-size:20px;
@@ -82,13 +92,18 @@ li{
 	font-weight:;
 }
 
+.text-error{
+	font-size:18px;
+	color:red;
+	font-weight:bold;
+}
 
 
 
 .box {
   position: absolute;
-  top: 56%;
-  left: 45%;
+  top: 100%;
+  left: 100%;
   transform: translate(-50%, -50%);
 }
 
@@ -122,12 +137,19 @@ li{
 .ItemsDisplay{
 	position:absolute;
 	padding:0px;
-	top: 46%;
+	top: 53%;
 	left:28%;
 	border-style:groove;
+	
 	height:300px;
-	width:42%;
+	width:43.5%;
 	border-radius:10px;
+}
+
+#mySelect{
+	height:30px;
+	width:100px;
+	font-size:16px;
 }
 
 .left-side{
@@ -163,11 +185,11 @@ table{
 }
 th{
 	width:80px;
-	height:50px;
+	height:60px;
 }
 td{
 	width:80px;
-	height:50px;
+	height:70px;
 	padding:20px;
 }
  
