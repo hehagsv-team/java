@@ -49,12 +49,12 @@ public class LoginService
     	
     }
     
-    public List<HclSkItems> showItems()
+    public List<HclSkItems> showItems(Integer end,Integer start)
     {	
     	HclSkItems hclsk=new HclSkItems();
     	System.out.println("control enters into the showItems() method");
-    	List<HclSkItems> find = itemsRepository.findAll();
-    	System.out.println("Seleted items are sending to the Login Controller");
+    	List<HclSkItems> find = itemsRepository.FindAllWithRowNumQuery(end,start);
+    	System.out.println("Seleted items are sending to the Login Controller "+find);
     	return find;
     }
     
@@ -65,9 +65,9 @@ public class LoginService
 		System.out.println("itemname in price are\t\t: "+itemNamebyprice);
 		return itemNamebyprice;
 	}
-    public List<HclSkItems> displayItemsByManufacturer(String name) 
+    public List<HclSkItems> displayItemsByManufacturer(String name, Integer end,Integer start) 
 	{  
-		List<HclSkItems> itemName=itemsRepository.FindAllWithDescriptionQuery(name);
+		List<HclSkItems> itemName=itemsRepository.FindAllWithDescriptionQuery(name,end,start);
 		System.out.println("itemname in manufacturer are\t\t: "+itemName);
 		
 		return itemName;
@@ -82,5 +82,10 @@ public class LoginService
 	public List<HclSkManufacturer> showManufacturer() {
 		List<HclSkManufacturer> manu=manuRepository.findAll();	
 		return manu;
+	}
+	public List<HclSkItems> count(String name) {
+		List<HclSkItems> count=itemsRepository.FindAllWithDescriptionQuery(name);
+		return count;
+		
 	}
 }

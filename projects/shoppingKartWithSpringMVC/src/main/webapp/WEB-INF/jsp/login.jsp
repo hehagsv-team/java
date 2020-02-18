@@ -15,6 +15,9 @@
             <a href="#">Lost your password</a><br>
    			<a href="/NewUser">New User</a>
    			<p id="error">${errorMessage}<p>
+   			<input type="hidden" name="currentIndex" value="1">
+   			<input  type="hidden" id="hb1" name="navButton" value="next">
+   			
         </form>
         
     </div>
