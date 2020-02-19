@@ -111,6 +111,7 @@ public class LoginController
 	    	   if(item.isEmpty())
 	    	   {
 	    		   System.out.println("There is no any items in selected Manufacturer name"+item);
+	    		   model.put("noItems","No Products");
 	    	   }
 	    	   else
 	    	   {
@@ -127,37 +128,69 @@ public class LoginController
 //	    	   end=end+3;
 	    	   model.put("list",arrAll);
     	   }
-    	   else if(navButton=="last")
-    	   {
-//    		   if(count % 3!=0)
-//    			   
-//    		   start=;
-//    		   end=count;
-    		   List<HclSkItems> item=service.showItems(end,start); 
-    		   System.out.println("first page : "+navButton+ " " +start+" "+end);
-	    	   if(item.isEmpty())
-	    	   {
-	    		   System.out.println("There is no any items in selected Manufacturer name"+item);
-	    	   }
-	    	   else
-	    	   {
-	    		   System.out.println("items are2 "+item);
-	    		   for(int i=0;i<item.size();i++)
-	    		   {
-	    			   System.out.println("item is"+item.get(i));
-	        		   HclSkItems hcl=item.get(i);
-//	        		   arr.add(hcl.getId());
-//	        		   arr.add(hcl.getName());
-//	        		   arr.add(hcl.getPrice());
-	        		   arrAll.add(hcl);
-	    			   
-	    		   }
-	    		   
-	    	   }
-	    	   start=end;
-	    	   end=end+2;
-	    	   model.put("list",arrAll);
-    	   }
+    	   else if(navButton.equals("last"))
+           {         
+                 
+                  List<HclSkItems> c=service.allCount();
+                 
+         
+                  if(c.size() % 3!=0)
+                  {                                
+                         start=c.size() - c.size() % 3;
+                         end=c.size();
+                         List<HclSkItems> item=service.showItems(end,start); 
+	    					System.out.println("first page : "+navButton+ " " +start+" "+end);
+	    					if(item.isEmpty())
+	    					{
+	    						System.out.println("There is no any items in selected Manufacturer name"+item);
+	    						model.put("noItems","No Products");
+	    					}
+	    					else
+	    					{
+	    						System.out.println("items are2 "+item);
+	    						for(int i=0;i<item.size();i++)
+	    						{
+	    							System.out.println("item is"+item.get(i));
+	    							HclSkItems hcl=item.get(i);
+//		        		   			arr.add(hcl.getId());
+//		        		 		  	arr.add(hcl.getName());
+//		        		   			arr.add(hcl.getPrice());
+	    							arrAll.add(hcl);
+		    			   
+	    						}
+		    		   
+	    					}
+	                   
+                    }
+                  else
+                  {
+                        start=c.size()-2;
+                        end=c.size();
+                        List<HclSkItems> item=service.showItems(end,start); 
+	    					System.out.println("first page : "+navButton+ " " +start+" "+end);
+	    					if(item.isEmpty())
+	    					{
+	    						System.out.println("There is no any items in selected Manufacturer name"+item);
+	    					}
+	    					else
+	    					{
+	    						System.out.println("items are2 "+item);
+	    						for(int i=0;i<item.size();i++)
+	    						{
+	    							System.out.println("item is"+item.get(i));
+	    							HclSkItems hcl=item.get(i);
+//		        		   			arr.add(hcl.getId());
+//		        		 		  	arr.add(hcl.getName());
+//		        		   			arr.add(hcl.getPrice());
+	    							arrAll.add(hcl);
+		    			   
+	    						}
+		    		   
+	    					}
+                }
+                  model.put("list",arrAll);
+           }
+
     	   else if(navButton.equals("next"))
     	   {
     		   start=end+1;
@@ -167,6 +200,7 @@ public class LoginController
 	    	   if(item.isEmpty())
 	    	   {
 	    		   System.out.println("There is no any items in selected Manufacturer name"+item);
+	    		   model.put("noItems","No Products");
 	    	   }
 	    	   else
 	    	   {
@@ -196,6 +230,7 @@ public class LoginController
 	    	   if(item.isEmpty())
 	    	   {
 	    		   System.out.println("There is no any items in selected Manufacturer name"+item);
+	    		   model.put("noItems","No Products");
 	    	   }
 	    	   else
 	    	   {
@@ -284,6 +319,10 @@ public class LoginController
     	   					}                           
     	   			}
     	   		model.put("man",man);
+    	   		model.put("category", category);
+    	   		model.put("button",rdbutton);
+    	   		model.put("min",text1);
+    	   		model.put("max",text2);
 //    	  		 this.text1=text1;
 //    	  		 this.text2=text2;
 //    	   		this.something=something;
@@ -301,11 +340,15 @@ public class LoginController
 		    	{
 		    		model.put("error_text", "Please select any one of the CheckBox");
 		    	}
+		    	if(!(rdbutton.equals("List by Price")) && (text1==null) && text2==null){
+		    		text1=0;
+    				text2=1;
+		    	}
 		    	if(text1==null || text2==null)
 		    	{
 		    			if(text1==null)
 		    				model.put("error_text","Please enter the Min value");
-		    			else
+		    	 		else
 		    				model.put("error_text", "Please enter the Max value");
 		    	}
 		    	else if(text1>text2)
@@ -315,28 +358,166 @@ public class LoginController
     	  
 		    	else if((rdbutton.equals("List by Price")) && man_button.equals("Apply"))
 		    	{
-		    			List<HclSkItems> priceItem=service.displayItemsByPrice(text1,text2); 
-		    			ArrayList arrPrice=new ArrayList();
-		    			if(priceItem.isEmpty())
-		    				{
-		    					System.out.println("There is no any items in selected price range"+priceItem);
-		    				}
-		    			else
-		    				{
-		    						System.out.println("items are3 "+priceItem);
-		    						for(int i=0;i<priceItem.size();i++)
-		    						{
-    	    		   						System.out.println("item in price are "+priceItem.get(i));
-    	    		   						HclSkItems PRICE=priceItem.get(i);
-//    	        		  					 arrPrice.add(PRICE.getId());
-//    	        		 	 				arrPrice.add(PRICE.getName());
-//    	        		   					arrPrice.add(PRICE.getPrice());
-    	    		   						arrPrice.add(PRICE);
-		    						}
-    	    		   
-		    				}   	
+		    		ArrayList arrPrice=new ArrayList();
+		    				
 //    	    	   	redirectAttributes.addFlashAttribute("price",arrPrice);
-		    			model.put("list",arrPrice);
+		    			ArrayList arr=new ArrayList();
+		    			System.out.println("Inside mnaufacturer "+navButton+" "+category+" "+end+" "+start);
+    	    	   
+		    			if(navButton.equals("first"))
+		    			{
+		    				start=1;
+		    				end=3;
+		    				List<HclSkItems> priceItem=service.displayItemsByPrice(text1,text2,end,start); 
+			    			
+			    			if(priceItem.isEmpty())
+			    				{
+			    					System.out.println("There is no any items in selected price range"+priceItem);
+			    					model.put("noItems","No Products");
+			    				}
+			    			else
+			    				{
+			    						System.out.println("items are3 "+priceItem);
+			    						for(int i=0;i<priceItem.size();i++)
+			    						{
+	    	    		   						System.out.println("item in price are "+priceItem.get(i));
+	    	    		   						HclSkItems PRICE=priceItem.get(i);
+//	    	        		  					 arrPrice.add(PRICE.getId());
+//	    	        		 	 				arrPrice.add(PRICE.getName());
+//	    	        		   					arrPrice.add(PRICE.getPrice());
+	    	    		   						arrPrice.add(PRICE);
+			    						}
+	    	    		   
+			    				}  
+			    			   model.put("list",arrPrice);
+		    			}
+		    			
+		    			else if(navButton.equals("last"))
+		                 {         
+		                       
+		                        List<HclSkItems> c=service.priceCount(text1,text2);	   
+		                        System.out.println("filter by price items count is : "+c+" size is "+c.size());
+		                        if(c.size() % 3!=0)
+		                        {                                
+		                               start=c.size() - c.size() % 3;
+		                               end=c.size();
+		                               List<HclSkItems> priceItem=service.displayItemsByPrice(text1,text2,end,start); 
+		       		    			
+			       		    			if(priceItem.isEmpty())
+			       		    				{
+			       		    					System.out.println("There is no any items in selected price range"+priceItem);
+			       		    					model.put("noItems","No Products");
+			       		    				}
+			       		    			else
+			       		    				{
+			       		    						System.out.println("items are3 "+priceItem);
+			       		    						for(int i=0;i<priceItem.size();i++)
+			       		    						{
+			           	    		   						System.out.println("item in price are "+priceItem.get(i));
+			           	    		   						HclSkItems PRICE=priceItem.get(i);
+	//		           	        		  					 arrPrice.add(PRICE.getId());
+	//		           	        		 	 				arrPrice.add(PRICE.getName());
+	//		           	        		   					arrPrice.add(PRICE.getPrice());
+			           	    		   						arrPrice.add(PRICE);
+			       		    						}
+			           	    		   
+			       		    				}   
+			                              
+		                              }
+		                        else
+		                        {
+		                              start=c.size()-2;
+		                              end=c.size();
+		                              List<HclSkItems> priceItem=service.displayItemsByPrice(text1,text2,end,start); 
+		      		    			
+			      		    			if(priceItem.isEmpty())
+			      		    				{
+			      		    					System.out.println("There is no any items in selected price range"+priceItem);
+			      		    					model.put("noItems","No Products");
+			      		    				}
+			      		    			else
+			      		    				{
+			      		    						System.out.println("items are3 "+priceItem);
+			      		    						for(int i=0;i<priceItem.size();i++)
+			      		    						{
+			          	    		   						System.out.println("item in price are "+priceItem.get(i));
+			          	    		   						HclSkItems PRICE=priceItem.get(i);
+	//		          	        		  					 arrPrice.add(PRICE.getId());
+	//		          	        		 	 				arrPrice.add(PRICE.getName());
+	//		          	        		   					arrPrice.add(PRICE.getPrice());
+			          	    		   						arrPrice.add(PRICE);
+			      		    						}
+			          	    		   
+			      		    				}   
+		                        }
+		                        
+		                        
+		                       model.put("list",arrPrice);
+		                 }
+
+		    			else if(navButton.equals("next"))
+		    			{
+		    					start=end+1;
+		    					end=start+2;
+		    					List<HclSkItems> priceItem=service.displayItemsByPrice(text1,text2,end,start); 
+	      		    			
+	      		    			if(priceItem.isEmpty())
+	      		    				{
+	      		    					System.out.println("There is no any items in selected price range"+priceItem);
+	      		    					model.put("noItems","No Products");
+	      		    				}
+	      		    			else
+	      		    				{
+	      		    						System.out.println("items are3 "+priceItem);
+	      		    						for(int i=0;i<priceItem.size();i++)
+	      		    						{
+	          	    		   						System.out.println("item in price are "+priceItem.get(i));
+	          	    		   						HclSkItems PRICE=priceItem.get(i);
+//		          	        		  					 arrPrice.add(PRICE.getId());
+//		          	        		 	 				arrPrice.add(PRICE.getName());
+//		          	        		   					arrPrice.add(PRICE.getPrice());
+	          	    		   						arrPrice.add(PRICE);
+	      		    						}
+	          	    		   
+	      		    				}  
+	      		    			 model.put("list",arrPrice);
+		    			
+                        }
+                        
+                        
+                      
+		    			else if(navButton.equals("previous"))
+		    			{    	    		  
+		    				end=start-1;
+		    				start=end-2;
+		    				
+		    			
+		    				List<HclSkItems> priceItem=service.displayItemsByPrice(text1,text2,end,start); 
+		    				System.out.println("first page : "+navButton+ " " +start+" "+end);
+      		    			if(priceItem.isEmpty())
+      		    				{
+      		    					System.out.println("There is no any items in selected price range"+priceItem);
+      		    					model.put("noItems","No Products");
+      		    				}
+      		    			else
+      		    				{
+      		    						System.out.println("items are3 "+priceItem);
+      		    						for(int i=0;i<priceItem.size();i++)
+      		    						{
+          	    		   						System.out.println("item in price are "+priceItem.get(i));
+          	    		   						HclSkItems PRICE=priceItem.get(i);
+//		          	        		  					 arrPrice.add(PRICE.getId());
+//		          	        		 	 				arrPrice.add(PRICE.getName());
+//		          	        		   					arrPrice.add(PRICE.getPrice());
+          	    		   						arrPrice.add(PRICE);
+      		    						}
+          	    		   
+      		    				}   
+      		    			model.put("list",arrPrice);
+		    			}
+                    
+                  
+		    			
 		    	}
     	   
 		    	else if((rdbutton.equals("List by Manufacturer")) && man_button.equals("Apply")) 
@@ -353,6 +534,7 @@ public class LoginController
 		    				if(item.isEmpty())
 		    				{
 		    						System.out.println("There is no any items in selected Manufacturer name"+item);
+		    						model.put("noItems","No Products");
 		    				}
 		    				else
 		    				{
@@ -372,7 +554,7 @@ public class LoginController
 		    			else if(navButton.equals("last"))
 		                 {         
 		                       
-		                        List<HclSkItems> c=service.count(category);
+		                        List<HclSkItems> c=service.manuCount(category);
 		                       
 		               
 		                        if(c.size() % 3!=0)
@@ -384,6 +566,7 @@ public class LoginController
 		                              if(item.isEmpty())
 		                              {
 		                                     System.out.println("There is no any items in selected Manufacturer name"+item);
+		                                     model.put("noItems","No Products");
 		                              }
 		                              else
 		                              {
@@ -409,26 +592,27 @@ public class LoginController
 		                              end=c.size();
 		                              List<HclSkItems> item=service.displayItemsByManufacturer(category,end,start);  
 		                              System.out.println("last page in else : "+navButton+ " " +start+" "+end);
-		                      if(item.isEmpty())
-		                      {
-		                             System.out.println("There is no any items in selected Manufacturer name"+item);
-		                      }
-		                      else
-		                      {
-		                             System.out.println("items are2 "+item);
-		                             for(int i=0;i<item.size();i++)
-		                             {
-		                                   System.out.println("item is"+item.get(i));
-		                                   HclSkItems hcl=item.get(i);
-//		                                         arr.add(hcl.getId());
-//		                                         arr.add(hcl.getName());
-//		                                         arr.add(hcl.getPrice());
-		                                   arr.add(hcl);
-		                                   
-		                              }
-		                             
-		                       }
-		                     
+				                      if(item.isEmpty())
+				                      {
+				                             System.out.println("There is no any items in selected Manufacturer name"+item);
+				                             model.put("noItems","No Products");
+				                      }
+				                      else
+				                      {
+				                             System.out.println("items are2 "+item);
+				                             for(int i=0;i<item.size();i++)
+				                             {
+				                                   System.out.println("item is"+item.get(i));
+				                                   HclSkItems hcl=item.get(i);
+		//		                                         arr.add(hcl.getId());
+		//		                                         arr.add(hcl.getName());
+		//		                                         arr.add(hcl.getPrice());
+				                                   arr.add(hcl);
+				                                   
+				                              }
+				                             
+				                       }
+				                     
 		                       
 		                        }
 		                        
@@ -445,6 +629,7 @@ public class LoginController
 		    					if(item.isEmpty())
 		    					{
 		    							System.out.println("There is no any items in selected Manufacturer name"+item);
+		    							model.put("noItems","No Products");
 		    					}
 		    					else
 		    					{
@@ -474,6 +659,7 @@ public class LoginController
 		    				if(item.isEmpty())
 		    				{
 		    					System.out.println("There is no any items in selected Manufacturer name"+item);
+		    					model.put("noItems","No Products");
 		    				}
 		    				else
 		    				{
@@ -509,6 +695,7 @@ public class LoginController
 		    					if(item.isEmpty())
 		    					{
 		    						System.out.println("There is no any items in selected Manufacturer name"+item);
+		    						model.put("noItems","No Products");
 		    					}
 		    					else
 		    					{
@@ -525,37 +712,72 @@ public class LoginController
 //    		    	  			 end=end+3;
 		    					model.put("list",arrAll);
 		    			}
-		    			else if(navButton=="last")
-		    			{
-//    	    		 		  if(count % 3!=0)
-//    	    			   
-//    	    		  		 start=;
-//    	    		   			end=count;
-	                    
-		    					List<HclSkItems> item=service.showItems(end,start); 
-		    					System.out.println("first page : "+navButton+ " " +start+" "+end);
-		    					if(item.isEmpty())
-		    					{
-		    						System.out.println("There is no any items in selected Manufacturer name"+item);
-		    					}
-		    					else
-		    					{
-		    						System.out.println("items are2 "+item);
-		    						for(int i=0;i<item.size();i++)
-		    						{
-		    							System.out.println("item is"+item.get(i));
-		    							HclSkItems hcl=item.get(i);
-//    		        		   			arr.add(hcl.getId());
-//    		        		 		  	arr.add(hcl.getName());
-//    		        		   			arr.add(hcl.getPrice());
-		    							arrAll.add(hcl);
-    		    			   
-		    						}
-    		    		   
-		    					}
-		    					
-		    					model.put("list",arrAll);
-		    			}
+		    			else if(navButton.equals("last"))
+		                 {         
+		                       
+		                        List<HclSkItems> c=service.allCount();
+		                       
+		               
+		                        if(c.size() % 3!=0)
+		                        {                                
+		                               start=c.size() - c.size() % 3;
+		                               end=c.size();
+		                               List<HclSkItems> item=service.showItems(end,start); 
+				    					System.out.println("first page : "+navButton+ " " +start+" "+end);
+				    					if(item.isEmpty())
+				    					{
+				    						System.out.println("There is no any items in selected Manufacturer name"+item);
+				    						model.put("noItems","No Products");
+				    					}
+				    					else
+				    					{
+				    						System.out.println("items are2 "+item);
+				    						for(int i=0;i<item.size();i++)
+				    						{
+				    							System.out.println("item is"+item.get(i));
+				    							HclSkItems hcl=item.get(i);
+//		    		        		   			arr.add(hcl.getId());
+//		    		        		 		  	arr.add(hcl.getName());
+//		    		        		   			arr.add(hcl.getPrice());
+				    							arrAll.add(hcl);
+		    		    			   
+				    						}
+		    		    		   
+				    					}
+				    					
+				    					
+		                              
+		                          }
+		                        else
+		                        {
+		                              start=c.size()-2;
+		                              end=c.size();
+		                              List<HclSkItems> item=service.showItems(end,start); 
+				    					System.out.println("first page : "+navButton+ " " +start+" "+end);
+				    					if(item.isEmpty())
+				    					{
+				    						System.out.println("There is no any items in selected Manufacturer name"+item);
+				    						model.put("noItems","No Products");
+				    					}
+				    					else
+				    					{
+				    						System.out.println("items are2 "+item);
+				    						for(int i=0;i<item.size();i++)
+				    						{
+				    							System.out.println("item is"+item.get(i));
+				    							HclSkItems hcl=item.get(i);
+//		    		        		   			arr.add(hcl.getId());
+//		    		        		 		  	arr.add(hcl.getName());
+//		    		        		   			arr.add(hcl.getPrice());
+				    							arrAll.add(hcl);
+		    		    			   
+				    						}
+		    		    		   
+				    					}
+		                      }
+		                        model.put("list",arrAll);
+		                 }
+
 		    			else if(navButton.equals("next"))
 		    			{
 		    				start=end+1;
@@ -565,6 +787,7 @@ public class LoginController
 		    				if(item.isEmpty())
 		    				{
 		    					System.out.println("There is no any items in selected Manufacturer name"+item);
+		    					model.put("noItems","No Products");
 		    				}
 		    				else
 		    				{
@@ -585,6 +808,7 @@ public class LoginController
 		//    		    	   end=end+3;
 		    		    	  model.put("list",arrAll);
 		    			}
+		    			
 		    			else if(navButton.equals("previous"))
 		    			{    	    		  
 		    	    		   end=start-1;
@@ -594,6 +818,7 @@ public class LoginController
 		    		    	   if(item.isEmpty())
 		    		    	   {
 		    		    		   	System.out.println("There is no any items in selected Manufacturer name"+item);
+		    		    		   	model.put("noItems","No Products");
 		    		    	   }
 		    		    	   else
 		    		    	   {

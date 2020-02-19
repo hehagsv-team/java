@@ -58,9 +58,9 @@ public class LoginService
     	return find;
     }
     
-    public List<HclSkItems> displayItemsByPrice(Integer text1, Integer text2) 
+    public List<HclSkItems> displayItemsByPrice(Integer text1, Integer text2,Integer end, Integer start) 
 	{   
-		List<HclSkItems> itemNamebyprice=itemsRepository.FindAllWithDescriptionQuery(text1,text2);
+		List<HclSkItems> itemNamebyprice=itemsRepository.FindAllWithDescriptionQuery(text1,text2,end,start);
 //    	List<HclSkItems> itemNamebyprice=itemsRepository.FindByPriceBetween(text1,text2);
 		System.out.println("itemname in price are\t\t: "+itemNamebyprice);
 		return itemNamebyprice;
@@ -72,20 +72,31 @@ public class LoginService
 		
 		return itemName;
 	}
-    public List<HclSkItems> displayItems() 
-	{  
-		List<HclSkItems> Name=itemsRepository.findAll();
-		System.out.println("itemname in all are\t\t: "+Name);
-		
-		return Name;
-	}
+   
 	public List<HclSkManufacturer> showManufacturer() {
 		List<HclSkManufacturer> manu=manuRepository.findAll();	
 		return manu;
 	}
-	public List<HclSkItems> count(String name) {
-		List<HclSkItems> count=itemsRepository.FindAllWithDescriptionQuery(name);
+//	public List<HclSkItems> manuCount(String name) {
+//		List<HclSkItems> count=itemsRepository.FindAllWithDescriptionQuery(name);		
+//		return count;
+//		
+//	}
+	public List<HclSkItems> allCount() {
+		List<HclSkItems> count=itemsRepository.FindAllWithDescriptionQuery();		
 		return count;
 		
 	}
+	
+	public List<HclSkItems> priceCount(Integer text1, Integer text2) {
+		List<HclSkItems> count=itemsRepository.FindAllWithDescriptionQuery(text1,text2);		
+		return count;
+		
+	}
+	public List<HclSkItems> manuCount(String category) {
+		List<HclSkItems> count=itemsRepository.FindAllWithDescriptionQuery(category);		
+		return count;
+	}
+	
+	
 }

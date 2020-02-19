@@ -118,7 +118,7 @@
 <body>
 <table class=top>
               <th><h2>Shopping Cart</h2></th>
-             <th id="one"><h3>${name}<h3></th> 
+             <th id="one"><h3><h3></th> 
               <th id="two"><li></li></th>             
        </table>
  
@@ -166,14 +166,13 @@ onclick="disableprice()"-->
 							disabled="disabled"> &nbsp
 					</h3>
 
-					<input type="hidden" id="h1" name="text1" value="0" size="3"
-						maxlength="10"> <input type="hidden" id="h2"
-						name="text2" value="1" size="3" maxlength="10"> <input
-						type="hidden" id="h3" name="category" value="LG">
+					<input type="hidden" id="h1" name="text1" value="${min}" size="3"maxlength="10"> 
+					<input type="hidden" id="h2" name="text2" value="${max}" size="3" maxlength="10"> 
+					<input type="hidden" id="h3" name="category" value="${category}">
 					<input type="hidden" id="hb1" name="navButton" value="first">
 					<input type="hidden" id="mb" name="man_button" value="Apply">
 					<input type="hidden" id="in" name="currentIndex" value="1">
-					<input type="hidden" id="rb" name="rdbutton" value="All">
+					<input type="hidden" id="rb" name="rdbutton" value="${button}">
 					<!-- 			      <button id="pb1" onclick="check()" name="price_button" value="price_checker">check</button> 
  -->
 					<div class="text-error">${error_text}</div>
@@ -184,7 +183,7 @@ onclick="disableprice()"-->
 					<select id="mySelect" name="category" onchange="selectedItemFn()"
 						disabled="disabled">
 						<c:forEach items="${man}" var="option">
-<c:out value="${category}"/> <c:out value="${option.getName()}"/>
+<%-- <c:out value="${category}"/> <c:out value="${option.getName()}"/> --%>
 
 							<c:choose>
 								<c:when test="${fn:contains(category, option.getName())}">
@@ -240,12 +239,10 @@ onclick="disableprice()"-->
                            </div>
 			</div> -->
 					<div class="forward">
-						<input type="submit" id="b4" name="navButton" value="last"
-							onclick="hbDisable2()"> <input type="submit" id="b3"
-							name="navButton" value="next" onclick="hbDisable()"> <input
-							type="submit" id="b2" name="navButton" value="previous"
-							onclick="hbDisable()"> <input type="submit" id="b1"
-							name="navButton" value="first" onclick="hbDisable1()" checked>
+						<input type="submit" id="b4" name="navButton" value="last" onclick="hbDisable2()"> 
+						<input type="submit" id="b3" name="navButton" value="next" onclick="hbDisable()"> 
+						<input type="submit" id="b2" name="navButton" value="previous" onclick="hbDisable()"> 
+						<input type="submit" id="b1" name="navButton" value="first" onclick="hbDisable1()" checked>
 					</div>
 		</form>
 	</div>
