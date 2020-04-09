@@ -42,19 +42,28 @@ import org.jboss.as.quickstarts.kitchensinkjsp.model.UserAccount;
 public class MemberResourceRESTService {
     @Inject
     private EntityManager em;
+    
+    private List<Item> members;
+    
+    private Query createQuery;
 
-    @GET
+    @SuppressWarnings("unchecked")
+	@GET
     @Produces("text/xml")
     public List<Item> listAllMembers() {
         // Use @SupressWarnings to force IDE to ignore warnings about "genericizing" the results of
         // this query
-        @SuppressWarnings("unchecked")
         // We recommend centralizing inline queries such as this one into @NamedQuery annotations on
         // the @Entity class
         // as described in the named query blueprint:
         // https://blueprints.dev.java.net/bpcatalog/ee5/persistence/namedquery.html
-        final List<Item> itemResults = em.createQuery("select m from Item m order by m.itemId").getResultList();
-        return itemResults;
+       Query query= em.createQuery("select m from Item m order by m.itemId");
+        query.setFirstResult(0);
+        query.setMaxResults(2);
+        members=query.getResultList();
+        System.out.println("Order contain:::::"+members);
+        
+        return members;
     }
     
     public List<UserAccount> listAllUsers() {
@@ -90,6 +99,16 @@ public class MemberResourceRESTService {
     		System.out.println("Exception :: "+e);
     		return false;
     	}
+    }
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Item>listByPricerange(int max, int min)
+    {
+    	Query query=em.createQuery("select m from Item m where m.price >=:mini and m.price <=:maxi");
+    	query.setParameter("maxi",Long.valueOf(max));
+    	query.setParameter("mini", Long.valueOf(min));
+    	List priceresult=query.getResultList();
+    	System.out.println("Query has value:::"+priceresult);
+    	return priceresult;
     }
     
     @GET

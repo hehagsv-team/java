@@ -231,11 +231,11 @@
 		<%-- <c:choose> --%>
                                 <%--   <c:when test="${button=='List by Manufacturer' }"> --%>
                                         <div class="col-xs-6">
-                                <input type="radio" id="r1" name="rdbutton"  value="All" onclick="disableall()"><label for="all">All</label><br><br>
+                                <input type="radio" id="r1" name="rdbutton"  value="All" checked="checked" onclick="disableall()"><label for="all">All</label><br><br>
                             </div>                            
                              <div class="manufacturer">
                                 <div class="col-xs-6" disabled="disabled">
-                                    <input type="radio" id="r2" name="rdbutton" value="List by Manufacturer" checked onclick="enable()"><label for="manufacturer">Manufacturer</label>&nbsp;&nbsp; 
+                                    <input type="radio" id="r2" name="rdbutton" value="List by Manufacturer"  onclick="enable()"><label for="manufacturer">Manufacturer</label>&nbsp;&nbsp; 
                                     <select name="category" id="mySelect" onchange="selectedItemFn()" >
                                      <%-- <c:forEach items="${man}" var="option">
                                                                      <c:out value="${category}"/> <c:out value="${option.getName()}"/>

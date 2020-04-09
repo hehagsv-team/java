@@ -125,6 +125,53 @@ public class MemberRegistrationServlet extends HttpServlet {
 			  resultView.forward(request, response); 
 			  }
 			 
+			  if(request.getParameter("rdbutton").equals("List by Price") && request.getParameter("man_button").equals("Apply"))
+			  {
+				  String button=request.getParameter("rdbutton");
+				  String applbutton=request.getParameter("man_button");
+				  System.out.println("the value of radio butto is "+button);
+				  System.out.println("the value of apply bbutto is "+applbutton);
+			     int max=Integer.parseInt(request.getParameter("text2"));
+			     int min=Integer.parseInt(request.getParameter("text1"));
+			     System.out.println("the maximum value is"+max);
+			     System.out.println("the minimum value is"+min);
+			     List<Item>listAllPrices=memberResourceRESTService.listByPricerange(max, min);
+			     System.out.println("result:::"+listAllPrices);
+			     request.setAttribute("items", listAllPrices);
+			     RequestDispatcher resultView =
+						  request.getRequestDispatcher("registrationResult.jsp"); 
+						  resultView.forward(request, response); 
+			  }
+			  if(request.getParameter("rdbutton").equals("All") && request.getParameter("man_button").equals("Apply"))
+			  {
+				  String button=request.getParameter("rdbutton");
+				  String applbutton=request.getParameter("man_button");
+				  System.out.println("the value of radio butto is "+button);
+				  System.out.println("the value of apply bbutto is "+applbutton);
+				  List<Item>listAllMembers=memberResourceRESTService.listAllMembers();
+                  System.out.println("result::::"+listAllMembers);
+                  request.setAttribute("items", listAllMembers);
+				  RequestDispatcher resultView = request.getRequestDispatcher("registrationResult.jsp"); 
+				  resultView.forward(request, response); 
+			    
+			  }
+			  if(request.getParameter("navButton").equals("next"))
+			  {
+				  String butooon=request.getParameter("navButton");
+				  System.out.println("value of radio button is"+ butooon);
+				  List<Item>listAllMembers=memberResourceRESTService.listAllMembers();
+                  System.out.println("result::::"+listAllMembers);
+                  request.setAttribute("items", listAllMembers);
+				  RequestDispatcher resultView = request.getRequestDispatcher("registrationResult.jsp"); 
+				  resultView.forward(request, response); 
+				  
+				  
+			  }
+			  
+			  
+			  
+			  
+			  
 //                  List<Item>listAllMembers=memberResourceRESTService.listAllMembers();
 //                  System.out.println("result::::"+listAllMembers);
 //                  request.setAttribute("items", listAllMembers);

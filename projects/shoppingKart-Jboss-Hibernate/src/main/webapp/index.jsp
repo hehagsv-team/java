@@ -24,13 +24,14 @@
 <title>kitchensink-jsp</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- Here we include the css file  -->
-<link rel="stylesheet" type="text/css" href="resources/css/screen.css" />
+<!-- <link rel="stylesheet" type="text/css" href="resources/css/screen.css" /> -->
+<style><%@include file="/resources/css/screen2.css"%></style>
 <head>
 <body>
     
 
            
-            <%@ include file="registrationForm.jsp"%>
+             <%@ include file="registrationForm.jsp"%>
             
         <%--     <%@ include file="registrationResult.jsp"%> --%>
 

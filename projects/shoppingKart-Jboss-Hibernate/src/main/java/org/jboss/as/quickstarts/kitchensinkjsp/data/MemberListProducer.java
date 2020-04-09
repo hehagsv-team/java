@@ -30,6 +30,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -40,6 +41,8 @@ public class MemberListProducer {
     private EntityManager em;
 
     private List<Item> members;
+    
+    private Query createQuery;
 
     // @Named provides access the return value via the EL variable name "members" in the UI (e.g.,
     // Facelets or JSP view)
@@ -53,7 +56,8 @@ public class MemberListProducer {
         retrieveAllMembersOrderedByName();
     }
 
-    @PostConstruct
+    @SuppressWarnings("unchecked")
+	@PostConstruct
     public void retrieveAllMembersOrderedByName() {
 //        CriteriaBuilder cb = em.getCriteriaBuilder();
 //        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
@@ -62,6 +66,11 @@ public class MemberListProducer {
 //        // feature in JPA 2.0
 //        // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
 //        criteria.select(member).orderBy(cb.asc(member.get("name")));
-        members = em.createQuery("select m from Item m order by m.itemId").getResultList();
+        Query query = em.createQuery("select m from Item m order by m.itemId");
+        query.setFirstResult(0);
+        query.setMaxResults(2);
+        members=query.getResultList();
+        System.out.println("Order contain:::::"+members);
+        
     }
 }
