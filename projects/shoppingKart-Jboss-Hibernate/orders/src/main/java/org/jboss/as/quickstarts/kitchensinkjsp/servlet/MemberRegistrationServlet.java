@@ -72,7 +72,7 @@ public class MemberRegistrationServlet extends HttpServlet {
     HttpServletRequest request;
     
     HttpServletResponse response;
-    int inc;
+    int count,inc;
     /**
      * Default constructor.
      */
@@ -94,18 +94,23 @@ public class MemberRegistrationServlet extends HttpServlet {
 //        	this.request=request;
 //			this.response=response;
             List<HclSkManufacturer> manu=service.listAllManufacuturer();
-// 	        System.out.println("Manufacturer List are in doGet : "+manu);
+	        System.out.println("Manufacturer List are in doGet : "+manu);
 	        request.setAttribute("manu", manu);
 	        
 	        String category=request.getParameter("category");
 	        request.setAttribute("category", category);
            
-// 	        System.out.println("in servlet before call in get ::"+inc);
+	        System.out.println("in servlet before call in get ::"+inc);
+	        Query q =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1 AND O.userName = :name");
+    		q.setParameter("name", "Ashok");
+    		count=q.getResultList().size();
+    		System.out.println("count has value in servlet :: "+count);
+    		request.setAttribute("count", count);
 	        inc=memberListService.retrieveAllMembersOrderedByName("first",0);
 	        if(inc==-1) {
 	        	request.setAttribute("noOrders", "No Orders...");
 	        }
-// 			System.out.println("in servlet after call in get::" +inc);
+			System.out.println("in servlet after call in get::" +inc);
 			request.setAttribute("inc", inc);
             
         } catch (Exception e) {
@@ -136,21 +141,23 @@ public class MemberRegistrationServlet extends HttpServlet {
 			
 			String navButton=request.getParameter("navButton");
 	        List<HclSkManufacturer> manu=service.listAllManufacuturer();
-// 	        System.out.println("Manufacturer List are in doPost : "+manu);
+	        System.out.println("Manufacturer List are in doPost : "+manu);
 	        request.setAttribute("manu", manu);
 	        String category=request.getParameter("category");
 	        request.setAttribute("category", category);
 	       
 //	        String navButton=request.getParameter("navButton");
 			System.out.println("value of Navigation Button in servlet ::::: "+navButton);
-// 			System.out.println("in servlet before call in post ::" +inc);
+			System.out.println("in servlet before call in post ::" +inc);
+			System.out.println("value of count in post : "+count);
+			request.setAttribute("count", count);
 			inc=memberListService.retrieveAllMembersOrderedByName(navButton,inc);
 			if(inc==-1) {
 	        	request.setAttribute("noOrders", "No Orders...");
 	        }
-// 			System.out.println("in servlet after call in post::" +inc);
+			System.out.println("in servlet after call in post::" +inc);
 			request.setAttribute("inc", inc);
-// 		    System.out.println("Order contains in servlet first ::: "+orders);
+		    System.out.println("Order contains in servlet first ::: "+orders);
 		
 		}        
 		catch (Exception e) {
