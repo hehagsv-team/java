@@ -69,23 +69,16 @@ public class MemberRegistrationServlet extends HttpServlet {
     @Inject
     private EntityManager em;
     
-//    HttpServletRequest request;
-//    
-//    HttpServletResponse response;
-//    
-    int count=8 ,inc=0;
+    HttpServletRequest request;
+    
+    HttpServletResponse response;
+    int inc;
     /**
      * Default constructor.
      */
     public MemberRegistrationServlet() {
         // TODO Auto-generated constructor stub
     }
-
-//    @Produces
-//    @Named
-//    public List<OrdersDetailsDto> getMembers() {
-//        return members;
-//    }
     
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -100,41 +93,20 @@ public class MemberRegistrationServlet extends HttpServlet {
 
 //        	this.request=request;
 //			this.response=response;
-        	
-			
-			
-//         List<OrdersDetailsDto> orderDetails=service.listAllMembers();
-        	
-//        	OrdersDetailsDto orderDetails=service.listAllMembers();
-//        	Object[] orderDetails=service.listAllMembers();
-
-//            System.out.println("Order Details : "+orderDetails);
-//            for(int i=0;i<orderDetails.size();i++)
-// 		   {
-// 			   System.out.println("orders in for loop  "+orderDetails.get(i));
-//     		   OrdersDetailsDto order=orderDetails.get(i);	        		   
-//     		   arrOrders.add(order);	        		   	        		  
-//     		   System.out.println("Details in arrOrders is : "+arrOrders);
-// 		   }
-//            request.setAttribute("orders", orderDetails);
-//            request.setAttribute("orders", arrOrders);
-
             List<HclSkManufacturer> manu=service.listAllManufacuturer();
-	        System.out.println("Manufacturer List are in doGet : "+manu);
+// 	        System.out.println("Manufacturer List are in doGet : "+manu);
 	        request.setAttribute("manu", manu);
 	        
 	        String category=request.getParameter("category");
 	        request.setAttribute("category", category);
            
-//	        Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//	    	query.setFirstResult(0);
-//		    query.setMaxResults(2);
-//		    orders=query.getResultList();
-//		    System.out.println("Orders in doGet ::: "+orders);
-//	        System.out.println("name : "+orders.get(0)+"\t price :"+orders.get(1));
-//            List<Orders> orderDetails=service.listAllMembers();
-//            System.out.println("Order Deatils : "+orderDetails);
-//            request.setAttribute("orders", orderDetails);
+// 	        System.out.println("in servlet before call in get ::"+inc);
+	        inc=memberListService.retrieveAllMembersOrderedByName("first",0);
+	        if(inc==-1) {
+	        	request.setAttribute("noOrders", "No Orders...");
+	        }
+// 			System.out.println("in servlet after call in get::" +inc);
+			request.setAttribute("inc", inc);
             
         } catch (Exception e) {
 
@@ -163,58 +135,23 @@ public class MemberRegistrationServlet extends HttpServlet {
 //			this.response=response;
 			
 			String navButton=request.getParameter("navButton");
-//			memberListService.onMemberListChanged(request, response,navButton);
-			
 	        List<HclSkManufacturer> manu=service.listAllManufacuturer();
-	        System.out.println("Manufacturer List are in doPost : "+manu);
+// 	        System.out.println("Manufacturer List are in doPost : "+manu);
 	        request.setAttribute("manu", manu);
 	        String category=request.getParameter("category");
 	        request.setAttribute("category", category);
 	       
 //	        String navButton=request.getParameter("navButton");
-			
-//	        System.out.println("value of Navigation Button in servlet ::::: "+navButton);
-//			if(navButton.equals("first")) {
-//			Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//	    	query.setFirstResult(0);
-//		    query.setMaxResults(2);
-//		    orders=query.getResultList();
-//		    
-//		    System.out.println("Order contains in servlet ::: "+orders);
-//		}
-//		else if(navButton.equals("last")) {
-//			Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//	    	query.setFirstResult(count-2);
-//		    query.setMaxResults(2);
-//		    orders=query.getResultList();
-//		    System.out.println("Order contains in servlet  ::: "+orders);
-//		}
-//		else if(navButton.equals("next")) {
-//			Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//	    	query.setFirstResult(inc+2);
-//		    query.setMaxResults(2);
-//		    orders=query.getResultList();
-//		    inc=inc+2;
-//		    System.out.println("Order contains in servlet ::: "+orders);
-//		}
-//		else if(navButton.equals("previous")) {
-//			Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//	    	query.setFirstResult(inc-2);
-//		    query.setMaxResults(2);
-//		    orders=query.getResultList();
-//		    inc=inc-2;
-//		    System.out.println("Order contains in servlet  ::: "+orders);
-//		}
-			
-			
+			System.out.println("value of Navigation Button in servlet ::::: "+navButton);
+// 			System.out.println("in servlet before call in post ::" +inc);
+			inc=memberListService.retrieveAllMembersOrderedByName(navButton,inc);
+			if(inc==-1) {
+	        	request.setAttribute("noOrders", "No Orders...");
+	        }
+// 			System.out.println("in servlet after call in post::" +inc);
+			request.setAttribute("inc", inc);
+// 		    System.out.println("Order contains in servlet first ::: "+orders);
 		
-
-	        
-	        
-//	        List<Items> items=service.listManuItems(category);
-//	        System.out.println("Filter By Manufcaturer items are :: "+items);
-//	        request.setAttribute("items", items);
-	        
 		}        
 		catch (Exception e) {
 
@@ -234,8 +171,16 @@ public class MemberRegistrationServlet extends HttpServlet {
 	}
 
 //	public void listAllOrders(List<OrdersDetailsDto> members) {
-//
+//	   
 //		orders=members;
-//	}
+//		 System.out.println("Order contains in listAllOrders  ::: "+orders);
+//		 request.setAttribute("no", "hiiiiiii");
+//		 if(orders.isEmpty()) {
+//			 request.setAttribute("noOrders", "No Orders...");
+//		 }
+//			 
+		 
+
+	}
 		
-}
+
