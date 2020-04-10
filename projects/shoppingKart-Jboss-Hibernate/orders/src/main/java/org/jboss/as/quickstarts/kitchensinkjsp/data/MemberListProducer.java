@@ -40,6 +40,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.enterprise.context.Dependent;
 
+//@RequestScoped
+//public class MemberListProducer {
+//    @Inject
+//    private EntityManager em;
+//
+//    private List<Member> members;
+//
+//    // @Named provides access the return value via the EL variable name "members" in the UI (e.g.,
+//    // Facelets or JSP view)
+//    @Produces
+//    @Named
+//    public List<Member> getMembers() {
+//        return members;
+//    }
+//
+//    public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
+//        retrieveAllMembersOrderedByName();
+//    }
+//
+//    @PostConstruct
+//    public void retrieveAllMembersOrderedByName() {
+//        CriteriaBuilder cb = em.getCriteriaBuilder();
+//        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
+//        Root<Member> member = criteria.from(Member.class);
+//        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
+//        // feature in JPA p.0
+//        // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
+//        criteria.select(member).orderBy(cb.asc(member.get("name")));
+//        members = em.createQuery(criteria).getResultList();
+//    }
+//}
+
 @RequestScoped
 public class MemberListProducer{
 	
@@ -80,23 +112,25 @@ public class MemberListProducer{
 	    @SuppressWarnings("unchecked")
 	   
 		public Integer retrieveAllMembersOrderedByName(String navButton,Integer inc) {
-    		Query q =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
+    		Query q =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1 AND O.userName = :name");
+    		q.setParameter("name", "Ashok");
     		count=q.getResultList().size();
-    		System.out.println("count of orders :: "+count);
+    		System.out.println("count has value:: "+count);
     		this.inc=inc;
     		if(q.getResultList().isEmpty()) {
     			inc=-1;
     			return inc;
     		}
     		else {
-//     			System.out.println("Inside query:::: ");
-//     	    	System.out.println("Navigation Button has value in ListProducer ::: "+navButton);
+    			System.out.println("Inside query:::: ");
+    	    	System.out.println("Navigation Button has value in ListProducer ::: "+navButton);
     	    	if(navButton.equals("first")) {
-//     	    		System.out.println("value of inc in first : "+inc);
+    	    		System.out.println("value of inc in first : "+inc);
     	    		inc=0;
-//     	    		System.out.println("value of inc : "+inc);
-    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-    		    	query.setFirstResult(0);
+    	    		System.out.println("value of inc : "+inc);
+    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1 AND O.userName = :name");
+    	    		query.setParameter("name", "Ashok");
+    	    		query.setFirstResult(0);
     			    query.setMaxResults(p);
     			    members=query.getResultList();
     			    
@@ -105,40 +139,45 @@ public class MemberListProducer{
     			    System.out.println("Order contains in first ::: "+inc+"\t"+members);
     	    	}
     	    	else if(navButton.equals("last")) {
-//     	    		System.out.println("value of inc in last : "+inc);
-    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-    		    	query.setFirstResult(count-p);
+    	    		System.out.println("value of inc in last : "+inc);
+    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1 AND O.userName = :name");
+    	    		query.setParameter("name", "Ashok");
+    	    		query.setFirstResult(count-p);
     			    query.setMaxResults(p);
     			    members=query.getResultList();
 //    			    servlet.listAllOrders(members);
     			    inc=count-p;
-//     			    System.out.println("value of inc : "+inc +"\t"+count);
+    			    System.out.println("value of inc : "+inc +"\t"+count);
     			    System.out.println("Order contains in last ::: "+inc+"\t"+members);
     	    	}
     	    	else if(navButton.equals("next")) {
-//     	    		System.out.println("value of inc in next : "+inc);
+    	    		System.out.println("value of inc in next : "+inc);
     	    		inc=inc+p;
-//     	    		System.out.println("value of inc : "+inc);
-    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-    		    	query.setFirstResult(inc);
+    	    		System.out.println("value of inc : "+inc);
+    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1 AND O.userName = :name");
+    	    		query.setParameter("name", "Ashok");
+    	    		query.setFirstResult(inc);
     			    query.setMaxResults(p);
     			    members=query.getResultList();
+    			    
 //    			    inc=inc+p;
 //    			    servlet.listAllOrders(members);
     			    System.out.println("Order contains in next ::: "+inc+"\t"+members);
     	    	}
     	    	else if(navButton.equals("previous")) {
-//     	    		System.out.println("value of inc in previous : "+inc);
+    	    		System.out.println("value of inc in previous : "+inc);
     	    		inc=inc-p;
-//     	    		System.out.println("value of inc : "+inc);
-    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-    		    	query.setFirstResult(inc);
+    	    		System.out.println("value of inc : "+inc);
+    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1 AND O.userName = :name");
+    	    		query.setParameter("name", "Ashok");
+    	    		query.setFirstResult(inc);
     			    query.setMaxResults(p);
     			    members=query.getResultList();
+    			   
 //    			    servlet.listAllOrders(members);
     			    System.out.println("Order contains in previous ::: "+inc+"\t"+members);
     	    	}
-//         		System.out.println("Final value of inc in if :"+inc);
+        		System.out.println("Final value of inc :"+inc);
         		return inc;
 
     		}
