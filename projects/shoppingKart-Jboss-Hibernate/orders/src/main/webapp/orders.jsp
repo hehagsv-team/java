@@ -106,19 +106,19 @@
 				 			<c:when test = "${inc == -1}">
 						      	 <center><div class="EmptyMessage">No Items in the Orders</div></center>
 						    </c:when>
-		         			
-						    <c:when test = "${inc >= 6}">
-						       <input type="submit" id="b1" name="navButton" value="first" onclick="hbDisable1()" onchecked>
-								<input type="submit" id="b1" name="navButton" value="previous" onclick="hbDisable2()" >
-								<input type="submit" id="b1" name="navButton" value="next" onclick="hbDisable3()" disabled="disabled" >
-								<input type="submit" id="b1" name="navButton" value="last" onclick="hbDisable4()" >
-						    </c:when>
-						    <c:when test = "${inc < 2}">
+		         			<c:when test = "${inc <= 1}">  <!-- p-1 -->
 						       <input type="submit" id="b1" name="navButton" value="first" onclick="hbDisable1()" onchecked>
 								<input type="submit" id="b1" name="navButton" value="previous" onclick="hbDisable2()" disabled="disabled">
 								<input type="submit" id="b1" name="navButton" value="next" onclick="hbDisable3()"  >
 								<input type="submit" id="b1" name="navButton" value="last" onclick="hbDisable4()" >
 						    </c:when>
+						    <c:when test = "${inc >= count - 2}">
+						       <input type="submit" id="b1" name="navButton" value="first" onclick="hbDisable1()" onchecked>
+								<input type="submit" id="b1" name="navButton" value="previous" onclick="hbDisable2()" >
+								<input type="submit" id="b1" name="navButton" value="next" onclick="hbDisable3()" disabled="disabled" >
+								<input type="submit" id="b1" name="navButton" value="last" onclick="hbDisable4()" >
+						    </c:when>
+						    
 						    <c:otherwise>
 						    	<input type="submit" id="b1" name="navButton" value="first" onclick="hbDisable1()" onchecked>
 								<input type="submit" id="b1" name="navButton" value="previous" onclick="hbDisable2()" >
