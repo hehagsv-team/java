@@ -82,7 +82,7 @@ public class MemberListProducer{
 		public Integer retrieveAllMembersOrderedByName(String navButton,Integer inc) {
     		Query q =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
     		count=q.getResultList().size();
-//     		System.out.println("count has value:: "+count);
+    		System.out.println("count of orders :: "+count);
     		this.inc=inc;
     		if(q.getResultList().isEmpty()) {
     			inc=-1;
@@ -113,7 +113,7 @@ public class MemberListProducer{
 //    			    servlet.listAllOrders(members);
     			    inc=count-p;
 //     			    System.out.println("value of inc : "+inc +"\t"+count);
-//     			    System.out.println("Order contains in last ::: "+inc+"\t"+members);
+    			    System.out.println("Order contains in last ::: "+inc+"\t"+members);
     	    	}
     	    	else if(navButton.equals("next")) {
 //     	    		System.out.println("value of inc in next : "+inc);
@@ -125,7 +125,7 @@ public class MemberListProducer{
     			    members=query.getResultList();
 //    			    inc=inc+p;
 //    			    servlet.listAllOrders(members);
-//     			    System.out.println("Order contains in next ::: "+inc+"\t"+members);
+    			    System.out.println("Order contains in next ::: "+inc+"\t"+members);
     	    	}
     	    	else if(navButton.equals("previous")) {
 //     	    		System.out.println("value of inc in previous : "+inc);
@@ -136,7 +136,7 @@ public class MemberListProducer{
     			    query.setMaxResults(p);
     			    members=query.getResultList();
 //    			    servlet.listAllOrders(members);
-//     			    System.out.println("Order contains in previous ::: "+inc+"\t"+members);
+    			    System.out.println("Order contains in previous ::: "+inc+"\t"+members);
     	    	}
 //         		System.out.println("Final value of inc in if :"+inc);
         		return inc;
