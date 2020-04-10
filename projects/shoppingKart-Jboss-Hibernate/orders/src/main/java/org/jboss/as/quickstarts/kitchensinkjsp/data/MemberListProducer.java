@@ -1,13 +1,13 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2015, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright p015, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version p.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-p.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,38 +40,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.enterprise.context.Dependent;
 
-//@RequestScoped
-//public class MemberListProducer {
-//    @Inject
-//    private EntityManager em;
-//
-//    private List<Member> members;
-//
-//    // @Named provides access the return value via the EL variable name "members" in the UI (e.g.,
-//    // Facelets or JSP view)
-//    @Produces
-//    @Named
-//    public List<Member> getMembers() {
-//        return members;
-//    }
-//
-//    public void onMemberListChanged(@Observes(notifyObserver = Reception.IF_EXISTS) final Member member) {
-//        retrieveAllMembersOrderedByName();
-//    }
-//
-//    @PostConstruct
-//    public void retrieveAllMembersOrderedByName() {
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-//        Root<Member> member = criteria.from(Member.class);
-//        // Swap criteria statements if you would like to try out type-safe criteria queries, a new
-//        // feature in JPA 2.0
-//        // criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-//        criteria.select(member).orderBy(cb.asc(member.get("name")));
-//        members = em.createQuery(criteria).getResultList();
-//    }
-//}
-
 @RequestScoped
 public class MemberListProducer{
 	
@@ -88,8 +56,8 @@ public class MemberListProducer{
 
 	    private Query createQuery;
 	    
-	    int count=8,inc=0;
-	    String navButton;
+	    int count,inc,p=2;
+//	    String navButton;
 	    
 	    @Produces
 	    @Named
@@ -105,132 +73,77 @@ public class MemberListProducer{
 ////	    	this.inc=request.getIntHeader("inc");
 ////	    	request.setAttribute("inc", inc);
 ////	    	request.setAttribute("navButton", navButton);
-	    	retrieveAllMembersOrderedByName();
+//	    	retrieveAllMembersOrderedByName();
 ////	        doPost(request, response);
 	    }
 
 	    @SuppressWarnings("unchecked")
-	    @PostConstruct
-		private void retrieveAllMembersOrderedByName() {
-			
 	   
-	    	System.out.println("Inside query:::: ");
-	    	System.out.println("Navigation Button has value ::: "+navButton);
-	    	Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//	    	query.setFirstResult(0);
-//		    query.setMaxResults(2);
-		    members=query.getResultList();
-		    System.out.println("Order contains in ListProducer ::: "+members);
-//		    servlet.listAllOrders(members);
-//	    	if(navButton.equals("first")) {
-////	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//		    	query.setFirstResult(0);
-//			    query.setMaxResults(2);
-//			    members=query.getResultList();
-//			    
-//			    System.out.println("Order contains ::: "+members);
-//	    	}
-//	    	else if(navButton.equals("last")) {
-////	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//		    	query.setFirstResult(count-2);
-//			    query.setMaxResults(2);
-//			    members=query.getResultList();
-//			    System.out.println("Order contains ::: "+members);
-//	    	}
-//	    	else if(navButton.equals("next")) {
-////	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//		    	query.setFirstResult(inc+2);
-//			    query.setMaxResults(2);
-//			    members=query.getResultList();
-//			    inc=inc+2;
-//			    System.out.println("Order contains ::: "+members);
-//	    	}
-//	    	else if(navButton.equals("previous")) {
-////	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//		    	query.setFirstResult(inc-2);
-//			    query.setMaxResults(2);
-//			    members=query.getResultList();
-//			    inc=inc-2;
-//			    System.out.println("Order contains ::: "+members);
-//	    	}
-//	    	
-//	    	
+		public Integer retrieveAllMembersOrderedByName(String navButton,Integer inc) {
+    		Query q =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
+    		count=q.getResultList().size();
+//     		System.out.println("count has value:: "+count);
+    		this.inc=inc;
+    		if(q.getResultList().isEmpty()) {
+    			inc=-1;
+    			return inc;
+    		}
+    		else {
+//     			System.out.println("Inside query:::: ");
+//     	    	System.out.println("Navigation Button has value in ListProducer ::: "+navButton);
+    	    	if(navButton.equals("first")) {
+//     	    		System.out.println("value of inc in first : "+inc);
+    	    		inc=0;
+//     	    		System.out.println("value of inc : "+inc);
+    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
+    		    	query.setFirstResult(0);
+    			    query.setMaxResults(p);
+    			    members=query.getResultList();
+    			    
+//    			    inc=inc+p;
+//    			    servlet.listAllOrders(members);
+    			    System.out.println("Order contains in first ::: "+inc+"\t"+members);
+    	    	}
+    	    	else if(navButton.equals("last")) {
+//     	    		System.out.println("value of inc in last : "+inc);
+    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
+    		    	query.setFirstResult(count-p);
+    			    query.setMaxResults(p);
+    			    members=query.getResultList();
+//    			    servlet.listAllOrders(members);
+    			    inc=count-p;
+//     			    System.out.println("value of inc : "+inc +"\t"+count);
+//     			    System.out.println("Order contains in last ::: "+inc+"\t"+members);
+    	    	}
+    	    	else if(navButton.equals("next")) {
+//     	    		System.out.println("value of inc in next : "+inc);
+    	    		inc=inc+p;
+//     	    		System.out.println("value of inc : "+inc);
+    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
+    		    	query.setFirstResult(inc);
+    			    query.setMaxResults(p);
+    			    members=query.getResultList();
+//    			    inc=inc+p;
+//    			    servlet.listAllOrders(members);
+//     			    System.out.println("Order contains in next ::: "+inc+"\t"+members);
+    	    	}
+    	    	else if(navButton.equals("previous")) {
+//     	    		System.out.println("value of inc in previous : "+inc);
+    	    		inc=inc-p;
+//     	    		System.out.println("value of inc : "+inc);
+    	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
+    		    	query.setFirstResult(inc);
+    			    query.setMaxResults(p);
+    			    members=query.getResultList();
+//    			    servlet.listAllOrders(members);
+//     			    System.out.println("Order contains in previous ::: "+inc+"\t"+members);
+    	    	}
+//         		System.out.println("Final value of inc in if :"+inc);
+        		return inc;
+
+    		}
+    		
 	    	
-	    	
-	    	
-	    	
-	    	
-//	    	for(int i=0;i<8;i++) {
-//	    		if(inc==0 ) {
-//	    			query.setFirstResult(0);
-//	    		    query.setMaxResults(2);
-//	    		    members=query.getResultList();
-//	    		    System.out.println("Order contains ::: "+members);
-//	    		    inc=0;
-////	    		    inc=inc+2;
-//	    		}
-//	    		else if(inc>=2 && inc <=4) {
-//	    			query.setFirstResult(2);
-//	    		    query.setMaxResults(2);
-//	    		    members=query.getResultList();
-//	    		    System.out.println("Order contains ::: "+members);
-////	    		    inc=inc+2;
-//	    		}
-//	    		else if(inc >4 && inc <=6 ) {
-//	    			query.setFirstResult(4);
-//	    		    query.setMaxResults(2);
-//	    		    members=query.getResultList();
-//	    		    System.out.println("Order contains ::: "+members);
-////	    		    inc=inc+2;
-//	    		}
-//	    		else if(inc >6 && inc <=8) {
-//	    			query.setFirstResult(6);
-//	    		    query.setMaxResults(2);
-//	    		    members=query.getResultList();
-//	    		    System.out.println("Order contains ::: "+members);
-////	    		    inc=inc+2;
-//	    		}
-	    	}
-	    }	
-	    	
-	    	
-		
-//	    @SuppressWarnings("unchecked")
-//	    
-//		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	    	String navButton=request.getParameter("navButton");
-//	    	System.out.println("navButton has values :: "+navButton);
-//	    	if(navButton.equals("first")) {
-//	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//		    	query.setFirstResult(0);
-//			    query.setMaxResults(2);
-//			    members=query.getResultList();
-//			    
-//			    System.out.println("Order contains ::: "+members);
-//	    	}
-//	    	else if(navButton.equals("last")) {
-//	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//		    	query.setFirstResult(count-2);
-//			    query.setMaxResults(2);
-//			    members=query.getResultList();
-//			    System.out.println("Order contains ::: "+members);
-//	    	}
-//	    	else if(navButton.equals("next")) {
-//	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//		    	query.setFirstResult(inc+2);
-//			    query.setMaxResults(2);
-//			    members=query.getResultList();
-//			    inc=inc+2;
-//			    System.out.println("Order contains ::: "+members);
-//	    	}
-//	    	else if(navButton.equals("previous")) {
-//	    		Query query =em.createQuery("SELECT I.Name,I.Price,S.quantity,O.Id,O.orderDate,S.deliverDate,S.shippingStatus FROM Items I,Orders O,ShippingOrderEntity S WHERE I.Id = O.item_id AND O.Id=S.order_id AND O.payment=1");
-//		    	query.setFirstResult(inc-2);
-//			    query.setMaxResults(2);
-//			    members=query.getResultList();
-//			    inc=inc-2;
-//			    System.out.println("Order contains ::: "+members);
-//	    	}
-//	    }
-	    
-//}
+	    }
+}
+
