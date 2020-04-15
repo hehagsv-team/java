@@ -125,8 +125,8 @@
             </ul>          
             <div class="right"> 
                 <!-- <a href="login">logout</a> -->
-                 <form name="submitForm2" method="GET" action="/wildfly-kitchensink-jsp/BrowseItems">
-	            <input type="hidden" name="username" value="null">
+                 <form name="submitForm2" method="POST" action="/wildfly-kitchensink-jsp/LogoutServlet">
+	            <!-- <input type="hidden" name="username" value="null"> -->
 	            <li><a href="javascript:document.submitForm2.submit()">Logout</a></li>
 	            </form>
             </div>

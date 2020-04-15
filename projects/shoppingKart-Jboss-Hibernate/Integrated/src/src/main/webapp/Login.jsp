@@ -31,12 +31,13 @@
 </head>
 <body background="blue">
 
-
+	   <center><div class="Message"><p>${commonMessage}</p></div></center>
 	<div class="loginbox">
-	   <IMG SRC="<%=request.getContextPath()%>/resources/gfx/avatar.png" class="avatar">  
+	   <IMG SRC="<%=request.getContextPath()%>/resources/gfx/avatar.png" class="avatar">
     <h1>Login Here</h1>
-    <form id="reg" action="BrowseItems" method="GET">
+    <form id="reg" action=LoginServlet method="POST">
     	<p>Username:</p>
+    	<input type="hidden" name="nextPageName" value="${nextPageValue}">
     	<input type="text" name="name" id=name  value="${users.name}" placeholder="Enter username">
         <input type="submit" id="register" name"  " value="login">  
          <p id="error">${errorMessage}</p>   

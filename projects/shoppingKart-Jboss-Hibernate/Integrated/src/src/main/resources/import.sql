@@ -66,6 +66,7 @@ insert into HCL_SK_ORDER(id,item_id,order_date,quantity,payment,username) values
 insert into HCL_SK_ORDER(id,item_id,order_date,quantity,payment,username) values(9,8,'05-04-2020',5,1,'Varun')
 insert into HCL_SK_ORDER(id,item_id,order_date,quantity,payment,username) values(10,10,'05-04-2020',7,1,'Varun')
 insert into HCL_SK_ORDER(id,item_id,order_date,quantity,payment,username) values(11,11,'05-04-2020',9,1,'Varun')
+insert into HCL_SK_ORDER(id,item_id,order_date,quantity,payment,username) values(12,12,'05-04-2020',2,0,'Varun')
 
 
 insert into HCL_SK_MANUFACTURER (MANUFACTURER_ID,NAME,RATING) values (1,'Nikon',0);

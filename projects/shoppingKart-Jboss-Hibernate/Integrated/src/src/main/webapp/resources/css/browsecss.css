@@ -35,7 +35,6 @@
       border: 1px solid#0786f5;
       border-radius: 5px;
   }
-  
   .selector{
     position:absolute;
     padding:10px;
@@ -325,7 +324,7 @@ display:inline-block;
     border-radius: 50px;
     cursor:pointer;
 }
- .ItemsDisplay input[type="submit"]
+.ItemsDisplay input[type="submit"]
 {
  
     float: center;
@@ -335,7 +334,7 @@ display:inline-block;
     font-size: 18px;
     border-radius: 50px;
     cursor:pointer;
-} 
+}
 @media screen and (max-width: 700px){
   .ItemsDisplay{
     height: 290px;    
