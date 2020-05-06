@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import static org.junit.Assert.assertEquals;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ class ClassStrengthTest {
 		try {
 			result = classstrength.classdetails(queclass, execlass, prestat, connection, 1, resultset, execute);
 			System.out.println("Result =>"+result);
-			Assert.assertEquals(result, "20");
+			assertEquals(result, "20");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
