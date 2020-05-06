@@ -1,5 +1,5 @@
 import java.sql.Connection;
-
+import static org.junit.Assert.assertEquals;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +27,7 @@ class TestSchoolSchema {
 		try {
 			result = classTeacher.classdetails(queclass, execlass, prestat, connection, 1, resultset, execute);
 			System.out.println("Result =>"+result);
-			Assert.assertEquals(result, "Taahira");
+			assertEquals(result, "Taahira");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
@@ -54,7 +54,7 @@ class TestSchoolSchema {
 		try {
 			result = classTeacher.classdetails(queclass, execlass, prestat, connection, 1, resultset, execute);
 			System.out.println("Result =>"+result);
-			Assert.assertEquals(result, null);
+			assertEquals(result, null);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
