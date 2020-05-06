@@ -64,13 +64,6 @@ public void testWhileExit() throws Exception{
 	String result=TeacherClass.teacherClassMethod(sc, conn, true);
 	assertEquals("exit",result);
 }
-@Test
-public void testWhile() throws Exception{
-	TeacherClass tc=new TeacherClass();
-	int ch=4;
-	when(rs.getString("name")).thenReturn("taara");
-	String result=TeacherClass.subTeacherClassMethod(ch, stmt, rs);
-	assertEquals("taara",result);
-}
+
 }
 
