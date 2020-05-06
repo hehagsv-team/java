@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import static org.junit.Assert.assertEquals;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,7 +33,7 @@ public class TestAverageMarks {
 		try {
 			result = averagemarks.classdetails(queclass, execlass, prestat, connection, 2, resultset, execute);
 			System.out.println("Result =>"+result);
-			Assert.assertEquals(result, "73");
+			assertEquals(result, "73");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
