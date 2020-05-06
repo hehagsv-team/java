@@ -27,7 +27,7 @@ class TestStudentTopper {
 		try {
 			result = studenttopper.classdetails(queclass, execlass, prestat, connection, 4, resultset, execute);
 			System.out.println("Result =>"+result);
-			Assert.assertEquals(result, "Nolan");
+			assertEquals(result, "Nolan");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
@@ -39,5 +39,9 @@ class TestStudentTopper {
 				}
 			}
 		}
+	}
+	private void assertEquals(String result, String string) {
+		// TODO Auto-generated method stub
+		
 	}
 }
