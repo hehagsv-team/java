@@ -68,12 +68,9 @@ public void testWhileExit() throws Exception{
 public void testWhile() throws Exception{
 	TeacherClass tc=new TeacherClass();
 	int ch=4;
-	Scanner sc=new Scanner("5");
-	TeacherClass.teacherClassMethod(sc, conn, true);
 	when(rs.getString("name")).thenReturn("taara");
-	String result=TeacherClass.teacherClassMethod(sc, conn, true);
-//	String result=TeacherClass.subTeacherClassMethod(ch, stmt, rs);
-	assertEquals("true",result);
+	String result=TeacherClass.subTeacherClassMethod(ch, stmt, rs);
+	assertEquals("taara",result);
 }
 }
 
