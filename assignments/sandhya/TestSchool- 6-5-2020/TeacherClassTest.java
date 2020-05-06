@@ -24,10 +24,6 @@ private PreparedStatement stmt;
 @Mock
 private ResultSet rs;
 
-@Mock
-private TeacherClass tc;
-
-
 @Before
 public void setUp() throws Exception {
 	MockitoAnnotations.initMocks(this);
