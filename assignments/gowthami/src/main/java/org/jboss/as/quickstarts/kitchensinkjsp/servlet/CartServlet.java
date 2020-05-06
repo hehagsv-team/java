@@ -161,17 +161,12 @@ public class CartServlet extends HttpServlet {
 				                 
 				request.setAttribute("order",order );
 	
-		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");  
-		Date date = new Date();  
-		String Time=formatter.format(date);
-		System.out.println(formatter.format(date)); 
+		
 		System.out.print("Current Time in milliseconds = ");
-		long time1=System.currentTimeMillis();
+		long timeBeforeconnection=System.currentTimeMillis();
 	    System.out.println(System.currentTimeMillis());
 	    
 		System.out.println("Before connection");
-	
-	
 	
 		URL url = new URL("http://localhost:8081/test");		
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -184,9 +179,9 @@ public class CartServlet extends HttpServlet {
 	String output;		
 	long timeout=conn.getConnectTimeout();
 		System.out.print("Current Time in milliseconds = ");
-		long time=System.currentTimeMillis();
+		long timeAfterConnection=System.currentTimeMillis();
 	    System.out.println(System.currentTimeMillis());
-	    long finaltime=time-time1;
+	    long finaltime=timeAfterConnection-timeBeforeconnection;
 	    System.out.println("the final time is::"+finaltime);
 	    if(finaltime>timeout)
 	    {
