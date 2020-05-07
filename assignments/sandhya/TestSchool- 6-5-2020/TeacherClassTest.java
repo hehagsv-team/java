@@ -1,4 +1,3 @@
-package com.schoolschema.Testjunit.schoolschema;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
