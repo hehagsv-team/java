@@ -32,16 +32,7 @@ public void setUp() throws Exception {
 	when(stmt.executeQuery()).thenReturn(rs);	
 }
 @Test
-public void test5() throws Exception{
-	TeacherClass tc=new TeacherClass();
-	int ch=5;
-	when(rs.next()).thenReturn(true);
-	when(rs.getString("name")).thenReturn("rebecca");
-	String result=TeacherClass.subTeacherClassMethod(ch, stmt);
-	assertEquals("rebecca",result);
-}
-@Test
-public void test1() throws Exception{
+public void subTeacherClassMethod_Case1() throws Exception{
 	TeacherClass tc=new TeacherClass();
 	int ch=1;
 	when(rs.next()).thenReturn(true);
@@ -50,7 +41,7 @@ public void test1() throws Exception{
 	assertEquals("tahira",result);
 }
 @Test
-public void test2() throws Exception{
+public void subTeacherClassMethod_Case2() throws Exception{
 	TeacherClass tc=new TeacherClass();
 	int ch=2;
 	when(rs.next()).thenReturn(true);
@@ -59,13 +50,22 @@ public void test2() throws Exception{
 	assertEquals("tanvi",result);
 }
 @Test
-public void test4() throws Exception{
+public void subTeacherClassMethod_Case4() throws Exception{
 	TeacherClass tc=new TeacherClass();
 	int ch=4;
 	when(rs.next()).thenReturn(true);
 	when(rs.getString("name")).thenReturn("taara");
 	String result=TeacherClass.subTeacherClassMethod(ch, stmt);
 	assertEquals("taara",result);
+}
+@Test
+public void subTeacherClassMethod_Case5() throws Exception{
+	TeacherClass tc=new TeacherClass();
+	int ch=5;
+	when(rs.next()).thenReturn(true);
+	when(rs.getString("name")).thenReturn("rebecca");
+	String result=TeacherClass.subTeacherClassMethod(ch, stmt);
+	assertEquals("rebecca",result);
 }
 @Test
 public void invalidBoundaryTest() throws Exception{
