@@ -30,7 +30,7 @@ public void setUp() throws Exception {
 	when(stmt.executeQuery()).thenReturn(rs);	
 }
 @Test
-public void test1() throws Exception{
+public void getTeacherSubjMethod_Case1() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=1;
 	when(rs.next()).thenReturn(true);
@@ -41,7 +41,7 @@ public void test1() throws Exception{
 	assertEquals("6-84-anvar",result);
 }
 @Test
-public void test2() throws Exception{
+public void getTeacherSubjMethod_Case2() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=2;
 	when(rs.next()).thenReturn(true);
@@ -52,7 +52,7 @@ public void test2() throws Exception{
 	assertEquals("8-83-Anu",result);
 }
 @Test
-public void test3() throws Exception{
+public void getTeacherSubjMethod_Case3() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=3;
 	when(rs.next()).thenReturn(true);
@@ -63,7 +63,7 @@ public void test3() throws Exception{
 	assertEquals("7-87-ryka",result);
 }
 @Test
-public void test4() throws Exception{
+public void getTeacherSubjMethod_Case4() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=4;
 	when(rs.next()).thenReturn(true);
@@ -74,7 +74,7 @@ public void test4() throws Exception{
 	assertEquals("6-84-taara",result);
 }
 @Test
-public void test5() throws Exception{
+public void getTeacherSubjMethod_Case5() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=5;
 	when(rs.next()).thenReturn(true);
@@ -85,7 +85,7 @@ public void test5() throws Exception{
 	assertEquals("10-85-sai",result);
 }
 @Test
-public void test6() throws Exception{
+public void getTeacherSubjMethod_Case6() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=6;
 	when(rs.next()).thenReturn(true);
@@ -96,7 +96,7 @@ public void test6() throws Exception{
 	assertEquals("9-81-navya",result);
 }
 @Test
-public void test7() throws Exception{
+public void getTeacherSubjMethod_Case7() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=7;
 	when(rs.next()).thenReturn(true);
@@ -107,7 +107,7 @@ public void test7() throws Exception{
 	assertEquals("8-83-taara",result);
 }
 @Test
-public void test8() throws Exception{
+public void getTeacherSubjMethod_Case8() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=8;
 	when(rs.next()).thenReturn(true);
@@ -118,7 +118,7 @@ public void test8() throws Exception{
 	assertEquals("7-84-rebecca",result);
 }
 @Test
-public void test9() throws Exception{
+public void getTeacherSubjMethod_Case9() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=9;
 	when(rs.next()).thenReturn(true);
@@ -129,7 +129,7 @@ public void test9() throws Exception{
 	assertEquals("6-94-tahira",result);
 }
 @Test
-public void invalidBoundaryTestSubject() throws Exception{
+public void invalidBoundaryTest() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=0;
 	String result=TeacherSubjClass.getTeacherSubjMethod(ch, stmt);
@@ -137,14 +137,14 @@ public void invalidBoundaryTestSubject() throws Exception{
 	}
 
 @Test
-public void validBoundaryTestSubject() throws Exception{
+public void validBoundaryTest() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	int ch=10;
 	String result=TeacherSubjClass.getTeacherSubjMethod(ch, stmt);
 	assertEquals("valid",result);
 	}
 @Test
-public void testWhileExitMain() throws Exception{
+public void testWhileExit() throws Exception{
 	TeacherSubjClass stc=new TeacherSubjClass();
 	Scanner sc=new Scanner("12");
 	String result=TeacherSubjClass.teacherSubjMethod(sc, conn);
