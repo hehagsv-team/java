@@ -150,6 +150,42 @@ public void testWhileExitMain() throws Exception{
 	String result=SubjectTopperClass.subjectTopperMethod(sc,conn);
 	assertEquals("exit",result);
 }
+@Test
+public void testWhileExit() throws Exception{
+	SubjectTopperClass stc=new SubjectTopperClass();
+	Scanner sc=new Scanner("11");
+	int ch=2;
+	String result=SubjectTopperClass.subTopperMethod(ch,stmt,sc);
+	assertEquals("exit",result);
+	Scanner sc1=new Scanner("11");
+	String result1=SubjectTopperClass.subTopperMethod(3,stmt,sc1);
+	assertEquals("exit",result1);
+	Scanner sc2=new Scanner("11");
+	String result2=SubjectTopperClass.subTopperMethod(4,stmt,sc2);
+	assertEquals("exit",result2);
+	Scanner sc3=new Scanner("11");
+	String result3=SubjectTopperClass.subTopperMethod(5,stmt,sc3);
+	assertEquals("exit",result3);
 
 }
+@Test
+public void testValidBoundaryConditionClass() throws Exception{
+	SubjectTopperClass stc=new SubjectTopperClass();
+	Scanner sc=new Scanner("11");
+	int ch=1;
+	String result=SubjectTopperClass.subTopperMethod(ch,stmt,sc);
+	assertEquals("valid",result);
+}
+@Test
+public void testInvalidBoundaryConditionClass() throws Exception{
+	SubjectTopperClass stc=new SubjectTopperClass();
+	Scanner sc=new Scanner("11");
+	int ch=11;
+	String result=SubjectTopperClass.subTopperMethod(ch,stmt,sc);
+	assertEquals("invalid",result);
+}
+
+
+}
+
 
