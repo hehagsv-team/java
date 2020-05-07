@@ -32,7 +32,7 @@ public void setUp() throws Exception {
 	when(stmt.executeQuery()).thenReturn(rs);	
 }
 @Test
-public void test5() throws Exception{
+public void subjectDistMethod() throws Exception{
 	TeacherSubjectDistClass tc=new TeacherSubjectDistClass();
 	int ch=5;
 	when(rs.next()).thenReturn(true);
