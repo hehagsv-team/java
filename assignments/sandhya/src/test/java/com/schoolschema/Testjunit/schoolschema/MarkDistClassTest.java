@@ -30,7 +30,7 @@ public void setUp() throws Exception {
 	when(stmt.executeQuery()).thenReturn(rs);	
 }
 @Test
-public void test1() throws Exception{
+public void subMarkDistMethod_Case1() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=1;
 	when(rs.next()).thenReturn(true);
@@ -40,7 +40,7 @@ public void test1() throws Exception{
 	assertEquals("50-59,8",result);
 }
 @Test
-public void test2() throws Exception{
+public void subMarkDistMethod_Case2() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=2;
 	when(rs.next()).thenReturn(true);
@@ -50,7 +50,7 @@ public void test2() throws Exception{
 	assertEquals("60-69,10",result);
 }
 @Test
-public void test3() throws Exception{
+public void subMarkDistMethod_Case3() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=3;
 	when(rs.next()).thenReturn(true);
@@ -60,7 +60,7 @@ public void test3() throws Exception{
 	assertEquals("70-79,9",result);
 }
 @Test
-public void test4() throws Exception{
+public void subMarkDistMethod_Case4() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=4;
 	when(rs.next()).thenReturn(true);
@@ -70,7 +70,7 @@ public void test4() throws Exception{
 	assertEquals("50-59,12",result);
 }
 @Test
-public void test5() throws Exception{
+public void subMarkDistMethod_Case5() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=5;
 	when(rs.next()).thenReturn(true);
@@ -80,7 +80,7 @@ public void test5() throws Exception{
 	assertEquals("50-59,9",result);
 }
 @Test
-public void test6() throws Exception{
+public void subMarkDistMethod_Case6() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=6;
 	when(rs.next()).thenReturn(true);
@@ -90,7 +90,7 @@ public void test6() throws Exception{
 	assertEquals("50-59,10",result);
 }
 @Test
-public void test7() throws Exception{
+public void subMarkDistMethod_Case7() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=7;
 	when(rs.next()).thenReturn(true);
@@ -100,7 +100,7 @@ public void test7() throws Exception{
 	assertEquals("50-59,15",result);
 }
 @Test
-public void test8() throws Exception{
+public void subMarkDistMethod_Case8() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=8;
 	when(rs.next()).thenReturn(true);
@@ -110,7 +110,7 @@ public void test8() throws Exception{
 	assertEquals("50-59,12",result);
 }
 @Test
-public void test9() throws Exception{
+public void subMarkDistMethod_Case9() throws Exception{
 	MarkDistClass mds=new MarkDistClass();
 	int ch=9;
 	when(rs.next()).thenReturn(true);
