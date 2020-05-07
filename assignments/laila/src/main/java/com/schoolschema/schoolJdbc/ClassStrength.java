@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,45 +13,59 @@ public static String classStrength() {
  	 		"on s.class_name=c.name\r\n" +
  	 	    "where c.name=?\r\n";
 }
-public static void classStrengthMethod(Scanner sc, Connection conn) throws SQLException {
+public static String classStrengthMethod(Scanner sc, Connection conn) throws SQLException {
+	String res="";
 	while(true) {
 	  	  System.out.println("\nClass strength");
-		  Menu.classMenu();
-  	      int ch=sc.nextInt();
+	  	  Menu.classMenu();
+	  	int ch= sc.nextInt();
   	      sql=classStrength(); 
-  	      ResultSet rs=null;
 	      PreparedStatement stmt=conn.prepareStatement(sql);
-		  subClassMethod(rs,stmt,ch);
+		  subClassMethod(stmt,ch);
 		  if(ch==12) {
+			  res="exit";
 			  break;
 		    }
          }
+	return res;
 }
-private static void subClassMethod(ResultSet rs, PreparedStatement stmt, int ch) throws SQLException {
+public static int subClassMethod(PreparedStatement stmt, int ch) throws SQLException {
+	int res=0;
+	ResultSet rs=null;
 	switch(ch) {
 	  case 1:stmt.setInt(1,6);
              rs = stmt.executeQuery();
-             getClassStrength(rs,6); break;
+             res=getClassStrength(rs,6); break;
       case 2:stmt.setInt(1,7);
       		rs = stmt.executeQuery();
-            getClassStrength(rs,7); break;
+            res=getClassStrength(rs,7); break;
 	  case 3:stmt.setInt(1,8);
             rs = stmt.executeQuery();
-            getClassStrength(rs,8); break;
+            res=getClassStrength(rs,8); break;
 	  case 4:stmt.setInt(1,9);
              rs = stmt.executeQuery();
-             getClassStrength(rs,9); break;
+             res=getClassStrength(rs,9); break;
 	  case 5:stmt.setInt(1,10);
             rs = stmt.executeQuery();
-            getClassStrength(rs,10); break;
-      default: break;
+            res=getClassStrength(rs,10);
+            res=1;break;
+      default: res=0;break;
 	  }
+	return res;
 	
 }
-private static void getClassStrength(ResultSet rs, int i) throws SQLException {
+private static int getClassStrength(ResultSet rs, int i) throws SQLException {
+	int res=0;
 	while(rs.next()) {
-	    System.out.print("The strength of the class "+i+" is "+rs.getInt("count(*)")+"\n");
+	System.out.print("The strength of the class "+i+" is "+rs.getInt("count(*)")+"\n");
+	res=rs.getInt("count(*)");
+	break;
 	}
+	return res;
+	
 	}
 
 }
+
+
+	
