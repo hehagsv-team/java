@@ -30,7 +30,7 @@ public void setUp() throws Exception {
 	when(stmt.executeQuery()).thenReturn(rs);	
 }
 @Test
-public void test1() throws Exception{
+public void subClassMethod_Case1() throws Exception{
 	ClassStrength cs=new ClassStrength();
 	int ch=1;
 	when(rs.next()).thenReturn(true);
@@ -39,7 +39,7 @@ public void test1() throws Exception{
 	assertEquals(20,result);
 }
 @Test
-public void test2() throws Exception{
+public void subClassMethod_Case2() throws Exception{
 	ClassStrength cs=new ClassStrength();
 	int ch=2;
 	when(rs.next()).thenReturn(true);
@@ -48,7 +48,7 @@ public void test2() throws Exception{
 	assertEquals(30,result);
 }
 @Test
-public void test3() throws Exception{
+public void subClassMethod_Case3() throws Exception{
 	ClassStrength cs=new ClassStrength();
 	int ch=3;
 	when(rs.next()).thenReturn(true);
@@ -57,7 +57,7 @@ public void test3() throws Exception{
 	assertEquals(22,result);
 }
 @Test
-public void test4() throws Exception{
+public void subClassMethod_Case4() throws Exception{
 	ClassStrength cs=new ClassStrength();
 	int ch=4;
 	when(rs.next()).thenReturn(true);
