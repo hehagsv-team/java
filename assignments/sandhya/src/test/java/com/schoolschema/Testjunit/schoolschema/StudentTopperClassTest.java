@@ -30,7 +30,7 @@ public void setUp() throws Exception {
 	when(stmt.executeQuery()).thenReturn(rs);	
 }
 @Test
-public void test1() throws Exception{
+public void subStudentMethod_Case1() throws Exception{
 	StudentTopperClass stc=new StudentTopperClass();
 	int ch=1;
 	when(rs.next()).thenReturn(true);
@@ -40,7 +40,7 @@ public void test1() throws Exception{
 	assertEquals("Anvar-1185",result);
 }
 @Test
-public void test2() throws Exception{
+public void subStudentMethod_Case2() throws Exception{
 	StudentTopperClass stc=new StudentTopperClass();
 	int ch=2;
 	when(rs.next()).thenReturn(true);
@@ -50,7 +50,7 @@ public void test2() throws Exception{
 	assertEquals("Anu-1010",result);
 }
 @Test
-public void test3() throws Exception{
+public void subStudentMethod_Case3() throws Exception{
 	StudentTopperClass stc=new StudentTopperClass();
 	int ch=3;
 	when(rs.next()).thenReturn(true);
@@ -60,7 +60,7 @@ public void test3() throws Exception{
 	assertEquals("Gowthu-900",result);
 }
 @Test
-public void test4() throws Exception{
+public void subStudentMethod_Case4() throws Exception{
 	StudentTopperClass stc=new StudentTopperClass();
 	int ch=4;
 	when(rs.next()).thenReturn(true);
