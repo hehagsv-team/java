@@ -32,7 +32,7 @@ public class MarkDistClass {
 		while(true) {
    	      log.info( "\nMark distribution for each subject ");
        	  Menu.subjectMenu();
-       	  System.out.println("12: To return main menu:");
+       	  log.info("12: To return main menu:");
        	  int ch= sc.nextInt();
        	  sql = markDistClass(); 
    	      PreparedStatement stmt=conn.prepareStatement(sql);
