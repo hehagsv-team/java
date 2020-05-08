@@ -167,8 +167,54 @@ public class OrderServletTest {
 		}
 	}
     
-   
+   	 @Test
+    	public void testSession_ReturnSession_InOrderServlet_DoGetMethod() 
+	{
+    		when(request.getSession(false)).thenReturn(session);
+		when(session.getAttribute("UsernameFilter")).thenReturn("Gowthami");
+		when(request.getRequestDispatcher("orders.jsp")).thenReturn(resultView);
+		try {
+			order.doGet(request, response, em);		
+			assertEquals(order.getSession(),session);
+		} catch (ServletException e) {		
+			fail(e.getMessage());
+		} catch (IOException e) {			
+			fail(e.getMessage());
+		}catch(NullPointerException e) {
+			assertNull(null);
+		}
+    }
     
+	 @SuppressWarnings("unchecked")
+   	@Test
+       public void testTableStartValueEqualsToNull_InOrderServlet_InsideDoPostMethod()
+       {
+       		when(request.getSession(false)).thenReturn(session);
+   		when(session.getAttribute("UsernameFilter")).thenReturn("Gowthami");
+   		when(request.getParameter("firstButton")).thenReturn(null);
+   		when(request.getParameter("tableStart")).thenReturn(null);
+   			try {
+   				order.doPost(request, response, em);
+   				assertEquals(order. getTableStart(),null);
+   			} catch (ServletException e1) {
+   				
+   				e1.printStackTrace();
+   			} catch (IOException e1) {
+   			
+   				e1.printStackTrace();
+   			}		
+   		
+   	
+   		catch(NullPointerException e) {
+   			assertNull(null);
+   		}
+       }
+      
+    
+	
+	
+	
+	 
     @SuppressWarnings("unchecked")
 	@Test
     public void testCreateQueryReturnsNullInOrderServletDoPostMethod()
