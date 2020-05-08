@@ -30,7 +30,6 @@ public class SubjectTopperClass {
       	  log.info("\nTopper student in each subject for each class");
   		  Menu.classMenu();
   		  int ch=sc.nextInt();
-  		  System.out.println(ch);
   		  sql=subjectTopper();
   	      PreparedStatement stmt=conn.prepareStatement(sql);
   		  subTopperMethod(ch,stmt,sc);
@@ -88,7 +87,7 @@ public class SubjectTopperClass {
 	
 	public static int subjectMethod(Scanner sc) {
 			  Menu.subjectMenu();
-			  System.out.println("11: To return main menu:");
+			  log.info("11: To return main menu:");
 			  int ch = sc.nextInt();
 			  return ch;
 			}
