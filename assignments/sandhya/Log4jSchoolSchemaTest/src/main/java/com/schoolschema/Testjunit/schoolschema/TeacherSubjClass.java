@@ -30,7 +30,7 @@ public class TeacherSubjClass {
 		while(true) {
   	      log.info("\nWhich teacher teaches a subject better");
       	  Menu.subjectMenu();
-      	  System.out.println("12: To return main menu:");
+      	  log.info("12: To return main menu:");
       	  int ch=sc.nextInt();
       	  sql=teacherSubject(); 
       	  ResultSet rs = null;
