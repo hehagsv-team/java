@@ -65,7 +65,7 @@ public class ClassTeacherClass {
 		 return res;
 	}
 	private static String getClassTeacher(ResultSet rs, int i) throws SQLException {
-		log.info("The class teacher of the class name "+i+" is:");
+		log.debug("The class teacher of the class name "+i+" is:");
 		String res="";
 		while(rs.next()) {
 			    log.debug("Classteacher name: "+rs.getString("name")+", Subject name: "+rs.getString("no_subject"));
