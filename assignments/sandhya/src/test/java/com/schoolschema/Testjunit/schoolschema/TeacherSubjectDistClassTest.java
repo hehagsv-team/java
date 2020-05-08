@@ -26,7 +26,7 @@ private ResultSet rs;
 
 
 @Before
-public void setUp() throws Exception {
+public void beforeEachTest_Method() throws Exception {
 	MockitoAnnotations.initMocks(this);
 	when(conn.prepareStatement(any(String.class))).thenReturn(stmt);
 	when(stmt.executeQuery()).thenReturn(rs);	
