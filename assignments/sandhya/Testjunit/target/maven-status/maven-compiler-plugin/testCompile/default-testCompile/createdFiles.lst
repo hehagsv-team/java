@@ -1,0 +1,10 @@
+com\schoolschema\Testjunit\schoolschema\AvgMarkClassTest.class
+com\schoolschema\Testjunit\schoolschema\TeacherClassTest.class
+com\schoolschema\Testjunit\schoolschema\ClassTeacherClassTest.class
+com\schoolschema\Testjunit\schoolschema\StudentTopperClassTest.class
+com\schoolschema\Testjunit\AppTest.class
+com\schoolschema\Testjunit\schoolschema\TeacherSubjectDistClassTest.class
+com\schoolschema\Testjunit\schoolschema\MarkDistClassTest.class
+com\schoolschema\Testjunit\schoolschema\SubjectTopperClassTest.class
+com\schoolschema\Testjunit\schoolschema\ClassStrengthTest.class
+com\schoolschema\Testjunit\schoolschema\TeacherSubjClassTest.class
