@@ -58,7 +58,7 @@ public class ClassTeacherClass {
 		  case 5:stmt.setInt(1,10);
 	          rs = stmt.executeQuery();
 	          res=getClassTeacher(rs,10);
-	          System.out.println("null"); 
+	          log.info("null"); 
 	          res="valid";break;
 	      default: res="invalid"; break;
 		  }
