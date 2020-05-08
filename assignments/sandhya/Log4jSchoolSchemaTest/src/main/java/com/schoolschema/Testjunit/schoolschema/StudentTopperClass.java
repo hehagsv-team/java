@@ -69,7 +69,7 @@ public class StudentTopperClass {
 	}
 
 	private static String getClassTopper(ResultSet rs, int i) throws SQLException {
-	log.info("The topper in the class name "+i+" is:");
+	log.debug("The topper in the class name "+i+" is:");
 	String res="";
 	while(rs.next()) {
 		    log.debug("Student name: "+rs.getString("StudentName")+", Marks: "+rs.getInt("marks"));
