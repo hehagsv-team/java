@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,48 +18,61 @@ public class StudentTopperClass {
 		   	 		"group by c.name,s.name)a  where topper=1\r\n" + 
 		   	 		"\r\n";}
 
-	public static void studentTopperMethod(Scanner sc, Connection conn) throws SQLException {
+	public static String studentTopperMethod(Scanner sc, Connection conn) throws SQLException {
+		String res="";
 		while(true) {
   	      System.out.println("\nTopper student in each class");
   		  Menu.classMenu();
-  		  int ch=sc.nextInt();
+  		int ch= sc.nextInt();
   		  sql=classTopper(); 
   		  ResultSet rs=null;
   	      PreparedStatement stmt=conn.prepareStatement(sql);
-  		  subStudentMethod(stmt,ch,rs);
+  		  subStudentMethod(stmt,ch);
   		  if(ch==12) {
+  			  res="exit";
   			  break;
   		    }
   	       }
+		return res;
 		
 	}
 
-	private static void subStudentMethod(PreparedStatement stmt, int ch, ResultSet rs) throws SQLException {
+	public static String subStudentMethod(PreparedStatement stmt, int ch) throws SQLException {
+		String res="";
+		 ResultSet rs=null;
 		switch(ch) {
 		case 1:stmt.setInt(1,6);
 	          rs = stmt.executeQuery();
-	          getClassTopper(rs,6);break;
+	          res=getClassTopper(rs,6);break;
 		case 2:stmt.setInt(1,7);
 	          rs = stmt.executeQuery();
-	          getClassTopper(rs,7);break;
+	          res=getClassTopper(rs,7);break;
 		case 3:stmt.setInt(1,8);
 	          rs = stmt.executeQuery();
-	          getClassTopper(rs,8);break;
+	          res=getClassTopper(rs,8);break;
 		 case 4:stmt.setInt(1,9);
 	          rs = stmt.executeQuery();
-	          getClassTopper(rs,9);break;
+	          res=getClassTopper(rs,9);break;
 		 case 5:stmt.setInt(1,10);
 	          rs = stmt.executeQuery();
-	          getClassTopper(rs,10);break;
-	      default:break;
+	          res=getClassTopper(rs,10);
+	          res="valid";break;
+	      default:res="invalid";break;
 		  }
+		return res;
 	}
 
-	private static void getClassTopper(ResultSet rs, int i) throws SQLException {
+	private static String getClassTopper(ResultSet rs, int i) throws SQLException {
 	System.out.println("The topper in the class name "+i+" is:");
+	String res="";
 	while(rs.next()) {
 		    System.out.print("Student name: "+rs.getString("StudentName")+", Marks: "+rs.getInt("marks"));
 		    System.out.println();
+		    int r1=rs.getInt("marks");
+	        String r2=rs.getString("StudentName");
+	        res=r2+"-"+r1;
+	        break;
 		}
+	return res;
 	}
 }
