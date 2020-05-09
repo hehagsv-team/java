@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,46 +14,55 @@ public class AvgMarkClass {
 		 		"where s.class_name=?";
 	      
 	}
-	public static void averageMarkClassMethod(Scanner sc, Connection conn) throws SQLException {
+	public static String averageMarkClassMethod(Scanner sc, Connection conn) throws SQLException {
+		String res="";
 		 while(true) {
 	   	  		System.out.println("\nAverage marks in each class:");
 	   	  		Menu.classMenu();
-	   	  		ResultSet rs = null;
-	   	  		int ch=sc.nextInt();
+	   	  		int ch= sc.nextInt();    
 	   	  		String sql=averageMarks(); 
 	   	  		PreparedStatement stmt=conn.prepareStatement(sql);
-	   	  		subAvgMarksMethod(ch,stmt,rs);
+	   	  		subAvgMarksMethod(ch,stmt);
 	   	  		if(ch==12) {
+	   	  		  res="exit";
 				  break;
 			    }
 	         }
-			
+		 return res;
 		}
 
-	private static void subAvgMarksMethod(int ch, PreparedStatement stmt, ResultSet rs) throws SQLException {
+	public static int subAvgMarksMethod(int ch, PreparedStatement stmt) throws SQLException {
+		int res;
+		ResultSet rs;
 		  switch(ch) {
 		  case 1:stmt.setInt(1,6);
 	      		rs = stmt.executeQuery();
-	      		getAverageMarks(rs,6);break;
+	      		res=getAverageMarks(rs,6);break;
 		  case 2:stmt.setInt(1,7);
 	      		rs = stmt.executeQuery();
-	      		getAverageMarks(rs,7); break;
+	      		res=getAverageMarks(rs,7); break;
 		  case 3:stmt.setInt(1,8);
 	      		rs = stmt.executeQuery();
-	      		getAverageMarks(rs,8);break; 
+	      		res=getAverageMarks(rs,8);break; 
 		  case 4:stmt.setInt(1,9);
 	             rs = stmt.executeQuery();
-	             getAverageMarks(rs,9);break; 
+	             res=getAverageMarks(rs,9);break; 
 	      case 5:stmt.setInt(1,10);
 	             rs = stmt.executeQuery();
-	             getAverageMarks(rs,10);break; 
-	      default: break; 
+	             res=getAverageMarks(rs,10);
+	             res=1;break; 
+	      default:res=0;break; 
 	     }
+		return res;
 	}
-	private static void getAverageMarks(ResultSet rs, int i) throws SQLException {
+	public static int getAverageMarks(ResultSet rs, int i) throws SQLException {
+	 int res=0;
 	 while(rs.next()) {
-        System.out.print("Average marks in class "+i+" is: "+rs.getInt("Average")+"\n"); 
-       }
+     System.out.print("Average marks in class "+i+" is: "+rs.getInt("Average")+"\n");
+     res=rs.getInt("Average");
+     break;
+	 }
+	 return res;
 }	
 
 }
