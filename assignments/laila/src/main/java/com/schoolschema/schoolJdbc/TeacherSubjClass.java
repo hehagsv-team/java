@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +19,8 @@ public class TeacherSubjClass {
 				")a where top=1";
 	}
 
-	public static  void teacherSubjMethod(Scanner sc, Connection conn) throws SQLException {
+	public static  String teacherSubjMethod(Scanner sc, Connection conn) throws SQLException {
+		String res="";
 		while(true) {
   	      System.out.println("\nWhich teacher teaches a subject better");
       	  Menu.subjectMenu();
@@ -30,47 +29,61 @@ public class TeacherSubjClass {
       	  sql=teacherSubject(); 
       	  ResultSet rs = null;
   	      PreparedStatement stmt=conn.prepareStatement(sql);
-  	      getTeacherSubjMethod(ch,stmt,rs);
+  	      getTeacherSubjMethod(ch,stmt);
  		  if(ch==12) {
+ 			  res="exit";
  			  break;
  		     }
            }
+		return res;
 	}
-	private static void getTeacherSubjMethod(int ch, PreparedStatement stmt, ResultSet rs) throws SQLException {
+	public static String getTeacherSubjMethod(int ch, PreparedStatement stmt) throws SQLException {
+		String res="";
+		ResultSet rs=null;
 		switch(ch) {
 	   	  case 1:stmt.setString(1,"PHYSICS");
-	       	     subTeacherMethod(rs,stmt);break;
+	       	     res=subTeacherMethod(rs,stmt);break;
 	   	  case 2:stmt.setString(1,"CHEMISTRY");         		  
-	   	         subTeacherMethod(rs,stmt);break;
+	   	         res=subTeacherMethod(rs,stmt);break;
 	   	  case 3:stmt.setString(1,"BIOLOGY");
-		         subTeacherMethod(rs,stmt);break;
+		         res=subTeacherMethod(rs,stmt);break;
 	   	  case 4:stmt.setString(1,"HISTORY");
-	             subTeacherMethod(rs,stmt);break;
+	             res=subTeacherMethod(rs,stmt);break;
 	   	  case 5:stmt.setString(1,"GEOGRAPHY");
-	             subTeacherMethod(rs,stmt);break;
+	             res=subTeacherMethod(rs,stmt);break;
 	   	  case 6:stmt.setString(1,"POLITICAL SCIENCE");
-	             subTeacherMethod(rs,stmt);break;
+	             res=subTeacherMethod(rs,stmt);break;
 	   	  case 7:stmt.setString(1,"ECONOMICS");
-	             subTeacherMethod(rs,stmt);break;
+	             res=subTeacherMethod(rs,stmt);break;
 	   	  case 8:stmt.setString(1,"ENGLISH");
-	             subTeacherMethod(rs,stmt);break;
+	             res=subTeacherMethod(rs,stmt);break;
 	   	  case 9:stmt.setString(1,"HINDI");
-	             subTeacherMethod(rs,stmt);break;
+	             res=subTeacherMethod(rs,stmt);break;
 	   	  case 10:stmt.setString(1,"MATHS");
-	              subTeacherMethod(rs,stmt);break;
-	        default:break;
+	              res=subTeacherMethod(rs,stmt);
+	              res="valid";break;
+	        default:res="invalid";break;
 			  }
+		return res;
 		}
-	private static void subTeacherMethod(ResultSet rs, PreparedStatement stmt) throws SQLException {
+	private static String subTeacherMethod(ResultSet rs, PreparedStatement stmt) throws SQLException {
+		String res="";
 		 rs = stmt.executeQuery();
-		 getTeacherSubject(rs);
+		 return res=getTeacherSubject(rs);
+		
 	}
 
-	private static void getTeacherSubject(ResultSet rs) throws SQLException {
-		System.out.print("The teacher who teaches the subject better is\n");		
+	private static String getTeacherSubject(ResultSet rs) throws SQLException {
+		System.out.print("The teacher who teaches the subject better is\n");	
+		String res="";
 	    while(rs.next()) {
 	          System.out.println("Class:"+rs.getInt("class")+","+"Average:"+rs.getInt("Average")+","+"Teachers-name: "+rs.getString("teacher"));
-	       } 
+	          int r1=rs.getInt("class");
+	          int r2=rs.getInt("Average");
+	       	  res=r1+"-"+r2+"-"+rs.getString("teacher");
+	       	  break;
+	       }
+		return res; 
 		}
 
 
