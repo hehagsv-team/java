@@ -1,5 +1,3 @@
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,101 +18,122 @@ public class SubjectTopperClass {
 				"on t.id=m.student_id\r\n" + 
 				"where c.name=? and s.name=?)a  where topper=1";
 	}	
-	public static void subjectTopperMethod(Scanner sc, Connection conn) throws SQLException {
+	public static String subjectTopperMethod(Scanner sc, Connection conn) throws SQLException {
+		String res="";
 		while(true) {
       	  System.out.println("\nTopper student in each subject for each class");
   		  Menu.classMenu();
   		  int ch=sc.nextInt();
+  		  System.out.println(ch);
   		  sql=subjectTopper();
-  		  ResultSet rs=null;
   	      PreparedStatement stmt=conn.prepareStatement(sql);
-  		  subTopperMethod(ch,stmt,rs,sc);
+  		  subTopperMethod(ch,stmt,sc);
   		  if(ch==12) {
+  			  res="exit";
   			  break;
   		     }
   	      }
+		return res;
 		
 	}
-	private static void subTopperMethod(int ch, PreparedStatement stmt, ResultSet rs, Scanner sc) throws SQLException {
+	public static String subTopperMethod(int ch, PreparedStatement stmt, Scanner sc) throws SQLException {
+		String res="";
 		switch(ch) {
 		  case 1:while(true) {
 			  ch=subjectMethod(sc);
 			  stmt.setInt(1,6);
-			  subjectTopper(stmt,ch,rs);
-			  if(ch==11) break;
+			  res=subjectTopper(stmt,ch);
+			  if(ch==11) {
+				 res="valid"; break;
+			  }
 			  }break;
 		  case 2:while(true) {
 			  ch=subjectMethod(sc);
 			  stmt.setInt(1,7);
-			  subjectTopper(stmt,ch,rs);
-			  if(ch==11) break;
-			  }break;
+			  subjectTopper(stmt,ch);
+			  if(ch==11) {
+					 res="exit"; break;
+				 }}break;
 		  case 3:while(true) {
 			  ch=subjectMethod(sc);
 			  stmt.setInt(1,8);
-			  subjectTopper(stmt,ch,rs);
-			  if(ch==11) break;
-			  }break;
+			  subjectTopper(stmt,ch);
+			  if(ch==11) {
+					 res="exit"; break;
+				 }}break;
 		  case 4:while(true) {
 			  ch=subjectMethod(sc);
 			  stmt.setInt(1,9);
-			  subjectTopper(stmt,ch,rs);
-			  if(ch==11) break;
-			  }break;
+			  subjectTopper(stmt,ch);
+			  if(ch==11) {
+					 res="exit"; break;
+				 }}break;
 		  case 5:while(true) {
 			  ch=subjectMethod(sc);
 			  stmt.setInt(1,10);
-			  subjectTopper(stmt,ch,rs);
-			  if(ch==11) break;
-		       }break;
-	      default:break;
+			  subjectTopper(stmt,ch);
+			  if(ch==11) {
+					 res="exit"; break;
+				 }}break;
+	      default:res="invalid";break;
 		}
+		return res;
 		  }
 	
-	private static int subjectMethod(Scanner sc) {
+	public static int subjectMethod(Scanner sc) {
 			  Menu.subjectMenu();
 			  System.out.println("11: To return main menu:");
-			  int ch=sc.nextInt();
+			  int ch = sc.nextInt();
 			  return ch;
 			}
 	
-	private static void subjectTopper(PreparedStatement stmt, int ch, ResultSet rs) throws SQLException {
+	public static String subjectTopper(PreparedStatement stmt, int ch) throws SQLException {
+		String res="";
+		ResultSet rs=null;
 	  	  switch(ch) {
 	  	  case 1:stmt.setString(2,"PHYSICS");
-	      	  	getSubjectTopper(stmt,rs);break;
+	      	  	res=getSubjectTopper(stmt,rs);break;
 	  	  case 2:stmt.setString(2,"CHEMISTRY");
-	  	  		 getSubjectTopper(stmt,rs);break;
+	  	  		 res=getSubjectTopper(stmt,rs);break;
 	  	  case 3:stmt.setString(2,"BIOLOGY");
-	  	         getSubjectTopper(stmt,rs);break; 
+	  	         res=getSubjectTopper(stmt,rs);break; 
 	  	  case 4:stmt.setString(2,"HISTORY");
-	  	         getSubjectTopper(stmt,rs);break; 
+	  	         res=getSubjectTopper(stmt,rs);break; 
 	  	  case 5:stmt.setString(2,"GEOGRAPHY");
-	  	         getSubjectTopper(stmt,rs);break;
+	  	         res=getSubjectTopper(stmt,rs);break;
 	  	  case 6:stmt.setString(2,"POLITICAL SCIENCE");
-	  	         getSubjectTopper(stmt,rs);break; 
+	  	         res=getSubjectTopper(stmt,rs);break; 
 	  	  case 7:stmt.setString(2,"ECONOMICS");
-	  	         getSubjectTopper(stmt,rs);break; 
+	  	         res=getSubjectTopper(stmt,rs);break; 
 	  	  case 8:stmt.setString(2,"ENGLISH");
-	         	 getSubjectTopper(stmt,rs);break;
+	         	 res=getSubjectTopper(stmt,rs);break;
 	  	  case 9:stmt.setString(2,"HINDI");
-	  	         getSubjectTopper(stmt,rs);break;
+	  	         res=getSubjectTopper(stmt,rs);break;
 	   	  case 10:stmt.setString(2,"MATHS");
-	           	 getSubjectTopper(stmt,rs);break;
-	      default: break;
-	  	  }  
+	           	 res=getSubjectTopper(stmt,rs);
+	           	 res="valid";break;
+	      default: res="invalid";break;
+	  	  }
+		return res;  
 	  }
 	
-	private static void getSubjectTopper(PreparedStatement stmt, ResultSet rs) throws SQLException {
+	private static String getSubjectTopper(PreparedStatement stmt, ResultSet rs) throws SQLException {
+		String res="";
 		rs = stmt.executeQuery();
-		getSubjectTopperClass(rs);
+		return res=getSubjectTopperClass(rs);
 	}
 	
-	private static void getSubjectTopperClass(ResultSet rs) throws SQLException {
+	private static String getSubjectTopperClass(ResultSet rs) throws SQLException {
+		String res="";
 		System.out.println("The topper in the subject  is:");
 		while(rs.next()) {
 			    System.out.print("Subject name: "+rs.getString("subjectName")+", Student name: "+rs.getString("name")+", Marks: "+rs.getInt("marks"));
 			    System.out.println();
-			}		
+			    int r1=rs.getInt("marks");
+			    res=rs.getString("subjectName")+"-"+rs.getString("name")+"-"+r1;
+			    break;
+			}
+		return res;		
 		}
 
 
