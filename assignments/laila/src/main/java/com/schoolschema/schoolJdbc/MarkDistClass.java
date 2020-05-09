@@ -1,5 +1,4 @@
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,55 +22,69 @@ public class MarkDistClass {
 		 		"where name=?"+
 		 		"group by marks";
 	} 
-	public static void markDistMethod(Scanner sc, Connection conn) throws SQLException {
-		 while(true) {
+	public static String markDistMethod(Scanner sc, Connection conn) throws SQLException {
+		String res="";
+		while(true) {
    	      System.out.println( "\nMark distribution for each subject ");
        	  Menu.subjectMenu();
        	  System.out.println("12: To return main menu:");
-       	  int ch=sc.nextInt();
+       	  int ch= sc.nextInt();
        	  sql = markDistClass(); 
    	      PreparedStatement stmt=conn.prepareStatement(sql);
        	  ResultSet rs=null;
-		  subMarkDistMethod(ch,stmt,rs);
+		  subMarkDistMethod(ch,stmt);
    		  if(ch==12) {
+   			  res="exit";
    			  break;
    		     }
              }
+		return res;
 	}
-	private static void subMarkDistMethod(int ch, PreparedStatement stmt, ResultSet rs) throws SQLException {
+	public static String subMarkDistMethod(int ch, PreparedStatement stmt) throws SQLException {
+		ResultSet rs=null;
+		String res = "";
 		switch(ch) {
      	  case 1:stmt.setString(1,"PHYSICS");
-         	     markDistSubj(rs,stmt);break;
+         	     res=markDistSubj(rs,stmt);break;
      	  case 2:stmt.setString(1,"CHEMISTRY");         		  
-     	         markDistSubj(rs,stmt);break;
+     	         res=markDistSubj(rs,stmt);break;
      	  case 3:stmt.setString(1,"BIOLOGY");
-	             markDistSubj(rs,stmt);break;
+	             res=markDistSubj(rs,stmt);break;
      	  case 4:stmt.setString(1,"HISTORY");
-                 markDistSubj(rs,stmt);break;
+                 res=markDistSubj(rs,stmt);break;
      	  case 5:stmt.setString(1,"GEOGRAPHY");
-                 markDistSubj(rs,stmt);break;
+                 res=markDistSubj(rs,stmt);break;
      	  case 6:stmt.setString(1,"POLITICAL SCIENCE");
-                 markDistSubj(rs,stmt);break;
+                 res=markDistSubj(rs,stmt);break;
      	  case 7:stmt.setString(1,"ECONOMICS");
-                 markDistSubj(rs,stmt);break;
+                 res=markDistSubj(rs,stmt);break;
      	  case 8:stmt.setString(1,"ENGLISH");
-                 markDistSubj(rs,stmt);break;
+                 res=markDistSubj(rs,stmt);break;
      	  case 9:stmt.setString(1,"HINDI");
-                 markDistSubj(rs,stmt);break;
+                 res=markDistSubj(rs,stmt);break;
      	  case 10:stmt.setString(1,"MATHS");
-                 markDistSubj(rs,stmt);break;
-          default:break;
+                 res=markDistSubj(rs,stmt);
+                 res="valid";break;
+          default:res="invalid";break;
  		  }
+		return res;
 	}
-	private static void markDistSubj(ResultSet rs, PreparedStatement stmt) throws SQLException {
-	  rs = stmt.executeQuery();
-   	  getMarkDist(rs);
+	private static String markDistSubj(ResultSet rs, PreparedStatement stmt) throws SQLException {
+	  String res="";
+		rs = stmt.executeQuery();
+   	  return res=getMarkDist(rs);
 		
 	}
-	private static void getMarkDist(ResultSet rs) throws SQLException {
+	private static String getMarkDist(ResultSet rs) throws SQLException {
+		String res="";
 		System.out.print("The mark distribution of a subject  is\n");		
 	    while(rs.next()) {
 	          System.out.println("Count:"+rs.getInt("count(*)")+" ,"+"Marks-range:"+rs.getString("marks"));
-	       } 
+	          int r1=rs.getInt("count(*)");
+	          String r2=rs.getString("marks");
+	          res=r2+","+r1;
+	          break;
+	       }
+		return res; 
 	}
 }
