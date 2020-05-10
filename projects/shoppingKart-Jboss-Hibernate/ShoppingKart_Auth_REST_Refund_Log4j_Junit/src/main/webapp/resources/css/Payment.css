@@ -1,0 +1,115 @@
+.container{
+  width: 100%;
+  background-color:#0786f5;
+  height: 110px;
+  font-size: 16px;
+  padding: 10px;
+}
+.center-align{
+  width: 100%;
+  color: aliceblue;
+	text-align: center;
+	font-size: 45px;
+  font-family: cursive; 
+}
+.container top-right{
+  width: 100%;
+    float: top;
+    margin-top: 100px;
+}
+header {
+  padding-top: 25px; 
+}
+.container ul{ 
+  margin: 0;
+  padding: 0;
+}
+.container form{
+  list-style: none;
+  float: left;
+}/* 
+.right form{
+	list-style:none;
+	float:left;
+} */
+
+.NextEmpty p{
+	color:blue;
+	font-size:29px;
+	font-weight:bold;
+}
+ssssss
+.right-align form a{
+  display: block;
+  text-decoration: none;
+  color: aliceblue;
+  margin-right: 3px;
+  padding: 3px 3px 3px 3px;
+  border: 1px solid aliceblue;
+}
+.user{
+  float:right;
+  padding-right:13px;
+  color: aliceblue;
+  padding-top:5px;
+}
+.right-align { 
+  text-decoration: none;
+  color: #609fd6;;
+  float:right;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  font-size: 18px;
+}
+.right-align a:hover{
+  background-color: rgb(11, 87, 138);
+}
+
+.right a:hover{
+  background-color: rgb(11, 87, 138);
+}
+.right form{
+	float:right;
+}
+.right form a{
+    color: aliceblue;
+    text-decoration: none;
+    display: block;
+    float:right;
+    margin-right: 15px;
+	
+    padding: 5px 7px -1px 1px;
+    border: 1px solid aliceblue;
+    font-size: 20px;   
+}
+.page-name{
+	padding-left: 21rem;
+	padding-top: 25px;
+	font-size:35px;
+	color:black	
+} 
+.selector{
+    position:absolute;
+    padding:10px;
+    top: 28%;
+    left:30%;
+    border-collapse: collapse;
+    border:0.5px solid #000;
+    height:190px;
+    width:42%;
+    border-radius:20px;
+}
+@media screen and (max-width: 400px){
+  .container{
+    font-size: 5px;
+    padding: 5px;
+  }
+  .center-align{
+    font-size: 15px;
+  }
+  .container top-right{
+    float: none;
+    margin-top: 0;
+  }
+}
