@@ -13,6 +13,7 @@ public class UserHandler extends DefaultHandler{
     private boolean bAge = false;
     /** Extra javadoc(ignored). */
     private boolean bSalary = false;
+    /**@Override*/
     @Override
     public void startElement(final String uri, final String localName,
             final String qName, final Attributes attributes)
@@ -29,6 +30,7 @@ public class UserHandler extends DefaultHandler{
             bSalary = true;
          }
     }
+    /**@Overide*/
     @Override
     public void endElement(final String uri, final String localName,
             final String qName) throws SAXException {
@@ -36,7 +38,7 @@ public class UserHandler extends DefaultHandler{
             System.out.println("End element: " + qName);
         }
     }
-
+    /**@Override*/
     @Override
     public void characters(final char[] ch, final int start, final int length)
             throws SAXException {
