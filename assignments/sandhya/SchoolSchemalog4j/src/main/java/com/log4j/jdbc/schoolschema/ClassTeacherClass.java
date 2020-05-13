@@ -8,60 +8,96 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+public final class ClassTeacherClass {
+    private ClassTeacherClass() {
+        throw new IllegalStateException("Utility class");
+    }
 
-public class ClassTeacherClass {
-	static Logger log=Logger.getLogger(ClassTeacherClass.class);
-	static String sql;
-	public static String classTeacherSub() {
-		return sql = "select t.name,s.name as no_subject\r\n" + 
-	 	 		"from subject s\r\n" + 
-	 	 		"join teacher t\r\n" + 
-	 	 		"on s.teacher_id=t.id\r\n" + 
-	 	 		"join class c\r\n" + 
-	 	 		"on c.teacher_id=t.id\r\n" + 
-	 	 	    "where c.name=?\r\n"+
-	 	 		"group by t.name,s.name\r\n";
-	}
-	public static void classTeacherMethod(Scanner sc, Connection conn) throws SQLException {
-	      while(true) {
-	      log.info("\nWhich all subjects does a class teacher teach is");
-		  Menu.classMenu();
-		  int ch=sc.nextInt();
-		  sql=classTeacherSub();
-		  ResultSet rs=null;
-	      PreparedStatement stmt=conn.prepareStatement(sql);
-		  subClassTeacher(ch,stmt,rs);
-		  if(ch==12) {
-			  break;
-		    }
-	      }
-	}
-	private static void subClassTeacher(int ch, PreparedStatement stmt, ResultSet rs) throws SQLException {
-		 switch(ch) {
-		 case 1:stmt.setInt(1,6);
-	          rs = stmt.executeQuery();
-	          getClassTeacher(rs,6);  break;
-		  case 2:stmt.setInt(1,7);
-	          rs = stmt.executeQuery();
-	          getClassTeacher(rs,7);  break;
-		  case 3:stmt.setInt(1,8);
-	          rs = stmt.executeQuery();
-	          getClassTeacher(rs,8);  break;
-		  case 4:stmt.setInt(1,9);
-	          rs = stmt.executeQuery();
-	          getClassTeacher(rs,9);  break;
-		  case 5:stmt.setInt(1,10);
-	          rs = stmt.executeQuery();
-	          getClassTeacher(rs,10);
-	          System.out.println("null");  break;
-	      default:  break;
-		  }
-	}
-	private static void getClassTeacher(ResultSet rs, int i) throws SQLException {
-		log.debug("The class teacher of the class name "+i+" is:");
-		while(rs.next()) {
-			    log.debug("Classteacher name: "+rs.getString("name")+", Subject name: "+rs.getString("no_subject"));
+    /** Extra javadoc(ignored). */
 
-			}
-		}
+    private static Logger log = Logger.getLogger(ClassTeacherClass.class);
+    /** @return */
+    public static String classTeacherSub() {
+        String sql = "select t.name,s.name as no_subject\r\n"
+                + "from subject s\r\n" + "join teacher t\r\n"
+                + "on s.teacher_id=t.id\r\n" + "join class c\r\n"
+                + "on c.teacher_id=t.id\r\n" + "where c.name=?\r\n"
+                + "group by t.name,s.name\r\n";
+        return sql;
+    }
+    /**
+     * this is comment of function.
+     * @param sc **this is Scanner**
+     * @param conn **this is Connection**
+     */
+    public static void classTeacherMethod(final Scanner sc,
+            final Connection conn) throws SQLException {
+        while (true) {
+            log.info("\nWhich all subjects does a class teacher teach is");
+            Menu.classMenu();
+            int ch = sc.nextInt();
+            final int k = 12;
+            String sql = classTeacherSub();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            subClassTeacher(ch, stmt);
+            if (ch == k) {
+                break;
+            }
+        }
+    }
+
+    private static void subClassTeacher(final int ch,
+            final PreparedStatement stmt) throws SQLException {
+        ResultSet rs = null;
+        final int a = 1;
+        final int b = 2;
+        final int c = 3;
+        final int d = 4;
+        final int e = 5;
+        final int f = 6;
+        final int g = 7;
+        final int h = 8;
+        final int i = 9;
+        final int j = 10;
+        switch (ch) {
+        case a:
+            stmt.setInt(1, f);
+            rs = stmt.executeQuery();
+            getClassTeacher(rs, f);
+            break;
+        case b:
+            stmt.setInt(1, g);
+            rs = stmt.executeQuery();
+            getClassTeacher(rs, g);
+            break;
+        case c:
+            stmt.setInt(1, h);
+            rs = stmt.executeQuery();
+            getClassTeacher(rs, h);
+            break;
+        case d:
+            stmt.setInt(1, i);
+            rs = stmt.executeQuery();
+            getClassTeacher(rs, i);
+            break;
+        case e:
+            stmt.setInt(1, j);
+            rs = stmt.executeQuery();
+            getClassTeacher(rs, j);
+            System.out.println("null");
+            break;
+        default:
+            break;
+        }
+    }
+
+    private static void getClassTeacher(final ResultSet rs,
+            final int i) throws SQLException {
+        log.debug("The class teacher of the class name " + i + " is:");
+        while (rs.next()) {
+            log.debug("Classteacher name: " + rs.getString("name")
+                + ", Subject name: " + rs.getString("no_subject"));
+
+        }
+    }
 }
