@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_211" class="java.beans.XMLDecoder">
+ <object class="jdbc.EmployeeClass">
+  <void property="age">
+   <int>21</int>
+  </void>
+  <void property="firstName">
+   <string>Hemadri</string>
+  </void>
+  <void property="lastName">
+   <string>teruvai</string>
+  </void>
+ </object>
+</java>
