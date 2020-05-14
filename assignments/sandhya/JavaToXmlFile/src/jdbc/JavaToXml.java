@@ -18,6 +18,17 @@ public class JavaToXml {
         XMLEncoder x = new XMLEncoder(os);
         x.writeObject(list);
         x.close();
+        BufferedReader in = new BufferedReader(new FileReader("C:\\log/outputFile.xml"));
+        String line;
+        try {
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            in.close();
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
 }
