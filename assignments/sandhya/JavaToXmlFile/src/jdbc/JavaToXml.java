@@ -13,9 +13,6 @@ public class JavaToXml {
         e.setFirstName("Hemadri");
         e.setLastName("teruvai");
         e.setAge(21);
-
-        List<EmployeeClass> list = new ArrayList<>();
-        list.add(e);
         FileOutputStream out = new FileOutputStream("C:\\log/outputFile.xml");
         BufferedOutputStream os = new BufferedOutputStream(out);
         XMLEncoder x = new XMLEncoder(os);
