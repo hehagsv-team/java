@@ -1,7 +1,5 @@
 package com.xml;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -25,10 +23,8 @@ public final class JavaObjectToXml {
     /**
      *
      * @param args
-     * @throws IOException
      */
-    public static void main(final String[] args)
-            throws ParserConfigurationException, TransformerException, IOException {
+    public static void main(final String[] args) {
         Student student = new Student();
         Class classobj = student.getClass();
         classDetails(classobj);
@@ -36,13 +32,15 @@ public final class JavaObjectToXml {
     /**
     *
     * @param classobject
-     * @throws IOException
     */
-    public static void classDetails(final Class classobject)
-            throws ParserConfigurationException, TransformerException, IOException {
+    public static void classDetails(final Class classobject) {
+
         DocumentBuilderFactory
         docFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+        DocumentBuilder docBuilder;
+        try {
+            docBuilder = docFactory.newDocumentBuilder();
+
         Document doc = docBuilder.newDocument();
         Element root = doc.createElement("class");
         doc.appendChild(root);
@@ -75,6 +73,11 @@ public final class JavaObjectToXml {
                 streamResult = new StreamResult(xmlfilepath);
                 transformer.transform(domSource, streamResult);
             }
+        }
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
         }
     }
 }
