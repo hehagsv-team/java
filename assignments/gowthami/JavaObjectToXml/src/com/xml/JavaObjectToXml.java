@@ -1,26 +1,80 @@
 package com.xml;
 
-import java.beans.XMLEncoder;
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
 
-public class JavaObjectToXml {
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
-    public static void main(String args[]) {
-        Student student1 = new Student();
-        student1.setRollno(1);
-        student1.setName("Gowthami");
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-        try {
-            XMLEncoder xe = new XMLEncoder(new BufferedOutputStream(
-                    new FileOutputStream("C:\\Users\\lenovo.LAPTOP-A9778KLS\\Documents\\xmlfile.xml")));
-            xe.writeObject(student1);
-            xe.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+public final class JavaObjectToXml {
 
+    private JavaObjectToXml() {
     }
 
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
+    public static void main(final String[] args)
+            throws ParserConfigurationException, TransformerException, IOException {
+        Student student = new Student();
+        Class classobj = student.getClass();
+        classDetails(classobj);
+    }
+    /**
+    *
+    * @param classobject
+     * @throws IOException
+    */
+    public static void classDetails(final Class classobject)
+            throws ParserConfigurationException, TransformerException, IOException {
+        DocumentBuilderFactory
+        docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+        Document doc = docBuilder.newDocument();
+        Element root = doc.createElement("class");
+        doc.appendChild(root);
+        Attr attribute = doc.createAttribute("name");
+        attribute.setValue(classobject.getName());
+        root.setAttributeNode(attribute);
+
+        Method[] studentclassMethods = classobject.getDeclaredMethods();
+        for (Method method : studentclassMethods) {
+            Element method1 = doc.createElement("method");
+            root.appendChild(method1);
+            Attr methodattribute = doc.createAttribute("name");
+            methodattribute.setValue(method.getName());
+            method1.setAttributeNode(methodattribute);
+            Element param = doc.createElement("args");
+            method1.appendChild(param);
+            Class[] studentParamList = method.getParameterTypes();
+            for (Class class1 : studentParamList) {
+                Element arg = doc.createElement("arg");
+                param.appendChild(arg);
+                Element type = doc.createElement("type");
+                type.appendChild(doc.createTextNode(class1.getName()));
+                arg.appendChild(type);
+                final String xmlfilepath = "C:\\log\\Filexml.xml";
+                TransformerFactory
+                transformerFactory = TransformerFactory.newInstance();
+                Transformer transformer = transformerFactory.newTransformer();
+                DOMSource domSource = new DOMSource(doc);
+                StreamResult
+                streamResult = new StreamResult(new File(xmlfilepath));
+                transformer.transform(domSource, streamResult);
+            }
+        }
+    }
 }
