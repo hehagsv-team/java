@@ -72,7 +72,7 @@ public final class JavaObjectToXml {
                 Transformer transformer = transformerFactory.newTransformer();
                 DOMSource domSource = new DOMSource(doc);
                 StreamResult
-                streamResult = new StreamResult(new File(xmlfilepath));
+                streamResult = new StreamResult(xmlfilepath);
                 transformer.transform(domSource, streamResult);
             }
         }
