@@ -18,14 +18,19 @@ const burger = ( props ) => {
     if (transformedIngredients.length === 0) {
         transformedIngredients = <p>Please start adding ingredients!</p>;
     }
-    const move=new URLSearchParams(Object.entries(props.ingredients));
     return (
         <div className={classes.Burger}
-         data-tip={move}>
+         data-tip="" data-for="test">
             <BurgerIngredient type="bread-top" />
             {transformedIngredients}
             <BurgerIngredient type="bread-bottom" />
-            <ReactTooltip/>
+            <ReactTooltip  className={classes.Tooltip} id="test" >
+                <div>{Object.keys(props.ingredients)[0]}:{Object.values(props.ingredients)[0]}</div>
+                <div>{Object.keys(props.ingredients)[1]}:{Object.values(props.ingredients)[1]}</div>
+                <div>{Object.keys(props.ingredients)[2]}:{Object.values(props.ingredients)[2]}</div>
+                <div>{Object.keys(props.ingredients)[3]}:{Object.values(props.ingredients)[3]}</div>
+            </ReactTooltip>
+
         </div>
     );
 };
