@@ -1,0 +1,1 @@
+code for CSP in reactJS
