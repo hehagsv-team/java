@@ -30,22 +30,20 @@ body {
 .form-inline1 .nav-item .nav-link {
     color: black;
     font-size: 1em;
-    padding-bottom: 36em;
+    padding-bottom: 35em;
 }
 
 .nav-scroller {
     /* z-index: 2; */
     position:absolute;
     top: 9.8%;
-    left:1%;
-    height:55px;
-    width:98%;
     border-radius:10px;
-    
+    height:55px;
+    left:1%;
+    width: 98%;
     background-color: rgb(194, 215, 228);
     /* overflow-y: hidden; */
   }
-  
   
   .nav-scroller .nav {
     display: -ms-flexbox;
@@ -84,7 +82,7 @@ body {
 }
 .dashboard {
     padding-top: 2.5em;
-    padding-right: 7em;
+    padding-right: 5em;
 }
 .heading1 {
     padding-left: 9em;
