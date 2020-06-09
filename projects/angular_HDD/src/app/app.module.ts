@@ -4,15 +4,17 @@ import { ChartsModule } from 'ng2-charts';
 import { GoogleChartsModule } from 'angular-google-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    PieChartComponent
+    PieChartComponent,
+    BsNavbarComponent
   ],
   imports: [
     BrowserModule,
