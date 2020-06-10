@@ -1,0 +1,28 @@
+
+<div class="loginbox">
+    <form >
+        <div class="login">
+           <h1>Login Here</h1>
+       </div>
+               <form (submit)="loginUser($event)">
+                   <p>Username:</p>
+                   <input type="text" placeholder="Enter Username">
+                   <p>Password:</p>
+                   <input type="password" name="password" placeholder="Enter password" >
+                   <!-- <div class="alert alert-danger" *ngIf="f.password.touched && f.password.invalid">
+                       Password is required.
+                   </div> -->
+                   <!-- <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
+                       <div *ngIf="f.password.errors.required">Password is required.</div>
+                       <div *ngIf="f.password.errors.confirmedValidator">Password and Confirm Password must be match.</div>
+                   </div> -->
+                   <input type="submit" name="" value="Login">
+               </form>
+               <form >
+                   <div class="container">
+                       
+                       <span class="psw">Reset <a href="resetpassword ">password</a></span>
+                     </div>
+                   </form>
+       </form>
+   </div>

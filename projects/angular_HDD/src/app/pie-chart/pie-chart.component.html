@@ -1,3 +1,4 @@
+<!-- <a routerLink="/login-form/pie-chart"> -->
 <div class="dashboard text-center">
   <h2 class="h2">Dashboard</h2>
 </div>
@@ -15,8 +16,14 @@
   </div>
   <div class="col-md-6"><br><br>
     <div class="chart-wrapper" style="height: 300px; width:100%;">
-      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-        [plugins]="barChartPlugins" [legend]="barChartLegend" [width]="barWidth" [chartType]="barChartType">
+      <canvas baseChart 
+      [datasets]="barChartData" 
+      [labels]="barChartLabels" 
+      [options]="barChartOptions"
+         
+        [legend]="barChartLegend" 
+        [width]="barWidth" 
+        [chartType]="barChartType">
       </canvas>
     </div>
     <div class="heading">
@@ -25,3 +32,4 @@
 
   </div>
 </div>
+<!-- </a> -->
