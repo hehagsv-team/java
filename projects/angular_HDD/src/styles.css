@@ -1,8 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+
 @import "~bootstrap/dist/css/bootstrap.css";
 html,
 body {
-  overflow-x: hidden; /* Prevent scroll on narrow devices */
+  overflow-x: hidden;
 }
 .navbar {
     position:absolute;
@@ -34,7 +34,7 @@ body {
 }
 
 .nav-scroller {
-    /* z-index: 2; */
+   
     position:absolute;
     top: 9.8%;
     border-radius:10px;
@@ -42,7 +42,7 @@ body {
     left:1%;
     width: 98%;
     background-color: rgb(194, 215, 228);
-    /* overflow-y: hidden; */
+    
   }
   
   .nav-scroller .nav {
@@ -53,7 +53,7 @@ body {
     padding-bottom: 1rem;
     margin-top: -1px;
     overflow-x: auto;
-    /* color: rgba(255, 255, 255, .75); */
+    
     color: #6da9e9;
     text-align: center;
     white-space: nowrap;
