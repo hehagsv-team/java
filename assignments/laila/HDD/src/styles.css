@@ -1,1 +1,96 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/dist/css/bootstrap.css";
+html,
+body {
+  overflow-x: hidden;
+}
+.navbar {
+    position:absolute;
+    padding:10px;
+    top: 2%;
+    left:1%;
+    border-collapse: collapse;
+    border:0.5px solid rgb(199, 211, 207);
+    height:600px;
+    width:98%;
+    border-radius:10px;
+}
+    .hdd {
+    font-size: 1.5em;
+    padding-bottom: 23em;
+    color: black;
+}
+.navbar-collapse {
+    border-radius: 20px;
+}
+
+body {
+  padding-top: 80px;
+}
+.form-inline1 .nav-item .nav-link {
+    color: black;
+    font-size: 1em;
+    padding-bottom: 35em;
+}
+
+.nav-scroller {
+   
+    position:absolute;
+    top: 9.8%;
+    border-radius:10px;
+    height:55px;
+    left:1%;
+    width: 98%;
+    background-color: rgb(194, 215, 228);
+    
+  }
+  
+  .nav-scroller .nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    
+    color: #6da9e9;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav-underline .nav-link {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    color: #111213;
+  }
+  
+  .nav-underline .nav-link:hover {
+    color: #007bff;
+  }
+  
+  .nav-underline .active {
+    font-weight: 500;
+    color: #0d54b1;
+  }
+  .form-inline .nav-item .nav-link {
+    color: black;
+    padding-left: 56em;
+    
+}
+.dashboard {
+    padding-top: 2.5em;
+    padding-right: 5em;
+}
+.heading1 {
+    padding-left: 9em;
+    font-size: 1.3em;
+    padding-top: 1.5em;
+}
+
+.heading {
+    padding-left: 11em;
+    font-size: 1.3em;
+}
