@@ -7,7 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
+<<<<<<< HEAD
 
+=======
+  // [x: string]: any;
+>>>>>>> 0bac229d2ba365719515d625a3182d89e8bf4669
 
   constructor(private router: Router) { }
 
@@ -33,6 +37,12 @@ loginUser(e) {
   }
 
 }
+<<<<<<< HEAD
 
+=======
+// get f(){
+//   return this.form.controls;
+// }
+>>>>>>> 0bac229d2ba365719515d625a3182d89e8bf4669
 
 }

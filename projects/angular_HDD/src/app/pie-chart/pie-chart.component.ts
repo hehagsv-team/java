@@ -43,10 +43,8 @@ barChartLabels: Label[] = ['Device3', 'Device2', 'Device1', 'Device5', 'Device4'
 
 barChartType: ChartType = 'bar';
 barChartLegend = true;
-barChartPlugins = [];
+// barChartPlugins = [];
 barWidth: 5;
-
-
 barChartData: ChartDataSets[] = [
   { data: [30, 13, 27, 8, 22],
     backgroundColor: ['blue', 'red', 'orange', 'green', 'skyblue'],
