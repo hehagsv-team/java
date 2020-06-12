@@ -1,0 +1,134 @@
+
+.first-partSelection {
+  margin:0;
+  position:absolute;
+  height: 120px;
+  width:40%;
+  top: 20%;
+  left: 30%;
+  padding:10px 10px 20px 10px;
+  border:1px solid black;
+  border-radius: 10px;
+
+} 
+
+
+
+
+.All{
+  padding: 8px;;
+}
+.LBM{
+  padding: 8px;;
+}
+.LBP{
+  padding: 8px;;
+}
+.Payment-button{
+  margin: 0;
+  position: absolute;
+  top: 4%;
+  right: 2%;
+  /* -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+}
+
+/* .select-box{
+  padding:10% 0% 0% 30%;
+
+} */
+
+.text-range{
+  color:red;
+}
+
+.submit-button{
+  margin: 0;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+
+.table-box{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  padding: 55px 35px 30px 30px;
+  left: 30%;
+  border:1px solid black;
+  height: 1545  x;
+  width:36%;
+  border-radius: 10px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.LBM span{
+  padding:40px;
+}
+.LBP span{
+  padding: 20px;;
+}
+/* .LBP input[type='radio']{
+  padding: 330px;
+} */
+/* .LBP span{
+  padding: 70px;;
+}
+.LBP span{
+  padding: 10px;;
+} */
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+/* .drop-down{
+  display:none
+} */
+
+.dropdown-menu{
+  padding:1px;
+  color:black;
+  font-weight: bold;
+  font-size: 12px;;
+  border-radius: 10px;
+  border:1px solid black;
+}
+
+.paginationBrowse button{
+  padding:5px;
+  border-radius: 7px;
+  width:6rem;
+  font-size: 15px;
+  font-weight: bold;
+  background: transparent;
+}
+
+.Payment-button button{
+  padding:5px;
+  border-radius: 10px;
+  width:7rem;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+
+
+@media(max-width:1012){
+  .first-partSelection{
+
+    height:150px;
+  }
+}

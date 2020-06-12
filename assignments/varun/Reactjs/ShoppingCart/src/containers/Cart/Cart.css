@@ -1,0 +1,100 @@
+.cartTable{
+  margin:0;
+  position:absolute;
+  height: 80px;
+  width:30%;
+  top: 35%;
+  left: 30%;
+  padding:45px;
+  border:1px solid black;
+  border-radius: 10px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  
+    
+}
+.tableName{
+  color: black;
+  font-size:29px;
+  font-weight: bold;
+  position: absolute;
+  top:28%;
+  left: 30%;
+
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 6px;
+  }
+
+  
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.PaymentButton{
+    margin: 0;
+    position: absolute;
+    top: 2%;
+    right: 3%;
+    
+  }
+
+  .pagination span{
+    padding: 2px;
+  }
+
+.pagination{
+  position: absolute;
+  top: 68%;
+  left: 36%;
+}
+
+button{
+  padding:5px;
+  border-radius: 10px;
+  width:4.5rem;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+@media (max-width:900px){
+  .cartTable{
+    width:30%;
+    padding:40px 20px 20px 10px;
+    height:140px;
+  }
+  table {
+   
+    width: 70%;
+  }
+}
+
+@media(max-width:910px){
+  .cartTable{
+    overflow-x: scroll;
+    height: 100px;
+  }
+  .pagination{
+  
+ 
+    left: 30%;
+  }
+  button{
+
+    
+    width:4.5rem;
+    font-size: 15px;
+
+  }
+
+ 
+}

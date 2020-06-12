@@ -1,0 +1,19 @@
+.error{
+    text-align: center;
+    font-size: 18px;
+    color:red;
+}
+.paginationBrowse{
+   
+    position: absolute;
+    bottom:10%;
+    left: 38%;
+    
+  
+  }
+
+  .item-already{
+      color:red;
+      font-weight: bold;
+      float:left;
+  }
