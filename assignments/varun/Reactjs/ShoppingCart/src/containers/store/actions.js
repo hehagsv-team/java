@@ -190,8 +190,7 @@ export const shippingUpdate = (orderId) => {
     console.log(orderId)
     let shipped="shipped"
     return dispatch => {
-        const config = { headers: {'Content-Type': 'application/json'} };
-        axios.put('https://react-my-burger-6ce77.firebaseio.com/orders/'+orderId+'/shippingStatus.json','Shipped',config)
+        axios.put('https://react-my-burger-6ce77.firebaseio.com/orders/'+orderId+'/shippingStatus.json',1)
         .then(response=>{
             console.log('response insdie shippingUpdate is : ',response.data)
         }).catch(error=>console.log('errro in shipppingUpdate payment is : ',error))
@@ -230,6 +229,35 @@ export const loginAs = (loginAs) =>{
         loggedInAs:loginAs
     }
 
+}
+
+export const updationByOperator = (orderId,shippingUpdate) =>{
+    console.log('entered into updationByOperator action')
+    console.log(orderId,shippingUpdate)
+    let status=1
+    if(shippingUpdate==='S'){
+        console.log('S: entered')
+        status=1
+    }
+    else if(shippingUpdate==='T'){
+        console.log('T: entered')
+        status=2
+    }
+    
+    else if(shippingUpdate==='D'){
+        console.log('D: entered')
+        status=3
+    }
+    else if(shippingUpdate==='R'){
+        console.log('R: entered')
+        status=4
+    }
+    return dispatch => {
+        axios.put('https://react-my-burger-6ce77.firebaseio.com/orders/'+orderId+'/shippingStatus.json',status)
+        .then(response=>{
+            console.log('response insdie updationByOperator is : ',response.data)
+        }).catch(error=>console.log('errro in updationByOperator  is : ',error))
+    }
 }
 
 // export const operatorDetails = (response,operatorName) => {

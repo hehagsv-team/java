@@ -16,18 +16,32 @@ class Operator extends Component {
         previousButtonDisabled:true,
         nextButtonDisabled:false,
         lastButtonDisabled:false,
+        shippingStatus:'',
+        orderId:''
     }
     componentWillMount(){
         console.log('[Operator] componentWillMount')
+        const username=localStorage.getItem('username')
+        this.setState({operatorName:username})
+        console.log('operator name',username)
+        this.props.getItems(this.state.operatorName)
     }
     buttonClicked = () => {
         console.log('[Operator] buttonClicked')
         this.props.getItems(this.state.operatorName)
         this.setState({displayTable:true})
     }
-    componentDidUpdate(){
+    rdButtonDeliveryStatusUpdate= (event) => {
+        this.setState({orderId:event.target.value,shippingStatus:''})
+
+    }
+    componentDidUpdate(prevState){
         console.log('[Operator] componentDidUpdate')
         console.log(this.state.operatorName)
+        console.log(this.state.shippingStatus)
+        console.log('previous props is : ',prevState.shippingStatus)
+        console.log('orderId is : ',this.state.orderId)
+        
     }
     paginationFirstButtonClicked = (event,tableSize) => {
         console.log('insdie paginationFirstButtonClicked',tableSize)
@@ -94,7 +108,35 @@ class Operator extends Component {
         this.setState({operatorName:event.target.value,
                     LoginButtonDisable:false})
     }
+    // componentWillReceiveProps(){
+    //     console.log('[Operstors] componentWillReceiveProps')
+        
+    //     console.log(this.props.orders)
+
+    // }
+
+    deliveryDropDown = (event) => {
+        console.log("entered into delivery drop own....")
+        this.setState({shippingStatus:event.target.value},()=>{
+            console.log('state is here in  : ',this.state.shippingStatus)
+            if(this.state.shippingStatus==='D' || 
+            this.state.shippingStatus==='S' || 
+            this.state.shippingStatus==='T' ||
+            this.state.shippingStatus==='R'){
+                console.log("entered to call update",this.state.operatorName)
+            this.props.updateStatusByOperator(this.state.orderId,this.state.shippingStatus)
+            }
+            console.log('crossed..........!!')
+            this.props.getItems(this.state.operatorName)
+            console.log('props in deliveryDropdown are : ',this.props.orders)
+
+        })
+        //  this.props.getItems(this.state.operatorName)
+        // this.props.updateStatusByOperator(this.state.orderId,this.state.shippingStatus)
+    }
     render() {
+        // this.props.getItems(this.state.operatorName)
+        console.log('entered into render')
         let itemsInTable=[...this.props.orders]
         const tableSize=2
         const itemsLength=itemsInTable.length;
@@ -178,25 +220,36 @@ class Operator extends Component {
                         <th>Update Delevery Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody>{console.log('before rendering table : ',itemsInTable)}
                     {itemsInTable.map((item,index)=>
                     
                     <tr>{console.log('item name is :',Object.keys(item).map(key=>key).map(key=>
                     console.log("nested items are : ",key)))}
     
-                        <td><input type="radio" name='rd-button'/></td>
+                        <td><input type="radio" name='rd-button'
+                        value={Object.keys(item).map(key=>key).map(key=>key)} 
+                        onClick={this.rdButtonDeliveryStatusUpdate}
+                        /></td>
                         <td>{[Object.values(item).map(key=>key.itemName)].join('')}</td>
                         <td>{[Object.values(item).map(key=>key.price)].join('')}</td>
                         <td>{[Object.values(item).map(key=>key.quantity)].join('')}</td>
                         <td>{Object.keys(item).map(key=>key).map(key=>key)}</td>
                         <td>{[Object.values(item).map(key=>key.orderedDate)].join('')}</td>
-                        <td>Shipped</td>
+                        {console.log('object value isdidididid : ',[Object.values(item).map(key=>key.shippingStatus)].join())}
+                        {[Object.values(item).map(key=>key.shippingStatus)].join()==='1' ? <td>Shipped</td> :
+                            [Object.values(item).map(key=>key.shippingStatus)].join()==='2' ? <td>Transist</td> :
+                                [Object.values(item).map(key=>key.shippingStatus)].join()==='3' ? <td>Delivered</td> :
+                                <td>Returned</td>}
+                        {console.log('shipping status is : ',Object.keys(item).map(key=>console.log(key)))}
+                         {/* <td>{Object.values(item).map(key=>key.shippingStatus)}</td> */}
                         <td>
-                            <select className='drop-down'>
+                            <select onChange={this.deliveryDropDown} className='drop-down'>
                                 <option>Change Status</option>
-                                <option>D</option>
+                                
                                 <option>S</option>
                                 <option>T</option>
+                                <option>D</option>
+                                <option>R</option>
                             </select>
                         </td>
     
@@ -258,7 +311,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        getItems:(operatorname)=>dispatch(actionCreators.getOrdersDetails(operatorname))
+        getItems:(operatorname)=>dispatch(actionCreators.getOrdersDetails(operatorname)),
+        updateStatusByOperator:(orderId,shippingStatus)=>dispatch(actionCreators.updationByOperator(orderId,shippingStatus))
 
     }
 }
