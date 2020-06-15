@@ -1,0 +1,58 @@
+.ordersTable{
+  margin:0;
+  position:absolute;
+  height: 120px;
+  width:50%;
+  top: 30%;
+  left: 20%;
+  padding:40px 55px 40px 40px;
+  border:2px solid black;
+  border-radius: 10px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  
+    
+}
+
+.table-name{
+    position:absolute;
+    top: 24%;
+    left: 20%;
+    color:black;
+    font-size: 29px;
+    font-weight: bold;
+    
+
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 5px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 105%;
+}
+
+@media(max-width:1110px){
+  .ordersTable{
+    overflow-x: scroll;
+  }
+  button{
+
+    
+    width:4.5rem;
+    font-size: 15px;
+
+  }
+
+ 
+}
+

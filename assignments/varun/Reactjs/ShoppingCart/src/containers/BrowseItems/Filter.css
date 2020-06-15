@@ -1,0 +1,29 @@
+.text-range{
+    padding:10px;
+
+}
+
+.filter{
+    padding:4px;
+  
+  } 
+
+  .filter span1{
+      padding:10px 30px 10px 50px;;
+  }
+
+  
+  .filter span2{
+    padding:10px 30px 10px 5px;;
+}
+
+.drop-down span{
+    padding:30px;
+
+    
+}
+/* 
+.drop-down input{
+    padding:10px;
+} */
+  
