@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "HDD"
+    }
+  },
+  "defaultProject": "HDD",
+  "cli": {
+    "analytics": false
+  }
 }
