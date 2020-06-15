@@ -3,7 +3,6 @@ import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
-
 @Component({
   selector: 'pie-chart',
   templateUrl: './pie-chart.component.html',
@@ -42,16 +41,13 @@ barChartLabels: Label[] = ['Device3', 'Device2', 'Device1', 'Device5', 'Device4'
 
 barChartType: ChartType = 'bar';
 barChartLegend = true;
-// barChartPlugins = [];
+barChartPlugins = [];
 barWidth: 5;
 barChartData: ChartDataSets[] = [
   { data: [30, 13, 27, 8, 22], 
-    backgroundColor:['blue','red','orange','green','skyblue'],
-    
+    backgroundColor:['blue','red','orange','green','skyblue'],  
    }
 ];
-
-
   constructor() {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();

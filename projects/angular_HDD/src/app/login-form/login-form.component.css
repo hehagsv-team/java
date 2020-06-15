@@ -1,12 +1,8 @@
-/* :host {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
+
 .loginbox{
-    width: 320px;
-    height: 450px;
+    min-width: 25%;
+    max-width:30%;
+    height: auto;
     background: rgb(221, 230, 230);
     
     top: 50%;
@@ -15,7 +11,10 @@
     transform: translate(-50%,-50%);
     box-sizing: border-box;
     padding: 70px 30px;
+    border-radius: 10px;
+    box-shadow:0 8px 6px -6px grey;
 }
+
 .login {
     padding-bottom: 2em;
 }
@@ -37,6 +36,9 @@ h1{
 .loginbox input{
     width: 100%;
     margin-bottom: 20px;
+}
+.fieldrequired {
+    padding-top: 2em;
 }
 
 .loginbox input[type="text"]
@@ -75,56 +77,22 @@ h1{
    
 	font-weight:bold;
 }
-/* .loginbox a{
-    text-decoration: none;
-    font-size: 12px;
-    line-height: 20px;
-    color: black;
-	font-weight:bold;
-}
 
-.loginbox a:hover
-{
-    color: #151617;
-	font-size: 14px;
-	
-} */
-/* .container {
-    padding-left: 16px;
-  } */
   
   span.psw {
    
    float: right;
     padding-top: 18px;
   }
-/* div.input {
-    position: relative;
-    background-color: #f1f1f1;
-}
-div.input label {
-    position: absolute;
-    top: 0;
-    transform: translateY(-30%);
-    left: 10px;
-    background: white;
-    padding: 5px 2px;
-    display: inline-block;
-    font-size: 10px;
-}
-div.input input {
-    padding: 12px ;
-    font-size: 15px;
-    outline: 0;
-    border:none;
-   background-color: #f1f1f1;
-    border-bottom: 1px solid #ccc;
-}
-div.container {
-    margin-top: 20px;
-    text-align:center;
-    padding: 5px 2px;
-}
-div.form-group {
-    background-color: #f1f1f1;
-} */
+
+  /* alertbox {
+      margin-top: -20px;
+  } */
+
+  input {
+      margin-bottom: 0 !important;
+  }
+
+  input[type=submit] {
+      margin-top: 20px;
+  }
