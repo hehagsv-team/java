@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login-form',
@@ -8,19 +11,44 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  users$: Observable<any[]>;
+  credentials: any;
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    db: AngularFireDatabase) { }
 
   ngOnInit(): void {
+    this.fetchFireBaseUsers();
   }
-loginUser(e) {
+  private fetchFireBaseUsers(){
+    this.http
+    .get<any>(
+      'https://hdd-ang-proj-01.firebaseio.com/users.json')
+    .subscribe(creds => {
+
+      console.log('Credentials from firebase:', creds);
+      this.credentials = creds;
+    });
+  }
+
+  fetchUsers(e) {
   e.preventDefault();
   console.log(e);
   const username = e.target.elements[0].value;
   const password = e.target.elements[1].value;
-  if (username === 'laila' && password === 'laila') {
-    this.router.navigate(['dashboard']);
+
+  console.log('[Form Input] username:', username);
+  console.log('[Form Input] pwd:', password);
+
+  if (Object.keys(this.credentials).findIndex(item => item === username) >= 0 && password === this.credentials[username]) {
+
+    this.router.navigate(['home']);
   }
-  else{
+
+  else
+  {
     this.router.navigate(['']);
   }
 

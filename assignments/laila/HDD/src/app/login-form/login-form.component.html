@@ -1,35 +1,20 @@
-﻿ <div class="loginbox">
- <form >
-        <h1>Login Here</h1>
-            <form (submit)="loginUser($event)">
-                <p>Username:</p>
-                <input type="text" name="name" placeholder="Enter username">
-                <p>Password:</p>
-                <input type="text" name="password" placeholder="Enter password">
-                <input type="submit" name="" value="Login">
-        
-        <div class="container" style="background-color:#f1f1f1">
-            <span class="psw"> <a href="#"> Reset Password</a></span>
-          </div>
-          </form>
-    </form>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
+﻿<div class="loginbox">
+    <form >
+        <div class="login">
+           <h1>Login Here</h1>
+       </div>
+               <form (submit)="fetchUsers($event)">
+                   <p>Username:</p>
+                   <input type="text" placeholder="Enter Username">
+                   <p>Password:</p>
+                   <input type="password" name="password" placeholder="Enter password" >
+                   <input type="submit" name="" value="Login">
+               </form>
+               <form >
+                   <div class="container">
+                       
+                       <span class="psw">Reset <a href="resetpassword ">password</a></span>
+                     </div>
+                   </form>
+       </form>
+   </div>
