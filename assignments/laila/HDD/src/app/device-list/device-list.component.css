@@ -1,10 +1,4 @@
-
-@import "~bootstrap/dist/css/bootstrap.css";
-html,
-body {
-  overflow-x: hidden;
-}
-.navbar {
+/* .navbar {
     position:absolute;
     padding:10px;
     top: 2%;
@@ -94,7 +88,8 @@ body {
     padding-left: 11em;
     font-size: 1.3em;
 }
-.data {
+
+/* .data {
   font-weight:200;
   color:black;
 
@@ -148,50 +143,4 @@ table, th, td {
 .btn-2{
     font-size: 1em;
     padding-left: 1em;
-}
-
-/* .data {
-  font-weight:200;
-  color:black;
-
-}
-.data .data1{
-  text-align: left;
-  padding-top: 5em;
-  
-}
-.data2{
-  padding-left: 17em;
-}
-.data2.deviceName{
-
-  padding-right: 2em;
-}
-.data2-1{
-  padding-left: 10em;
-}
-
-
-.container{
-  text-align: center;
-  padding-top: 4em;
-  
-}
-
-
-.table{
-  margin-left: 350px;
-  padding-top:0.4em ;
-  width: 200%;
-  padding-left: 5em;
-  text-align: center;
-}
-table, th, td {
-  border: 1px solid black;
-}
-
-.btn{
-  text-align: center;
-  padding-left: 12;
-  margin-left: 470px;
-} */
+} */ 

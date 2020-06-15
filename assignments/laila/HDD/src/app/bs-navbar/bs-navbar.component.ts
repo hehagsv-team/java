@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -8,9 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BsNavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private  route: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
+
   }
+  // deviceUsers(){
+  //   this.router.navigate(['device-list']);
+  // }
+  // deviceUsers(e) {
+
+  //   if (){
+  //     this.router.navigate(['device-list']);
+  //   }
+
+  //   else
+  //   {
+  //     this.router.navigate(['home']);
+  //   }
+
+  // }
 
 }

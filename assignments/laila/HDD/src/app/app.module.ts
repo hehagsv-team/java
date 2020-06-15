@@ -1,7 +1,16 @@
+import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { AngularFireModule } from 'angularfire2';
+import { FormsModule } from '@angular/forms';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+// import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
@@ -12,7 +21,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { HttpClientModule} from '@angular/common/http';
+import { DeviceListComponent } from './device-list/device-list.component';
 
 const appRoutes: Routes = [
   {
@@ -26,7 +35,16 @@ const appRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: '*',
+    component: LoginFormComponent
+  },
+  {
+    path: 'device-list',
+    component: DeviceListComponent
   }
+
 ];
 @NgModule({
   declarations: [
@@ -37,18 +55,27 @@ const appRoutes: Routes = [
     PieChartComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    DeviceListComponent,
+
 
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     ChartsModule,
     GoogleChartsModule
   ],
-  providers: [],
+  providers: [
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
