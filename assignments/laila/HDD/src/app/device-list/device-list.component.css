@@ -1,146 +1,165 @@
-/* .navbar {
-    position:absolute;
-    padding:10px;
-    top: 2%;
-    left:1%;
-    border-collapse: collapse;
-    border:0.5px solid rgb(199, 211, 207);
-    height:600px;
-    width:98%;
-    border-radius:10px;
+.navbar {
+  position:absolute;
+  padding:10px;
+  top: 2%;
+  left:1%;
+  border-collapse: collapse;
+  border:0.5px solid rgb(199, 211, 207);
+  
+  width:98%;
+  border-radius:10px;
 }
-    .hdd {
-    font-size: 1.5em;
-    padding-bottom: 23em;
-    color: black;
+  .hdd {
+  font-size: 1.5em;
+  padding-bottom: 23em;
+  color: black;
 }
 .navbar-collapse {
-    border-radius: 20px;
+  border-radius: 20px;
 }
 
 body {
-  padding-top: 80px;
+padding-top: 80px;
 }
 .form-inline1 .nav-item .nav-link {
-    color: black;
-    font-size: 1em;
-    padding-bottom: 35em;
+  color: black;
+  font-size: 1em;
+  padding-bottom: 35em;
 }
 
 .nav-scroller {
-   
-    position:absolute;
-    top: 9.8%;
-    border-radius:10px;
-    height:55px;
-    left:1%;
-    width: 98%;
-    background-color: rgb(194, 215, 228);
-    
-  }
+ 
+  position:absolute;
+  top: 9.8%;
+  border-radius:10px;
+  height:55px;
+  left:1%;
+  width: 98%;
+  background-color: rgb(194, 215, 228);
   
-  .nav-scroller .nav {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    padding-bottom: 1rem;
-    margin-top: -1px;
-    overflow-x: auto;
-    
-    color: #6da9e9;
-    text-align: center;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .nav-underline .nav-link {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    font-size: 1rem;
-    color: #111213;
-  }
-  
-  .nav-underline .nav-link:hover {
-    color: #007bff;
-  }
-  
-  .nav-underline .active {
-    font-weight: 500;
-    color: #0d54b1;
-  }
-  .form-inline .nav-item .nav-link {
-    color: black;
-    padding-left: 66em;
-    
-}
-.dashboard {
-    padding-top: 2.5em;
-    padding-right: 5em;
-}
-.heading1 {
-    padding-left: 9em;
-    font-size: 1.3em;
-    padding-top: 1.5em;
 }
 
-.heading {
-    padding-left: 11em;
-    font-size: 1.3em;
+.nav-scroller .nav {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  
+  color: #6da9e9;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* .data {
+.nav-underline .nav-link {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  color: #111213;
+}
+
+.nav-underline .nav-link:hover {
+  color: #007bff;
+}
+
+.nav-underline .active {
+  font-weight: 500;
+  color: #0d54b1;
+}
+.form-inline {
+  color: black;
+  padding-left: 64em;
+}
+
+
+
+.data {
   font-weight:200;
   color:black;
 
 }
 .data .data1{
   text-align: left;
-  padding-top: 5em;
+  padding-top: 7em;
+  
   
 }
 .data2{
-  padding-left: 17em;
+  padding-left: 27em;
+  padding-right: 1em;
 }
-.data2.deviceName{
+.data2.option1{
+  padding-left: 1em;
+}
+.data1.data2.deviceName{
 
-  padding-right: 2em;
+  padding-right: 1em;
 }
 .data2-1{
-  padding-left: 10em;
+  padding-left: 3em;
+  padding-right: 1em;
 }
 
 
 .container{
   text-align: center;
   padding-top: 4em;
+  padding-left: 19em;
   
 }
-
+.container1{
+  padding-left: 0.1em;
+}
 
 .table{
   margin-left: 350px;
   padding-top:0.4em ;
-  width: 200%;
+  width: 400%;
   padding-left: 5em;
   text-align: center;
 }
 table, th, td {
   border: 1px solid black;
+  
 }
 
 .btn{
   text-align: center;
-  padding-left: 10;
-  font-size: 2em;
-  width: auto;
-  margin-left: 520px;  
+  padding-left: 2.2em;
+  font-size: 50px; 
+  /* width: auto; */
+  margin-left: 400px; 
+  
+  
 }
 .btn-1{
-    font-size: 1em;
+   
+    padding-left: 1em;
+    padding-right: 0.1em;
+    
 
 }
 .btn-2{
-    font-size: 1em;
-    padding-left: 1em;
-} */ 
+    
+    padding-left: 0.1em;
+    padding-right: 1em;
+    font-size: 35px;  
+   
+}
+.btn-3{
+
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+  font-size: 35px; 
+  
+}
+.btn-4{
+  
+  padding-left: 0.1em;
+  
+  padding-right: 1em;
+}
+

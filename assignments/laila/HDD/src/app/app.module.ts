@@ -23,7 +23,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DeviceListComponent } from './device-list/device-list.component';
 
-const appRoutes: Routes = [
+const routes: Routes = [
   {
     path: '',
     component: LoginFormComponent
@@ -36,10 +36,10 @@ const appRoutes: Routes = [
     path: 'home',
     component: HomeComponent
   },
-  {
-    path: '*',
-    component: LoginFormComponent
-  },
+  // {
+  //   path: '*',
+  //   component: LoginFormComponent
+  // },
   {
     path: 'device-list',
     component: DeviceListComponent
@@ -69,7 +69,7 @@ const appRoutes: Routes = [
     AngularFirestoreModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(routes),
     ChartsModule,
     GoogleChartsModule
   ],
