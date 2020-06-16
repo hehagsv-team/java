@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyA-N3sm6acZKgePQFYT97A261S2mz104eQ',
-    authDomain: 'hdd-demo.firebaseapp.com',
-    databaseURL: 'https://hdd-demo.firebaseio.com',
-    projectId: 'hdd-demo',
-    storageBucket: 'hdd-demo.appspot.com',
-    messagingSenderId: '817761418190',
-    appId: '1:817761418190:web:6cf4e188149b1b0129499f',
-    measurementId: 'G-Q6GXB4XD6Z'
+    apiKey: "AIzaSyAfh3wRlaEopo4CB2WlRAQma7J-vdOncmU",
+    authDomain: "hdd-ang-proj-01.firebaseapp.com",
+    databaseURL: "https://hdd-ang-proj-01.firebaseio.com",
+    projectId: "hdd-ang-proj-01",
+    storageBucket: "hdd-ang-proj-01.appspot.com",
+    messagingSenderId: "830806075675",
+    appId: "1:830806075675:web:d8fbdbd9f24faaf47bcbbe",
+    measurementId: "G-2T8Y9GJNMZ"
   }
 };
 
