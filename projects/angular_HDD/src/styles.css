@@ -1,10 +1,13 @@
 
 @import "~bootstrap/dist/css/bootstrap.css";
-html,
+/* html,
 body {
   overflow-x: hidden; 
 }
-/* .navbar {
+body {
+  padding-top: 80px;
+}
+.navbar {
     position:absolute;
     padding:10px;
     top: 2%;
@@ -22,16 +25,7 @@ body {
 }
 .navbar-collapse {
     border-radius: 20px;
-} */
-
-body {
-  padding-top: 80px;
-}
-/* .form-inline1 {
-    
-    font-size: 1em;
-    padding-bottom: 35em;
-}
+} 
 
 .nav-scroller {
     
@@ -75,7 +69,12 @@ body {
     font-weight: 500;
     color: #0d54b1;
   }
-  .form-inline .nav-item .nav-link {
+  .form-inline1 {
+    
+    font-size: 1em;
+    padding-bottom: 35em;
+}
+  .form-inline {
     color: black;
     padding-left: 56em;
 }
@@ -92,4 +91,16 @@ body {
 .heading {
     padding-left: 11em;
     font-size: 1.3em;
-} */
+}
+
+ */
+
+
+ html,
+body {
+  overflow-x: hidden; 
+}
+
+body {
+  padding-top: 56px;
+}

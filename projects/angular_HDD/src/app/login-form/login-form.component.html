@@ -12,6 +12,7 @@
                             ngModel name="username" 
                             id="username" 
                             type="text" 
+                            autocomplete="off"
                             class="form-control"
                             required /> 
                      <div class="alert alert-danger alertbox" *ngIf="username.touched && username.invalid">
@@ -24,6 +25,7 @@
                     ngModel type="password" 
                     name="password" 
                     class="form-control" 
+                    autocomplete="off"
                     id="password" 
                     placeholder="Enter password" 
                     required />
