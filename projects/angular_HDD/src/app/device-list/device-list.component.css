@@ -1,0 +1,167 @@
+
+.navbar {
+ 
+    padding:3.8px;
+    top: 1%;
+    left:1%;
+    border-collapse: collapse;
+    border:0.5px solid rgb(199, 211, 207);
+    height:65px;
+    width:98%;
+    border-radius:10px;
+  }
+
+  .form-inline1 .btn {
+    color: black;
+    /* width: 5px; */
+    font-size: 2px;
+  }
+  h6{
+    font-size: 20px;
+    text-align: center;
+  }
+  .navbar-collapse {
+    border-radius: 20px;
+  } 
+  .navbar-2{
+      
+    position:absolute;
+    top: 8%;
+    border-radius:10px;
+    height:70px;
+    width: 98%;
+    left:1%;
+    background-color: rgb(194, 215, 228);
+    
+  }
+  .nav-scroller .nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    color: #6da9e9;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav-underline .nav-link {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1.4rem;
+    color: #111213;
+  }
+  
+  .nav-underline .nav-link:hover {
+    color: #007bff;
+  }
+  
+  .nav-underline .active {
+    font-weight: 500;
+    color: #343a40;
+  }
+  .form-inline {
+    color: black;
+    padding-left: 100rem;
+    font-size: 0.5em;
+  }
+  
+  .data {
+    font-weight:200;
+    color:black;
+    padding-top: 7em;
+  
+  }
+  .data .data1{
+    text-align: left;
+    padding-top: 7em;
+    
+    
+  }
+  .data2{
+    padding-left: 39em;
+    padding-right: 1em;
+  }
+  .data2.option1{
+    padding-left: 1em;
+  }
+  .data1.data2.deviceName{
+  
+    padding-right: 1em;
+  }
+  .data2-1{
+    padding-left:  12.5em;
+    padding-right: 1em;
+  }
+  
+  
+  .container{
+    text-align: center;
+    padding-top: 4em;
+    padding-left: 19em;
+    
+    
+  }
+  .container1{
+    padding-left: 0.1em;
+   
+  }
+  
+  .table{
+    margin-left: 350px;
+    padding-top:0.4em ;
+    width: 400%;
+    padding-left: 18em;
+    text-align: center;
+  }
+  table, th, td {
+    border: 1px solid black;
+    
+  }
+  td{
+    width:150px;
+    height:20px;
+    padding:20px;
+}
+  
+  .btn{
+    text-align: center;
+    padding-left: 7em;
+    font-size: 50px; 
+    
+    margin-left: 400px; 
+    
+    
+  }
+  .btn-1{
+     
+      padding-left: 1em;
+      padding-right: 0.1em;
+      
+  
+  }
+  .btn-2{
+      
+      padding-left: 2em;
+      padding-right: 1em;
+      font-size: 35px;  
+     
+  }
+  .btn-3{
+  
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+    font-size: 35px; 
+    
+  }
+  .btn-4{
+    
+    padding-left: 1.5em;
+    
+    padding-right: 1em;
+  }
+  
+  

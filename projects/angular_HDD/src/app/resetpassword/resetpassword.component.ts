@@ -7,7 +7,11 @@ import { UserDetailsService } from '../user-details.service';
   styleUrls: ['./resetpassword.component.css']
 })
 export class ResetpasswordComponent {
-  credentials: object;
+    credentials: object;
+
+    userName: string;
+    newPassword: string = "";
+    confirmPassword: string = "";
   
     userNotExist= false;
     passwordMismatch= false;
@@ -32,6 +36,25 @@ export class ResetpasswordComponent {
       }
     return true;
     }
+handleUserName({target}){
+  this.userName = target.value;
+
+  const usersList = Object.keys(this.credentials);
+
+  if(usersList.findIndex(user => user === this.userName) < 0){
+    this.userNotExist = true;
+  }else this.userNotExist = false;
+}
+
+handleNewPassword({target}){
+  this.newPassword = target.value;
+  this.checkPasswordMatch(this.newPassword, this.confirmPassword);
+}
+
+handleConfirmPassword({target}){
+  this.confirmPassword = target.value;
+  this.checkPasswordMatch(this.newPassword, this.confirmPassword);
+}
 
 
   passwordReset(e) {

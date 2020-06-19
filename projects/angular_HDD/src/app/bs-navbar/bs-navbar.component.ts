@@ -17,9 +17,11 @@ export class BsNavbarComponent implements OnInit {
     afAuth.authState.subscribe(user => this.user = user);
   }
 
+
   ngOnInit(): void {
     this.loggedInUser = window.localStorage.getItem("loggedinUser");
   }
+ 
 
   logout(){
     this.router.navigate(['']);

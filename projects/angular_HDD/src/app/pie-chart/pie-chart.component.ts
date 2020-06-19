@@ -14,13 +14,17 @@ export class PieChartComponent {
     responsive: true,
     legend: {
       position: 'top',
+      labels:{
+        fontColor: 'black',
+        fontSize: 20
+      }
     },
     plugins: {
       datalabels: {
         formatter: (value, ctx) => {
           const label =ctx.chart.data.labels[ctx.dataIndex];
           return label;
-        },
+        },        
       },
     }
   };
@@ -31,21 +35,41 @@ export class PieChartComponent {
  public pieChartType:string = 'pie';
   public Colors:any = [
 {
-  backgroundColor: ['blue','red','orange','green','skyblue']
+  backgroundColor: ['#004c6d','#317190','#5797b4','#7dc0d9','#a4eaff']
   }
 ]; 
+
+
 barChartOptions: ChartOptions = {
   responsive: true,
+  scales: {
+    xAxes: [{
+      id: "devices",
+      ticks: {
+        fontColor: 'black',
+        fontSize: 20
+      }
+    }],
+    yAxes: [{
+      id: "count",
+      ticks: {
+        fontColor: 'black',
+        fontSize: 20
+      }
+    }]
+  }
 };
 barChartLabels: Label[] = ['Device3', 'Device2', 'Device1', 'Device5', 'Device4'];
 
 barChartType: ChartType = 'bar';
-barChartLegend = true;
+barChartLegend = false;
 barChartPlugins = [];
 barWidth: 5;
 barChartData: ChartDataSets[] = [
   { data: [30, 13, 27, 8, 22], 
-    backgroundColor:['blue','red','orange','green','skyblue'],  
+    backgroundColor:['#004c6d','#317190','#5797b4','#7dc0d9','#a4eaff'],
+    xAxisID: "devices",
+    yAxisID: "count"
    }
 ];
   constructor() {
