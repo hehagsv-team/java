@@ -1,4 +1,4 @@
-    <div class="dashboard text-center">
+    <!-- <div class="dashboard text-center">
         <h2 class="h2">Dashboard</h2>
       </div>
       
@@ -30,4 +30,41 @@
       
         </div>
       </div>
-      <!-- </a> -->
+      </a> -->
+
+
+      <!-- <a routerLink="/login-form/pie-chart"> -->
+<div class="dashboard text-center">
+  <h2 class="h2">Dashboard</h2>
+</div>
+
+<div class="row">
+  <div class="col-md-6"><br><br>
+    <div style="display: block">
+      <canvas baseChart [data]="Data" [colors]="Colors" [options]="pieChartOptions" [labels]="pieChartLabels"
+        [plugins]="pieChartPlugins" [chartType]="pieChartType">
+      </canvas>
+    </div>
+    <div class="heading1">
+      <b>Device Distribution </b>
+    </div>
+  </div>
+  <div class="col-md-6"><br><br>
+    <div class="chart-wrapper" style="height: 500px; width:100%;">
+      <canvas baseChart 
+      [datasets]="barChartData" 
+      [labels]="barChartLabels" 
+      [options]="barChartOptions"
+        [plugins]="barChartPlugins" 
+        [legend]="barChartLegend" 
+        [width]="barWidth" 
+        [chartType]="barChartType">
+      </canvas>
+    </div>
+    <div class="heading">
+      <b>Device Performance</b>
+    </div>
+
+  </div>
+</div>
+<!-- </a> -->

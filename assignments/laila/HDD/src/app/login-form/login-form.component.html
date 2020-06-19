@@ -1,20 +1,55 @@
-﻿<div class="loginbox">
+﻿
+<div class="loginbox">
     <form >
         <div class="login">
            <h1>Login Here</h1>
        </div>
                <form (submit)="fetchUsers($event)">
-                   <p>Username:</p>
-                   <input type="text" placeholder="Enter Username">
-                   <p>Password:</p>
-                   <input type="password" name="password" placeholder="Enter password" >
-                   <input type="submit" name="" value="Login">
-               </form>
-               <form >
+                   <div class="form-group">
+                      <p>Username <span style="color: red"> * </span></p>
+                        <input 
+                            #username="ngModel" 
+                            ngModel name="username" 
+                            id="username" 
+                            type="text" 
+                            autocomplete="off"
+                            class="form-control"
+                            required /> 
+                     <div class="alert alert-danger alertbox" *ngIf="username.touched && username.invalid">
+                            Username is required.
+                        </div>
+                    </div>
+                   <p>Password <span style="color: red"> * </span></p>
+                    <input 
+                    #password="ngModel" 
+                    ngModel type="password" 
+                    name="password" 
+                    class="form-control" 
+                    autocomplete="off"
+                    id="password" 
+                    placeholder="Enter password" 
+                    required />
+
+                    <div class="alert alert-danger alertbox" *ngIf="password.touched && password.invalid">
+                        Password is required.
+                    </div>
+                    <div class="alert alert-danger alertbox" *ngIf="userAndPasswordMismatch">
+                        User/Password is incorrect
+                    </div>
+                    
+                   <input type="submit" name="" value="Login"/>
                    <div class="container">
                        
-                       <span class="psw">Reset <a href="resetpassword ">password</a></span>
+                    <span class="psw">
+                     <a href="resetpassword ">Resetpassword</a></span>
+                  </div>
+               </form>
+               <!-- <form >
+                   <div class="container">
+                       
+                       <span class="psw">
+                        <a href="resetpassword ">Resetpassword</a></span>
                      </div>
-                   </form>
+                   </form> -->
        </form>
    </div>

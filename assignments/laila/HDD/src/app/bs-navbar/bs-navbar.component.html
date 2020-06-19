@@ -1,4 +1,4 @@
-
+<!-- 
  <nav class="navbar navbar-expand-lg fixed-top">
   <div class="navbar-collapse">
     <ul class="navbar-nav mr-auto">
@@ -23,6 +23,38 @@
     <form class="form-inline my-2 my-lg-0">
       <li class="nav-item">
         <a  class="nav-link" href="#">User1</a>
+      </li>
+    </form>
+  </nav>
+</div> -->
+
+
+
+
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <div class="hdd">
+          <h2 class="nav-link1" href="#">Home Device Database</h2>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline1 my-2 my-lg-0">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/">Log Out</button>
+    </form>
+  </div>
+</nav>
+
+
+<div class="navbar-dark navbar-2">
+  <nav class="nav nav-underline">
+    <a class="nav-link active" routerLink="/home">Dashboard</a>
+    <a class="nav-link active" href="home">Manage Device</a>
+    <a class="nav-link active" routerLink="/device-list">Device List</a>
+    <form class="form-inline my-2 my-lg-0">
+      <li class="nav-item">
+        <p  class="nav-link">{{loggedInUser}}</p>
       </li>
     </form>
   </nav>

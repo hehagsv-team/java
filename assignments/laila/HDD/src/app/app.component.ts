@@ -1,4 +1,5 @@
 import { User } from './user.model';
+
 // import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Component, OnInit } from '@angular/core';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
@@ -40,6 +41,13 @@ private fetchUsers(){
     map(respopnseData => {
       console.log('Resp:', respopnseData);
       this.creds = respopnseData;
+    // const usersArray : User [] = [];
+    // for (const key in respopnseData) {
+    //   if(respopnseData.hasOwnProperty(key)){
+    //   usersArray.push({...respopnseData[key], id: key })
+    // }
+    // }
+    // return usersArray;
 
   })
   )
@@ -47,6 +55,7 @@ private fetchUsers(){
     console.log(users);
   });
 }
+
 
 }
 

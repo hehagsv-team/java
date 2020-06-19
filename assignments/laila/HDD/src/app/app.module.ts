@@ -1,3 +1,4 @@
+import { UserDetailsService } from './user-details.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-// import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,10 +23,15 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DeviceListComponent } from './device-list/device-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-const routes: Routes = [
+const appRoutes: Routes = [
   {
     path: '',
+    component: LoginFormComponent
+  },
+  {
+    path: 'login',
     component: LoginFormComponent
   },
   {
@@ -36,13 +42,13 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent
   },
-  // {
-  //   path: '*',
-  //   component: LoginFormComponent
-  // },
   {
     path: 'device-list',
     component: DeviceListComponent
+  },
+  {
+    path: '**',
+    component: LoginFormComponent
   }
 
 ];
@@ -56,8 +62,7 @@ const routes: Routes = [
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    DeviceListComponent,
-
+    DeviceListComponent
 
   ],
   imports: [
@@ -69,13 +74,12 @@ const routes: Routes = [
     AngularFirestoreModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(appRoutes),
     ChartsModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    BrowserAnimationsModule
   ],
-  providers: [
-
-  ],
+  providers: [UserDetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

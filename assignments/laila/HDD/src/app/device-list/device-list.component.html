@@ -1,5 +1,100 @@
-<!-- <p>device-list works!</p>
- -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <div class="hdd">
+          <h2 class="nav-link1" href="#">Home Device Database</h2>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline1">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/"><h6>Log Out</h6></button>
+    </form>
+  </div>
+</nav>
+
+
+<div class="navbar-dark navbar-2">
+  <nav class="nav nav-underline">
+    <a class="nav-link active" routerLink="/home">Dashboard</a>
+      
+      <a class="nav-link active" routerLink="/device-list">Device List</a>
+      <form class="form-inline my-2 my-lg-0">
+        <li class="nav-item">
+          <p  class="nav-link">{{loggedInUser}}</p>
+      </li>
+    </form>
+  </nav>
+</div>
+
+<div class="data">
+  <body class="data1">
+    <label class="data2" for="deviceName" >Device Name </label>
+    <select class="option1" name="devicename" id="devicename">
+      <option  value="mobile"> </option>
+        <option value="mobile">Amazon Echo</option>
+        <option value="mobile">Philips Hue</option>
+        <option value="mobile">Ecobee4</option>
+    </select>
+    <label class="data2-1" for="deviceType" >Device Type </label>
+    <select class="option2" name="deviceType" id="deviceType">
+      <option  value="mobile"> </option>
+        <option value="mobile">Smart Speaker</option>
+        <option value="mobile">Smart Light</option>
+        <option value="mobile">Smart Thermostat</option>
+    </select>
+</body>
+</div>
+
+
+<form  (submit)="enableData()" class="container">
+    <div class="container1">
+       
+        <input class="con" type="submit" name="" value="Edit" [disabled]="disable">
+        <input class="con" type="submit" name="" value="Delete">
+      </div>
+</form>
+
+
+
+<div class="table">
+<table class="table1">
+    <tr>
+      <th>Select</th>
+      <th>Device Name</th>
+      <th> Device Type</th>
+      <th>Firmware</th>
+    </tr>
+    <tr>
+      <td><input name="radio" type="radio"/></td>
+      <td>Amazon Echo</td>
+      <td>Smart Speaker</td>
+      <td>002.1</td> 
+    </tr>
+    <tr>
+      <td><input name="radio" type="radio"/></td>
+      <td>Philips Hue</td>
+      <td>Smart Light</td>
+      <td>600</td>
+    </tr>
+    <tr>
+        <td><input name="radio" type="radio"/></td>
+        <td>Ecobee4</td>
+        <td>Smart Thermostat</td>
+        <td>4.5.81.202</td>
+      </tr>
+  </table>
+</div>
+
+<div class="btn">
+    <a class="btn-1" href="?p=2" rel="previous" aria-label="Previous page">&laquo;</a>
+    <a class="btn-2" href="?p=2" rel="previous" aria-label="Previous page">&lt;</a>
+    <a class="btn-3" href="?p=2" rel="next" aria-label="Next page">&gt;</a>
+    <a class="btn-4" href="?p=2" rel="next" aria-label="Next page">&raquo;</a>
+    
+</div> 
+
+<!-- 
 
  <nav class="navbar navbar-expand-lg fixed-top">
     <div class="navbar-collapse">
@@ -56,8 +151,8 @@
 
 <form class="container">
     <div class="container1">
-        <!-- <span class="edit"><a href="# ">Edit/Delete</a></span> -->
-        <input class="con" type="submit" name="" value="Edit">
+   
+        <input class="con"  href="#" type="submit" name="" value="Edit">
         <input class="con1" type="submit" name="" value="Delete">
       </div>
     </form>
@@ -99,4 +194,4 @@
     <a class="btn-3" href="?p=2" rel="next" aria-label="Next page">&gt;</a>
     <a class="btn-4" href="?p=2" rel="next" aria-label="Next page">&raquo;</a>
     
-</div>
+</div> -->
