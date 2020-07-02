@@ -32,10 +32,9 @@ To get the session object, we have two methods provided by the javax.mail.Sessio
 Session.getDefaultInstance()
 Session.getInstance()
 
-Session session = Session.getDefaultInstance(properties,  
-			    new javax.mail.Authenticator() {  
+Session session = Session.getDefaultInstance(properties,new javax.mail.Authenticator() {  
 			      protected PasswordAuthentication getPasswordAuthentication() {  
-			    return new PasswordAuthentication(myAccount,password);  
+			    return new PasswordAuthentication(senderMailAccount,password);  
 			      }  
 			    });  
 ------------------------------------------------------------------------------------------------
