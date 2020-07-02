@@ -7,7 +7,7 @@ For that, javax.mail.jar file to be added
 ----------------------------------------------------------------------
 It is need to set some properties on java code like:
 
-mail.smtp.auth --> defines weather authentication is needed for the email server
+mail.smtp.auth --> defines whether authentication is needed for the email server
 For example:
 For Gmail, it is mandatory having a username and password to login
 ("mail.smtp.auth", "true");
