@@ -1,4 +1,4 @@
-Dependents jar needed : javax.mail.jar
+Dependent jar needed : javax.mail.jar
 jar file find in below link:
 https://javaee.github.io/javamail/
 -------------------------------------------------------------
