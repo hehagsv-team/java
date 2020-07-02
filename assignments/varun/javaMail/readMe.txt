@@ -43,7 +43,6 @@ The javax.mail.Message class provides methods to compose the message.But it is a
 So its subclass javax.mail.internet.MimeMessage class is mostly used.
 
 Message message=new MimeMessage(session);  
-Message message=new MimeMessage(session);  
 message.setFrom(new InternetAddress("xxxxxxx@gmail.com"));  
 message.addRecipient(Message.RecipientType.To,new InternetAddress("xxxxxxx@gmail.com"));  
 message.setSubject("Welcome");  
