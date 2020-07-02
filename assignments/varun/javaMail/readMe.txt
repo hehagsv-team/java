@@ -54,4 +54,8 @@ message.setText("Hi, Glad to welcome......");
 javax.mail.Transport class send the message
 Transport.send(message) 
 
+If code got below error:
+javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. Learn more at 535 5.7.8  https://support.google.com/mail/?p=BadCredentials r6sm7744879pfl.142 - gsmtp
+Please turn on "Less secure app access" in senders mail account security settings 
+Link for turning on "less secure app access : "https://myaccount.google.com/security 
 
