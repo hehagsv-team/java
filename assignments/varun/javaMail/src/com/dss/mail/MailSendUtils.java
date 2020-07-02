@@ -32,12 +32,13 @@ public class MailSendUtils {
 		Message message = prepareMessage(session,senderMailAccount,reveiverMailAccount);
 		try {
 			Transport.send(message);
+			System.out.println("message sent successfully...");  
+
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Credentials may be wrong/You do not send mails from outside because of some secutiry reasons");
 		}  
 		  
-	     System.out.println("message sent successfully...");  
 		
 	}
 
@@ -51,7 +52,8 @@ public class MailSendUtils {
 			     return message;
 		     } 
 		 catch (MessagingException e) {
-			 e.printStackTrace();
+			 System.out.println("Error preparing message");  
+
 		 }
 		 return null;
 	}
