@@ -1,7 +1,7 @@
 import { UserDetailsService } from './user-details.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { AngularFireModule } from 'angularfire2';
@@ -11,7 +11,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-
+import { NgxPaginationModule} from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
@@ -24,7 +24,15 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DeviceListComponent } from './device-list/device-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { Ng2SearchPipeModule} from 'ng2-search-filter';
+import { OrderModule} from 'ngx-order-pipe';
+import { MenuListComponent } from './menu-list/menu-list.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const appRoutes: Routes = [
   {
     path: '',
@@ -47,6 +55,10 @@ const appRoutes: Routes = [
     component: DeviceListComponent
   },
   {
+    path: 'menu-list',
+    component: MenuListComponent
+  },
+  {
     path: '**',
     component: LoginFormComponent
   }
@@ -62,12 +74,17 @@ const appRoutes: Routes = [
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    DeviceListComponent
+    DeviceListComponent,
+    MenuListComponent
 
   ],
   imports: [
     BrowserModule,
+    Ng2SearchPipeModule,
+    MatProgressSpinnerModule,
+    OrderModule,
     FormsModule,
+    NgxSpinnerModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -76,10 +93,19 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     ChartsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
     GoogleChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [UserDetailsService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class AppModule { }

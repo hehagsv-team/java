@@ -15,14 +15,26 @@ export class UserDetailsService {
   }
 
   resetUserPassword(userName: string, newPassword: string){
-
+    // console.log("USER", userName);
+    // console.log("Password", newPassword);
     const body = {};
     body[userName] = newPassword;
     return this.http.patch('https://hdd-ang-proj-01.firebaseio.com/users.json', body);
   }
 
-  fetchDevices(){
+  fetchDeviceNames(){
+    return this.http.get('https://hdd-ang-proj-01.firebaseio.com/device-names.json');
+  }
+
+  fetchDevicePerformance(){
+    return this.http.get('https://hdd-ang-proj-01.firebaseio.com/device-performance.json');
+  }
+
+
+  fetchDevicesInfo(){
     return this.http.get('https://hdd-ang-proj-01.firebaseio.com/devices.json');
   }
+
+
 
 }

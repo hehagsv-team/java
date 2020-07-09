@@ -1,0 +1,65 @@
+.navbar-2{
+      
+    position:absolute;
+    top: 12%;
+    border-radius:10px;
+    height:45px;
+    width: 98%;
+    left:1%;
+    background-color: rgb(194, 215, 228);
+    
+  }
+  .nav-scroller .nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    color: #c1d4e7;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav-underline .nav-link{
+    padding-top: .75rem;
+    padding-bottom: .90rem;
+    font-size: 1.1rem;
+    color: #111213;
+  }
+  /* .nav-link {
+    padding-top: .75rem;
+    padding-bottom: .90rem;
+    font-size: 1.1rem;
+    color: #111213;
+    cursor:pointer;
+  } */
+  .nav{
+    padding-bottom: 1em;
+  }
+  
+  .nav-underline:hover {
+    color: #a0c1e5;
+    /* cursor:pointer; */
+  }
+  .nav-link:hover {
+    color: #a0c1e5;
+    cursor:pointer;
+  }
+
+  
+  .nav-underline .active {
+    font-weight: 500;
+    color: #343a40;
+    text-align: center;
+    cursor:pointer;
+    
+  }
+  .form-inline {
+    color: black;
+    padding-left: 79rem;
+    margin-top: -6em;
+    font-size: 0.5em;
+  }

@@ -18,9 +18,6 @@ export class LoginFormComponent implements OnInit {
   credentials: any;
   userAndPasswordMismatch: boolean;
 
-
-  // @Input() credentials: object;
-
   constructor(
     private router: Router,
     private http: HttpClient,

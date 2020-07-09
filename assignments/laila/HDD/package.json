@@ -29,6 +29,12 @@
     "chartsjs-plugin-data-labels": "^0.1.5",
     "firebase": "^7.15.0",
     "ng2-charts": "^2.3.2",
+    "ng2-search-filter": "^0.5.1",
+    "ng2-smart-table": "^1.6.0",
+    "ng2-table-sorting": "0.0.3",
+    "ngx-order-pipe": "^2.0.4",
+    "ngx-pagination": "^5.0.0",
+    "ngx-spinner": "^9.0.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
