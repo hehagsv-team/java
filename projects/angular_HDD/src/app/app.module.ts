@@ -11,7 +11,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-
+import { NgxPaginationModule} from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
@@ -20,9 +20,14 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { Ng2SearchPipeModule} from 'ng2-search-filter';
+// import { OrderModule} from 'ngx-order-pipe';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DeviceListComponent } from './device-list/device-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 const appRoutes: Routes = [
   {
@@ -66,6 +71,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    Ng2SearchPipeModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
@@ -75,7 +81,10 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     ChartsModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    BrowserAnimationsModule,
+    NgxPaginationModule,
+    NgbModule
   ],
   providers: [UserDetailsService],
   bootstrap: [AppComponent]

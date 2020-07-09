@@ -6,18 +6,6 @@
 .navbar-2{
   margin: 0px;
 } */
-
- .navbar {
- 
-  padding:3.8px;
-  top: 1%;
-  left:1%;
-  border-collapse: collapse;
-  border:0.5px solid rgb(199, 211, 207);
-  height:65px;
-  width:98%;
-  border-radius:10px;
-}
 /* .hdd {
   font-size: 1.5em;
   padding-bottom: 23em;
@@ -31,25 +19,96 @@
 .btn-outline-success :hover {
   color: #007bff;
 } */
+h1{
+  font-size: 35px;
+}
+ .navbar {
+ 
+  padding:3.8px;
+  top: 1%;
+  left:1%;
+  border-collapse: collapse;
+  /* border:0.5px solid rgb(199, 211, 207); */
+  /* height:65px; */
+  /* width:98%; */
+  /* border-radius:10px; */
+}
+
 .form-inline1 .btn {
   color: black;
   /* width: 5px; */
-  font-size: 23px;
+  font-size: 13px;
+  
 }
 .navbar-collapse {
   border-radius: 20px;
 } 
-.navbar-2{
-    
+
+@media screen and (max-width: 991.98px) {
+  .navbar {
+    /* position: fixed; */
+    padding:1.9px;
+    top: 0.5%;
+    left:0.5%;
+    border-collapse: collapse;
+    border:0.25px solid rgb(199, 211, 207);
+    height:65px;
+    width:99%;
+    border-radius:5px;
+  }
+  .form-inline1 .btn {
+    color: black;
+    float: right;
+    font-size: 11px;
+   
+  }
+  .navbar-collapse {
+    border-radius:10px;
+  } 
+}
+  @media screen and (max-width: 700px){
+    .navbar {
+      /* position: fixed; */
+      padding:1.0px;
+      top: 0.3%;
+      left:0.5%;
+      border-collapse: collapse;
+      border:0.25px solid rgb(199, 211, 207);
+      height:30px;
+      width:98%;
+      border-radius:5px;
+    }
+    h2 {
+      font-size: 25px;
+    }
+    .form-inline1{
+      padding-bottom: 10px;
+    }
+    .form-inline1 .btn {
+      color: black;
+      float: right;
+      font-size: 5px;
+    }
+    .navbar-collapse {
+      border-radius:5px;
+    } 
+  }
+  /* .form-inline1{
+   
+  } */
+  
+
+.navbar-2{  
   position:absolute;
   top: 8%;
   border-radius:10px;
-  height:70px;
-  width: 98%;
+  height:50px;
+  width: 99%;
   left:1%;
+  /* padding-top: 5px; */
   background-color: rgb(194, 215, 228);
-  
 }
+
 .nav-scroller .nav {
   display: -ms-flexbox;
   display: flex;
@@ -57,34 +116,120 @@
   flex-wrap: nowrap;
   padding-bottom: 1rem;
   margin-top: -1px;
-  overflow-x: auto;
+  /* overflow-x: auto; */
+  
   color: #6da9e9;
   text-align: center;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
-
 .nav-underline .nav-link {
   padding-top: .75rem;
   padding-bottom: .75rem;
   font-size: 1.4rem;
   color: #111213;
 }
-
 .nav-underline .nav-link:hover {
   color: #007bff;
 }
-
 .nav-underline .active {
   font-weight: 500;
   color: #343a40;
 }
 .form-inline {
   color: black;
-  padding-left: 90rem;
+  padding-left: 49rem;
   font-size: 0.5em;
 }
+@media screen and (max-width: 991.98px) {
+  .navbar-2{  
+    /* position:absolute; */
+    top: 8%;
+    border-radius:10px;
+    height:70px;
+    width: 95%;
+    left:1%;
+    background-color: rgb(194, 215, 228);
+  }
+  
+  .nav-scroller .nav {
+    /* position: fixed; */
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: #6da9e9;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-underline .nav-link {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1.4rem;
+    color: #111213;
+  }
+  .nav-underline .nav-link:hover {
+    color: #007bff;
+  }
+  .nav-underline .active {
+    font-weight: 500;
+    color: #343a40;
+  }
+  /* .form-inline {
+    color: black;
+    padding-left: 90rem; 
+     font-size: 0.5em; 
+    
+  } */
+}
 
-
-
-
+@media screen and (max-width: 700px){
+  .navbar-2{  
+    position:absolute;
+    top: 5%;
+    border-radius:5px;
+    height:40px;
+    width: 75%;
+    left:0.5%;
+    background-color: rgb(194, 215, 228);
+  }
+  
+  .nav-scroller .nav {
+    /* position: fixed; */
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+    margin-top: -1px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: #6da9e9;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-underline .nav-link {
+    padding-top: .30rem;
+    padding-bottom: .30rem;
+    font-size: 0.7rem;
+    color: #111213;
+  }
+  .nav-underline .nav-link:hover {
+    color: #007bff;
+  }
+  .nav-underline .active {
+    font-weight: 300;
+    color: #343a40;
+  }
+  .form-inline {
+    color: black;
+    padding-left: 5rem;
+    font-size: 0.2em;
+  }
+}

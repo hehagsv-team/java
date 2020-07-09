@@ -7,3 +7,10 @@
     margin-top: 0%;
     padding: 0px;
  } */
+ /* // this.userDetServ.fetchDevices().subscribe(data =>{ 
+    //   let deviceIds = Object.keys(data)
+    //   this.devices = deviceIds.map(id => {
+    //     return data[id];
+    //   })
+    //   console.log("DEVICES>>>", this.devices);
+    // }); */

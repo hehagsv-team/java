@@ -1,100 +1,150 @@
-
-
-<nav class="navbar navbar-expand-lg fixed-top">
-  <div class="navbar-collapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <div class="hdd">
-          <h2 class="nav-link1" href="#">Home Device Database</h2>
-        </div>
-      </li>
-    </ul>
-    <form class="form-inline1">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" routerLink="/"><h6>Log Out</h6></button>
-    </form>
-  </div>
-</nav>
-
-
-<div class="navbar-dark navbar-2">
-  <nav class="nav nav-underline">
-    <a class="nav-link active" routerLink="/home">Dashboard</a>
-      
-      <a class="nav-link active" routerLink="/device-list">Device List</a>
-      <form class="form-inline my-2 my-lg-0">
-        <li class="nav-item">
-          <p  class="nav-link">{{loggedInUser}}</p>
-      </li>
-    </form>
-  </nav>
+<bs-navbar></bs-navbar>
+<div class="dashboard text-center">
+  <h2 class="h2">Device List</h2>
 </div>
 
-<div class="data">
-  <body class="data1">
-    <label class="data2" for="deviceName" >Device Name </label>
-    <select class="option1" name="devicename" id="devicename">
-      <option  value="mobile"> </option>
-        <option value="mobile">Samsung</option>
-        <option value="mobile">MI</option>
-        <option value="mobile">Vivo</option>
+<form  class="container">     
+  <div>  
+  <input class="container11" type="submit" name="edit" value="Show">
+    <select class="container12" id="rowsPerPage" (change)="handleRowsPerPage($event)">
+      <option></option>
+      <option class="container13">3</option>
+      <option>5</option>
+      <option>10</option>
     </select>
-    <label class="data2-1" for="deviceType" >Device Type </label>
-    <select class="option2" name="deviceType" id="deviceType">
-      <option  value="mobile"> </option>
-        <option value="mobile">Samsung</option>
-        <option value="mobile">MI</option>
-        <option value="mobile">Vivo</option>
-    </select>
-</body>
-</div>
-
-
-<form class="container">
-    <div class="container1">
-       
-        <input class="con" type="submit" name="" value="Edit">
-        <input class="con" type="submit" name="" value="Delete">
+    <div>
+      <div class="btn-group">
+        <button [disabled]="selectedDeviceName?false:true" type="button" (click)="open(delete)" class="btn ">DELETE</button>
+        <button [disabled]="selectedDeviceName?false:true" type="button" (click)="open(edit)" class="btn ">EDIT</button>
       </div>
+    </div>
+        <!-- <input class="btn" type="button" (click)="open(edit)" name="edit" value="Edit"> -->
+        <!-- <input class="con1" type="submit" name="delete" value="Delete">  -->
+    </div>
 </form>
-
-
-
-<div class="table">
-<table class="table1">
-    <tr>
-      <th>Select</th>
-      <th>Device Name</th>
-      <th> Device Type</th>
-      <th>Firmware</th>
+<!-- <form  (submit)="enableData()" class="container"> -->
+    <!-- <div> -->
+        <!-- <input class="con" data-toggle="modal" data-target="#myModal" (click)="handleEdit($event)" type="button" name="edit" value="Edit"> -->
+        <!-- <div class="btn-group"> -->
+          <!-- <form (submit)="handleEdit($event)"></form> -->
+          <!-- <button [disabled]="selectedDeviceName?false:true" type="button" (click)="open(edit)" class="btn ">EDIT</button> -->
+          <!-- </form> -->
+          <!-- <button [disabled]="selectedDeviceName?false:true" type="button" (click)="open(delete)" class="btn ">DELETE</button> -->
+        
+          <!-- <label for="rowsPerPage">Show</label>
+          <select style="width: 80px;" class="form-control" id="rowsPerPage" (change)="handleRowsPerPage($event)">
+            <option>3</option>
+            <option>5</option>
+            <option>10</option>
+          </select> -->
+        <!-- </div>
+      </div> -->
+    <div class="table">
+      <table class="table1"  >
+          <thead>    
+            <th > <h4 class="firstboxname">Select</h4></th>
+              <th > Device Name <br/>
+              <div class="device" > 
+                <input  size="12" type="text" placeholder="search" [(ngModel)]="searchText"/>
+              </div>     
+            </th>
+            <th> Device Type <br/>
+              <div  class="device">
+                <input size="12" type="text" placeholder="search" [(ngModel)]="searchTextType"/>
+              </div></th>
+            <th >Firmware <br/>
+              <div  class="device"> 
+                <input size="12" type="text" placeholder="search" [(ngModel)]="searchTextFirmware"/>
+              </div> </th>
+          </thead>
+    <tbody>
+     <tr *ngFor="let device of deviceInfo | keyvalue | paginate: { id: 'listing-pagination',
+     itemsPerPage: rowsPerPage,
+     currentPage: page} | filter:searchText | filter:searchTextType |  filter:searchTextFirmware">  
+      <td><input name="radio" type="radio" (click)="getSelectedDevice($event)" value={{device|json}}/></td>
+      <td>{{ device.key }} </td>
+      <td>{{ device.value.device_type }}</td>
+      <td>{{ device.value.firmware }}</td> 
     </tr>
-    <tr>
-      <td><input type="radio"/></td>
-      <td>Amazon Echo</td>
-      <td>Smart Speaker</td>
-      <td>002.1</td> 
-    </tr>
-    <tr>
-      <td><input type="radio"/></td>
-      <td>Philips Hue</td>
-      <td>Smart Light</td>
-      <td>600</td>
-    </tr>
-    <tr>
-        <td><input type="radio"/></td>
-        <td>Ecobee4</td>
-        <td>Smart Thermostat</td>
-        <td>4.5.81.202</td>
-      </tr>
+    </tbody>
   </table>
 </div>
 
-<div class="btn">
-    <a class="btn-1" href="?p=2" rel="previous" aria-label="Previous page">&laquo;</a>
-    <a class="btn-2" href="?p=2" rel="previous" aria-label="Previous page">&lt;</a>
-    <a class="btn-3" href="?p=2" rel="next" aria-label="Next page">&gt;</a>
-    <a class="btn-4" href="?p=2" rel="next" aria-label="Next page">&raquo;</a>
-    
-</div> 
+<div *ngIf="rowsPerPage == 10">
+  <div class="btn10">
+    <pagination-controls id="listing-pagination" maxSize="5" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+  </div> 
+</div>
+<div *ngIf="rowsPerPage == 3">
+  <div class="btn1">
+    <pagination-controls  id="listing-pagination" maxSize="5" directionLinks="true"(pageChange)="page=$event"></pagination-controls>
+  </div> 
+</div>
+<div *ngIf="rowsPerPage == 5">
+  <div class="btn5">
+    <pagination-controls id="listing-pagination" maxSize="5" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+  </div>
+</div>
+<!-- <div class="btn">
+    <pagination-controls class="btn-1" id="listing-pagination" maxSize="5" directionLinks="true" (pageChange)="page=$event"></pagination-controls>
+</div>  -->
+<!-- <button type="button"  (click)="showModel()">Open Modal</button> -->
+<ng-template #edit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">EDIT DEVICE INFO</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (submit)="handleEditSubmit($event)" *ngIf="!saveSuccess">
+      <div class="form-group"> 
+        <label for="_selectedDeviceName" >Device Name </label>
+        <input class="form-control" type="text" id="_selectedDeviceName"  (keyup)="handleSelectedDeviceName($event)" value={{selectedDeviceName}} disabled/>
+      </div>
+      <div class="form-group">
+        <label class="editvalue" for="_selectedDeviceType" >Device type </label>
+        <input class="form-control" type="text" id="_selectedDeviceType" (keyup)="handleSelectedDeviceType($event)" value={{selectedDeviceType}} (change)="handleDeviceTypeChange($event)"/>
+      </div>
+      <div class="form-group">
+        <label class="editvalue" for="_selectedDeviceFirmware" >Firmware </label>
+        <input class="form-control" type="number" id="_selectedDeviceFirmware" (keyup)="handleSelectedDeviceFirmware($event)" value={{selectedDeviceFirmware}} (change)="handleDeviceFirmwareChange($event)"/>
+      </div>
+      <div class="form-group">
+        <!-- <input type="submit" value="Save" /> -->
+        <button type="submit">SAVE</button>
+        <button (click)="modal.close()">CLOSE</button>
+      </div>
+    </form>
+    <p *ngIf="saveSuccess"> Saved Successfully</p>
+  </div>
+  <!-- (click)="modal.close('Save click')" --> 
+ 
+</ng-template>
 
+<ng-template #delete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">DELETE DEVICE INFO</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (submit)="handleDeleteSubmit($event)" *ngIf="!deleteSuccess">
+      <div class="form-group"> 
+        <label for="_selectedDeviceName" >Device Name </label>
+        <input class="form-control" type="text" id="_selectedDeviceName"  (keyup)="handleSelectedDeviceName($event)" value={{selectedDeviceName}} disabled/>
+      </div>
+      <h3>Are you sure to delete {{selectedDeviceName}}?</h3>
+      <div class="form-group">
+        <button type="submit">DELETE</button>
+        <button (click)="modal.close()">CLOSE</button>
+      </div>
+    </form>
+    <p *ngIf="deleteSuccess"> Deleted Successfully</p>
 
-
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Delete click')">DELETE</button>
+  </div> -->
+</ng-template>

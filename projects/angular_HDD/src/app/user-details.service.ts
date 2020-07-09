@@ -19,7 +19,43 @@ export class UserDetailsService {
     // console.log("Password", newPassword);
     let body = {};
     body[userName] = newPassword;
-    return this.http.patch('https://hdd-ang-proj-01.firebaseio.com/users.json',body)
+    return this.http.patch('https://hdd-ang-proj-01.firebaseio.com/users.json',body);
+  }
+
+  fetchDeviceNames(){
+    return this.http.get('https://hdd-ang-proj-01.firebaseio.com/device-names.json');
+  }
+
+  fetchDevicePerformance(){
+    return this.http.get("https://hdd-ang-proj-01.firebaseio.com/device-performance.json");
   }
   
+
+  // fetchDevices(){
+  //   return this.http.get('https://hdd-ang-proj-01.firebaseio.com/devices.json');
+  // }
+
+  fetchDevicesInfo(){
+    return this.http.get('https://hdd-ang-proj-01.firebaseio.com/devices.json');
+  }
+
+  editDeviceInfo(body: any){
+    console.log("Body:", body);
+    let {selectedDeviceName, selectedDeviceType, selectedDeviceFirmware} = body;
+    let patchData = {};
+    patchData[selectedDeviceName] = {
+      "device_type": selectedDeviceType,
+      "firmware": `${selectedDeviceFirmware}`
+    }
+
+    console.log("patch data", patchData);
+    
+    return this.http.patch('https://hdd-ang-proj-01.firebaseio.com/devices.json', patchData); 
+  }
+
+  deleteDeviceInfo(body: any){
+    console.log("Body:", body);
+    let {selectedDeviceName} = body;
+    return this.http.patch('https://hdd-ang-proj-01.firebaseio.com/devices.json',body);   
+  }
 }
